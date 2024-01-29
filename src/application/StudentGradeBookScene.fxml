@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StudentGradeBookSceneController">
+  <tabs>
+    <Tab text="Grades">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="213.0" text="Class Grades">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutY="40.0" prefHeight="330.0" prefWidth="600.0">
+                    <columns>
+                      <TableColumn prefWidth="126.66665649414062" text="Assignments" />
+                        <TableColumn prefWidth="75.0" text="Weight" />
+                        <TableColumn prefWidth="75.0" text="Grade" />
+                        <TableColumn prefWidth="75.0" text="Range" />
+                        <TableColumn prefWidth="75.0" text="Percentage" />
+                        <TableColumn prefWidth="170.66668701171875" text="Feedback" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Graphs">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="251.0" text="Graphs">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="280.0" fitWidth="516.0" layoutX="165.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../Pictures/Graph1.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab text="Graphs">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="251.0" text="Graphs">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="261.0" fitWidth="456.0" layoutX="52.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../Pictures/Bell-Curve-Graph.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>
