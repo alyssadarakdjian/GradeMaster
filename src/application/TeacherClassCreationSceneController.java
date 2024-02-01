@@ -44,14 +44,25 @@ public class TeacherClassCreationSceneController implements Initializable{
 		CourseNum.setCellValueFactory(new PropertyValueFactory<ClassData,Integer>("CourseNum"));
 	}
 	
-	@FXML 
-	void Create(ActionEvent event){
-		ClassData classdata = new ClassData(CourseNameTextField.getText(),
-				Integer.parseInt(CourseNumTextField.getText()));
-		ObservableList<ClassData> classdatas = TableView.getItems();
-		classdatas.add(classdata);
-		TableView.setItems(classdatas);
-		
+	@FXML
+	void Create(ActionEvent event) {
+	    String courseName = CourseNameTextField.getText().trim();
+	    String courseNumText = CourseNumTextField.getText().trim();
+
+	    if (courseName.isEmpty() || courseNumText.isEmpty()) {
+	        showAlert("Error", "Empty Fields", "Please enter both Course Name and Course Number.");
+	        return;
+	    }
+
+	    try {
+	        int courseNum = Integer.parseInt(courseNumText);
+	        ClassData classData = new ClassData(courseName, courseNum);
+	        ObservableList<ClassData> classDatas = TableView.getItems();
+	        classDatas.add(classData);
+	        TableView.setItems(classDatas);
+	    } catch (NumberFormatException e) {
+	        showAlert("Error", "Invalid Number", "Please enter a valid Course Number.");
+	    }
 	}
 	
 	@FXML 
