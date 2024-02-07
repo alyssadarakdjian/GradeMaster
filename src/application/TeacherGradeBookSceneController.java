@@ -72,7 +72,7 @@ public class TeacherGradeBookSceneController implements Initializable{
 	private Button RemoveGradeButton;
 
 	@Override
-	public void initialize(URL url, ResourceBundle ResourceBundel) {
+	public void initialize(URL url, ResourceBundle ResourceBundle) {
 		Ass.setCellValueFactory(new PropertyValueFactory<AssData,String>("Ass"));
 		Type.setCellValueFactory(new PropertyValueFactory<AssData,String>("Type"));
 		Weight.setCellValueFactory(new PropertyValueFactory<AssData,Integer>("Weight"));
