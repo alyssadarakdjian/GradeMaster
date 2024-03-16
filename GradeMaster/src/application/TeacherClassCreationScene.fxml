@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherClassCreationSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherClassCreationSceneController">
    <children>
       <Button fx:id="CreateButton" layoutX="137.0" layoutY="352.0" mnemonicParsing="false" onAction="#Create" text="Create New Course" />
       <Label layoutX="138.0" layoutY="45.0" text="Course Creation Page">
@@ -26,7 +26,7 @@
             <TableColumn fx:id="CourseNum" prefWidth="133.33331298828125" text="Course #" />
         </columns>
       </TableView>
-      <Button fx:id="RemoveButton" layoutX="422.0" layoutY="352.0" mnemonicParsing="false" onAction="#Remove" text="Remove Course" />
+      <Button fx:id="RemoveButton" layoutX="422.0" layoutY="352.0" mnemonicParsing="false" onAction="#Remove" style="-fx-background-color: #414b3b;" text="Remove Course" textFill="WHITE" />
       <Button layoutX="38.0" layoutY="352.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
    </children>
 </AnchorPane>
