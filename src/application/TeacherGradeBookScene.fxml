@@ -66,6 +66,7 @@
                   <TextField fx:id="AssTextField2" layoutX="109.0" layoutY="177.0" />
                   <TextField fx:id="StudentTextField" layoutX="109.0" layoutY="215.0" />
                   <Label layoutX="39.0" layoutY="219.0" text="Student" />
+                  <Button layoutX="38.0" layoutY="303.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
                </children>
             </AnchorPane>
          </content>

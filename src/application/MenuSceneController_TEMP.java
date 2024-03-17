@@ -22,4 +22,9 @@ public class MenuSceneController_TEMP {
 		switchSceneController.switchToTeacherClassCreate(e);
 	}
 	
+	public void GraphPage(ActionEvent e) throws IOException {
+		SwitchSceneController switchSceneController = new SwitchSceneController();
+		switchSceneController.switchToGraphScene(e);
+	}
+	
 }

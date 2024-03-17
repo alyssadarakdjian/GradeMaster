@@ -48,6 +48,14 @@ public class SwitchSceneController {
 		stage.show();
 	}
 	
+	public void switchToGraphScene(ActionEvent event) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("Graphs.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
 	public void switchToTempScene(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("MenuScene(TEMP).fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();

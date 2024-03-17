@@ -21,5 +21,10 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <Button layoutX="403.0" layoutY="200.0" mnemonicParsing="false" onAction="#GraphPage" text="Graphs">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
