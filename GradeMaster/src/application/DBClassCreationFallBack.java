@@ -1,6 +1,3 @@
-/*
-// this file will use the TeacherClassCreationSceneController to try to write the data to the database
-
 package application;
 
 // importing all needed for java.sql in this case
@@ -9,14 +6,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DBClassCreation {
+
+public class DBClassCreationFallBack {
     private static final String url = "grademaster-mysql-server.mysql.database.azure.com";
     private static final String databaseUser = "GradeMaster";
     private static final String databasePassword = "Justice_League";
 
     public static void saveCourse(String courseName, int courseNum) {
-        try (Connection connection = DriverManager.getConnection(url, databaseUser, databaseUser)) {
-            connection.setAutoCommit(false);
+        Connection connection = null; // Declare the connection outside the try block
+        try {
+            connection = DriverManager.getConnection(url, databaseUser, databaseUser);
+            connection.setAutoCommit(false); // recommended if we have a InnoDB type database in MySQL
             String sql = "INSERT INTO courses (Course Name, Course Number) VALUES (?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, courseName);
@@ -29,19 +29,23 @@ public class DBClassCreation {
                 }
                 connection.commit();
             }
-        }   catch (SQLException e) {
-                System.err.println("Error inserting course: " + e.getMessage());
-            }
-            finally {
+        } catch (SQLException e) {
+            System.err.println("Error inserting course: " + e.getMessage());
+            if (connection != null) {
                 try {
-                    if (connection != null) {
-                        connection.close();
-                    }
+                    connection.rollback(); // Rollback the transaction in case of error
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
-                catch (SQLException e) {
-                    e.printStackTrace();
+            }
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
-*/
