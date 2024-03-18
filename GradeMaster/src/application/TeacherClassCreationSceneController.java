@@ -1,4 +1,5 @@
 package application;
+
 import application.SwitchSceneController;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -21,8 +22,9 @@ import javafx.scene.control.TableColumn;
 import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.Connection;
-public class TeacherClassCreationSceneController implements Initializable{
+import java.sql.SQLException;
 
+public class TeacherClassCreationSceneController implements Initializable{
 
 	@FXML
 	private TableView<ClassData> TableView;
@@ -53,26 +55,33 @@ public class TeacherClassCreationSceneController implements Initializable{
 
 	@FXML
 	void Create(ActionEvent event) {
+		// retrieve course name and numbers from text fields
 		String courseName = CourseNameTextField.getText().trim();
 		String courseNumText = CourseNumTextField.getText().trim();
 
+		// validate user input
 		if (courseName.isEmpty() || courseNumText.isEmpty()) {
 			showAlert("Error", "Empty Fields", "Please enter both Course Name and Course Number.");
 			return;
 		}
 
 		try {
+			// parse the course num
 			int courseNum = Integer.parseInt(courseNumText);
+			// create ClassData obj with user input
 			ClassData classData = new ClassData(courseName, courseNum);
+
+			// Add the class data to the table view
 			ObservableList<ClassData> classDatas = TableView.getItems();
 			classDatas.add(classData);
 			TableView.setItems(classDatas);
+
+			// Call method to save the class to the database
+			saveClassToDatabase(courseName, courseNum);
 		} catch (NumberFormatException e) {
 			showAlert("Error", "Invalid Number", "Please enter a valid Course Number.");
 		}
 	}
-
-	// adding an action event for button ???
 
 	@FXML
 	void Remove(ActionEvent event){
@@ -95,7 +104,41 @@ public class TeacherClassCreationSceneController implements Initializable{
 		alert.setHeaderText(header);
 		alert.setContentText(content);
 		alert.showAndWait();
+	}
 
+	// method for saving the class to the database
+	private void saveClassToDatabase(String courseName, int courseNum) {
+
+		// do the driver first
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			// Handle the exception (e.g., show an error message)
+		}
+		// database connection creds
+		String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+		String databaseUser = "GradeMaster";
+		String databasePassword = "Justice_League";
+
+		//try connection
+		try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+			String sql = "INSERT INTO courses (CourseName, CourseNumber) VALUES (?, ?)";
+			try (PreparedStatement statement = connection.prepareStatement(sql)) {
+				statement.setString(1, courseName);
+				statement.setInt(2, courseNum);
+
+				int rowsInserted = statement.executeUpdate();
+				if (rowsInserted > 0) {
+					System.out.println("Course inserted successfully!");
+				} else {
+					System.out.println("Failed to insert course");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			showAlert("Error", "Database Error", "An error occurred while saving the course to the database.");
+		}
 	}
 
 	// adding getter methods so that DBClassCreationFallBack2 can access this class
@@ -111,5 +154,4 @@ public class TeacherClassCreationSceneController implements Initializable{
 		SwitchSceneController switchSceneController = new SwitchSceneController();
 		switchSceneController.switchToTempScene(e);
 	}
-
 }
