@@ -1,4 +1,4 @@
-package application;
+/*package application;
 
 // importing all needed for java.sql in this case
 import java.sql.Connection;
@@ -15,9 +15,9 @@ public class DBClassCreationFallBack {
     public static void saveCourse(String courseName, int courseNumText) {
         Connection connection = null; // Declare the connection outside the try block
         try {
-            connection = DriverManager.getConnection(url, databaseUser, databaseUser);
-            connection.setAutoCommit(false); // recommended if we have a InnoDB type database in MySQL
-            String sql = "INSERT INTO courses (Course Name, Course Number) VALUES (?, ?)";
+            connection = DriverManager.getConnection(url, databaseUser, databasePassword);
+            //connection.setAutoCommit(false); // recommended if we have a InnoDB type database in MySQL
+            //String sql = "INSERT INTO courses (Course Name, Course Number) VALUES (?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, courseName);
                 statement.setInt(2, courseNumText);
