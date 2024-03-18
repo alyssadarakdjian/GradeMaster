@@ -8,19 +8,26 @@ import java.sql.PreparedStatement;
 
 public class DBClassCreationFallBack2 extends TeacherClassCreationSceneController {
     public static void main (String[] args) {
+
         String url = "grademaster-mysql-server.mysql.database.azure.com";
 
         // database creds
         String databaseUser = "GradeMaster";
         String databasePassword = "Justice_League";
 
-        try {
-            Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword);
+        // instance of the controller for class access
+        TeacherClassCreationSceneController controller = new TeacherClassCreationSceneController();
+        // Access the text fields using the controller instance
+        String courseName = controller.getCourseNameTextField().getText().trim();
+        int courseNum = Integer.parseInt(controller.getCourseNumTextField().getText().trim());
+
+        try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword);
+             PreparedStatement statement = connection.prepareStatement(sql)){
 
             if (connection != null){
                 System.out.println("Connection to the database successful!");
                 //Statement stmt= connection.createStatement();
-                String sql = "INSERT INTO courses ('Course Name', 'Course Number') VALUES (?, ?)";
+                String sql = "INSERT INTO courses (`Course Name`, `Course Number`) VALUES (?, ?)";
 
                 //prepared statement
                 PreparedStatement statement = connection.prepareStatement(sql);

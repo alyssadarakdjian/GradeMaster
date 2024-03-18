@@ -18,7 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 
 public class TeacherClassCreationSceneController implements Initializable{
-	
+
+
 	@FXML
 	private TableView<ClassData> TableView;
 	
@@ -27,12 +28,20 @@ public class TeacherClassCreationSceneController implements Initializable{
 	
 	@FXML
 	private TableColumn<ClassData,Integer> CourseNum;
+
+
+	// getter methods for the textfields
+	@FXML
+	//private TextField CourseNameTextField;
+	public TextField getCourseNameTextField() {
+		return CourseNameTextField;
+	}
 	
 	@FXML
-	private TextField CourseNameTextField;
-	
-	@FXML
-	private TextField CourseNumTextField;
+	//private TextField CourseNumTextField;
+	public TextField getCourseNumTextField() {
+		return CourseNumTextField;
+	}
 	
 	@FXML
 	private Button CreateButton;
