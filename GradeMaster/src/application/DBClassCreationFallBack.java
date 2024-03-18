@@ -12,7 +12,7 @@ public class DBClassCreationFallBack {
     private static final String databaseUser = "GradeMaster";
     private static final String databasePassword = "Justice_League";
 
-    public static void saveCourse(String courseName, int courseNum) {
+    public static void saveCourse(String courseName, int courseNumText) {
         Connection connection = null; // Declare the connection outside the try block
         try {
             connection = DriverManager.getConnection(url, databaseUser, databaseUser);
@@ -20,7 +20,7 @@ public class DBClassCreationFallBack {
             String sql = "INSERT INTO courses (Course Name, Course Number) VALUES (?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, courseName);
-                statement.setInt(2, courseNum);
+                statement.setInt(2, courseNumText);
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0){
                     System.out.println("Course inserted successfully!");
@@ -49,4 +49,4 @@ public class DBClassCreationFallBack {
         }
     }
 }
-/*do not have editing rights to database
+/*do not have editing rights to database*/
