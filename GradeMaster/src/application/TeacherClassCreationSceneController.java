@@ -17,35 +17,31 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 
+//added more modules for sql
+import java.sql.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.Connection;
 public class TeacherClassCreationSceneController implements Initializable{
 
 
 	@FXML
 	private TableView<ClassData> TableView;
-	
+
 	@FXML
 	private TableColumn<ClassData,String> CourseName;
-	
+
 	@FXML
 	private TableColumn<ClassData,Integer> CourseNum;
 
+	@FXML
+	private TextField CourseNameTextField;
 
-	// getter methods for the textfields
 	@FXML
-	//private TextField CourseNameTextField;
-	public TextField getCourseNameTextField() {
-		return CourseNameTextField;
-	}
-	
-	@FXML
-	//private TextField CourseNumTextField;
-	public TextField getCourseNumTextField() {
-		return CourseNumTextField;
-	}
-	
+	private TextField CourseNumTextField;
+
 	@FXML
 	private Button CreateButton;
-	
+
 	@FXML
 	private Button RemoveButton;
 
@@ -54,52 +50,63 @@ public class TeacherClassCreationSceneController implements Initializable{
 		CourseName.setCellValueFactory(new PropertyValueFactory<ClassData,String>("CourseName"));
 		CourseNum.setCellValueFactory(new PropertyValueFactory<ClassData,Integer>("CourseNum"));
 	}
-	
+
 	@FXML
 	void Create(ActionEvent event) {
-	    String courseName = CourseNameTextField.getText().trim();
-	    String courseNumText = CourseNumTextField.getText().trim();
+		String courseName = CourseNameTextField.getText().trim();
+		String courseNumText = CourseNumTextField.getText().trim();
 
-	    if (courseName.isEmpty() || courseNumText.isEmpty()) {
-	        showAlert("Error", "Empty Fields", "Please enter both Course Name and Course Number.");
-	        return;
-	    }
-
-	    try {
-	        int courseNum = Integer.parseInt(courseNumText);
-	        ClassData classData = new ClassData(courseName, courseNum);
-	        ObservableList<ClassData> classDatas = TableView.getItems();
-	        classDatas.add(classData);
-	        TableView.setItems(classDatas);
-	    } catch (NumberFormatException e) {
-	        showAlert("Error", "Invalid Number", "Please enter a valid Course Number.");
-	    }
-	}
-	
-	@FXML 
-	void Remove(ActionEvent event){
-		 if (TableView.getItems().isEmpty()) {
-		        showAlert("Error", "TableView1 is empty", "Please add a Course to Table before removing.");
-		        return;
-		    }
-		    int selectedID = TableView.getSelectionModel().getSelectedIndex();
-		    if (selectedID == -1) {
-		        showAlert("Error", "No item selected", "Please select a Course from the Table before removing.");
-		        return;
-		    }
-
-		    TableView.getItems().remove(selectedID);
+		if (courseName.isEmpty() || courseNumText.isEmpty()) {
+			showAlert("Error", "Empty Fields", "Please enter both Course Name and Course Number.");
+			return;
 		}
 
-		private void showAlert(String title, String header, String content) {
-		    Alert alert = new Alert(AlertType.ERROR);
-		    alert.setTitle(title);
-		    alert.setHeaderText(header);
-		    alert.setContentText(content);
-		    alert.showAndWait();
-		
+		try {
+			int courseNum = Integer.parseInt(courseNumText);
+			ClassData classData = new ClassData(courseName, courseNum);
+			ObservableList<ClassData> classDatas = TableView.getItems();
+			classDatas.add(classData);
+			TableView.setItems(classDatas);
+		} catch (NumberFormatException e) {
+			showAlert("Error", "Invalid Number", "Please enter a valid Course Number.");
+		}
 	}
-		
+
+	// adding an action event for button ???
+
+	@FXML
+	void Remove(ActionEvent event){
+		if (TableView.getItems().isEmpty()) {
+			showAlert("Error", "TableView1 is empty", "Please add a Course to Table before removing.");
+			return;
+		}
+		int selectedID = TableView.getSelectionModel().getSelectedIndex();
+		if (selectedID == -1) {
+			showAlert("Error", "No item selected", "Please select a Course from the Table before removing.");
+			return;
+		}
+
+		TableView.getItems().remove(selectedID);
+	}
+
+	private void showAlert(String title, String header, String content) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(content);
+		alert.showAndWait();
+
+	}
+
+	// adding getter methods so that DBClassCreationFallBack2 can access this class
+	public TextField getCourseNameTextField() {
+		return CourseNameTextField;
+	}
+
+	public TextField getCourseNumTextField() {
+		return CourseNumTextField;
+	}
+
 	public void backButton(ActionEvent e) throws IOException {
 		SwitchSceneController switchSceneController = new SwitchSceneController();
 		switchSceneController.switchToTempScene(e);
