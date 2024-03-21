@@ -8,25 +8,40 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherClassCreationSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherClassCreationSceneController">
    <children>
-      <Button fx:id="CreateButton" layoutX="137.0" layoutY="352.0" mnemonicParsing="false" onAction="#Create" text="Create New Course" />
-      <Label layoutX="138.0" layoutY="45.0" text="Course Creation Page">
+      <Button fx:id="CreateButton" layoutX="137.0" layoutY="394.0" mnemonicParsing="false" onAction="#Create" style="-fx-background-color: #414b3b;" text="Create New Course" textFill="WHITE">
          <font>
-            <Font size="34.0" />
+            <Font name="Montserrat Medium" size="12.0" />
+         </font></Button>
+      <Label layoutX="193.0" layoutY="59.0" text="Course Creation Page">
+         <font>
+            <Font name="Montserrat SemiBold" size="28.0" />
          </font>
       </Label>
-      <TextField fx:id="CourseNameTextField" layoutX="121.0" layoutY="239.0" />
-      <TextField fx:id="CourseNumTextField" layoutX="121.0" layoutY="278.0" />
-      <Label layoutX="38.0" layoutY="243.0" text="Course Name" />
-      <Label layoutX="50.0" layoutY="282.0" text="Course #" />
-      <TableView fx:id="TableView" layoutX="347.0" layoutY="109.0" prefHeight="231.0" prefWidth="249.0">
+      <TextField fx:id="CourseNameTextField" layoutX="122.0" layoutY="252.0" />
+      <TextField fx:id="CourseNumTextField" layoutX="121.0" layoutY="308.0" />
+      <Label layoutX="26.0" layoutY="256.0" text="Course Name">
+         <font>
+            <Font name="Montserrat Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="50.0" layoutY="312.0" text="Course #">
+         <font>
+            <Font name="Montserrat Bold" size="12.0" />
+         </font></Label>
+      <TableView fx:id="TableView" layoutX="367.0" layoutY="124.0" prefHeight="231.0" prefWidth="249.0">
         <columns>
           <TableColumn fx:id="CourseName" prefWidth="133.33331298828125" text="Course Name" />
             <TableColumn fx:id="CourseNum" prefWidth="133.33331298828125" text="Course #" />
         </columns>
       </TableView>
-      <Button fx:id="RemoveButton" layoutX="422.0" layoutY="352.0" mnemonicParsing="false" onAction="#Remove" text="Remove Course" />
-      <Button layoutX="38.0" layoutY="352.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
+      <Button fx:id="RemoveButton" layoutX="442.0" layoutY="394.0" mnemonicParsing="false" onAction="#Remove" style="-fx-background-color: #414b3b;" text="Remove Course" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Medium" size="12.0" />
+         </font></Button>
+      <Button layoutX="39.0" layoutY="394.0" mnemonicParsing="false" onAction="#backButton" style="-fx-background-color: #414b3b;" text="Back" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Medium" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>
