@@ -115,6 +115,7 @@ public class TeacherClassCreationSceneController implements Initializable{
 
 		//try connection
 		try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+			//proper values within the database
 			String sql = "INSERT INTO courses (`course_name`, `course_id`) VALUES (?, ?)";
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
 				statement.setString(1, courseName);
