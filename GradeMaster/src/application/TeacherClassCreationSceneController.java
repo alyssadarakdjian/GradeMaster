@@ -108,14 +108,6 @@ public class TeacherClassCreationSceneController implements Initializable{
 
 	// method for saving the class to the database
 	private void saveClassToDatabase(String courseName, int courseNum) {
-
-		// do the driver first
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			// Handle the exception (e.g., show an error message)
-		}
 		// database connection creds
 		String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
 		String databaseUser = "GradeMaster";
@@ -123,7 +115,7 @@ public class TeacherClassCreationSceneController implements Initializable{
 
 		//try connection
 		try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
-			String sql = "INSERT INTO courses (CourseName, CourseNumber) VALUES (?, ?)";
+			String sql = "INSERT INTO courses (`course_name`, `course_id`) VALUES (?, ?)";
 			try (PreparedStatement statement = connection.prepareStatement(sql)) {
 				statement.setString(1, courseName);
 				statement.setInt(2, courseNum);
