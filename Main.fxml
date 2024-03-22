@@ -32,7 +32,7 @@
                <graphic>
                   <ImageView fx:id="imgMode" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Downloads/dark%20mode.png" />
+                        <Image url="@../img/dark.png" />
                      </image>
                      <styleClass>
                         <String fx:value="primary-color" />

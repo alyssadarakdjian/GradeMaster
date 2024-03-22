@@ -3,25 +3,19 @@ package application;
 public class AssData {
 	
 	private String Ass;
-	private String Type;
-	private int Weight;
+	private int PointsPoss;
 	
-	public AssData(String Ass, String Type, int Weight) {
+	public AssData(String Ass,int PointsPoss) {
 		this.Ass = Ass;
-		this.Type = Type;
-		this.Weight = Weight;
+		this.PointsPoss = PointsPoss;
 	}
 	
 	public String getAss() {
 		return Ass;
 	}
 	
-	public String getType() {
-		return Type;
-	}
-	
-	public int getWeight() {
-		return Weight;
+	public int getPointsPoss() {
+		return PointsPoss;
 	}
 	
 
