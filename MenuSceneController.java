@@ -46,6 +46,11 @@ public class MenuSceneController {
 		SwitchSceneController switchSceneController = new SwitchSceneController();
 		switchSceneController.switchToTeacherClassCreate(e);
 	}
+
+	public void GraphPage(ActionEvent e) throws IOException {
+		SwitchSceneController switchSceneController = new SwitchSceneController();
+		switchSceneController.switchToGraphScene(e);
+	}
 	
 	 private boolean isLightMode = true;
 
