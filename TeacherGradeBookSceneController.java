@@ -31,6 +31,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -118,6 +119,12 @@ public class TeacherGradeBookSceneController implements Initializable{
 		PointsRecieved.setCellValueFactory(new PropertyValueFactory<GradeData,Integer>("PointsRecieved"));  
 		FeedBack.setCellValueFactory(new PropertyValueFactory<GradeData,String>("FeedBack"));
 		
+		try {
+            loadDataFromDatabase();
+        } catch (SQLException e) {
+            showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
+        }
+		
 	}
 	
 	@FXML
@@ -158,21 +165,26 @@ public class TeacherGradeBookSceneController implements Initializable{
 	}
 
 	
-	@FXML 
-	void RemoveAss(ActionEvent event){
+	@FXML
+	void RemoveAss(ActionEvent event) {
 	    if (TableView1.getItems().isEmpty()) {
 	        showAlert("Error", "TableView1 is empty", "Please add items to Table before removing.");
 	        return;
 	    }
+
 	    int selectedID = TableView1.getSelectionModel().getSelectedIndex();
 	    if (selectedID == -1) {
 	        showAlert("Error", "No item selected", "Please select an Assignment from the Table before removing.");
 	        return;
 	    }
 
+	    AssData selectedAss = TableView1.getItems().get(selectedID);
+	    String assName = selectedAss.getAss();
+
+	    deleteAssFromDatabase(assName);
+
 	    TableView1.getItems().remove(selectedID);
 	}
-	
 	@FXML
 	void InputGrade(ActionEvent event) {
 			String PointsRecievedText= PointsRecievedTextField.getText().trim();
@@ -225,9 +237,13 @@ public class TeacherGradeBookSceneController implements Initializable{
 	        return;
 	    }
 
+	    GradeData selectedGrade = TableView2.getItems().get(selectedID);
+	    int pointsReceived = selectedGrade.getPointsRecieved();
+
+	    deleteGradeFromDatabase(pointsReceived);
+
 	    TableView2.getItems().remove(selectedID);
 	}
-
 
 
 	private void showAlert(String title, String header, String content) {
@@ -303,6 +319,65 @@ public class TeacherGradeBookSceneController implements Initializable{
 					showAlert("Error", "Database Error", "An error occurred while saving the course to the database.");
 				}
 			}
+			
+			
+			private void loadDataFromDatabase() throws SQLException {
+			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+			    String databaseUser = "GradeMaster";
+			    String databasePassword = "Justice_League";
+
+			    try (Connection connection1 = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+			        // Load assignments
+			        String sqlAssignments = "SELECT assignment_name, grade_range FROM assignments";
+			        try (PreparedStatement statementAssignments = connection1.prepareStatement(sqlAssignments)) {
+			            ResultSet resultSetAssignments = statementAssignments.executeQuery();
+			            ObservableList<AssData> assDataList = TableView1.getItems();
+			            while (resultSetAssignments.next()) {
+			                String assignmentName = resultSetAssignments.getString("assignment_name");
+			                int gradeRange = resultSetAssignments.getInt("grade_range");
+			                assDataList.add(new AssData(assignmentName, gradeRange));
+			            }
+			            TableView1.setItems(assDataList);
+			        }
+
+			        // Load grades
+			        String sqlGrades = "SELECT points_recieved, feedback FROM grades";
+			        try (PreparedStatement statementGrades = connection1.prepareStatement(sqlGrades)) {
+			            ResultSet resultSetGrades = statementGrades.executeQuery();
+			            ObservableList<GradeData> gradeDataList = TableView2.getItems();
+			            while (resultSetGrades.next()) {
+			                int pointsReceived = resultSetGrades.getInt("points_recieved");
+			                String feedback = resultSetGrades.getString("feedback");
+			                gradeDataList.add(new GradeData(pointsReceived, feedback));
+			            }
+			            TableView2.setItems(gradeDataList);
+			        }
+			    }
+			}
+			
+			
+			private void deleteAssFromDatabase(String assName) {
+			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+			    String databaseUser = "GradeMaster";
+			    String databasePassword = "Justice_League";
+
+			    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+			        String sql = "DELETE FROM assignments WHERE assignment_name = ?";
+			        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			            statement.setString(1, assName);
+
+			            int rowsDeleted = statement.executeUpdate();
+			            if (rowsDeleted > 0) {
+			                System.out.println("Assignment deleted successfully!");
+			            } else {
+			                System.out.println("Failed to delete assignment");
+			            }
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			        showAlert("Error", "Database Error", "An error occurred while deleting the assignment from the database.");
+			    }
+			}
 
 			// adding getter methods so that DBClassCreationFallBack2 can access this class
 			public TextField getPointsRecieveTextField() {
@@ -311,6 +386,29 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 			public TextField getFeedBackextField() {
 				return FeedBackTextField;
+			}
+			
+			private void deleteGradeFromDatabase(int pointsReceived) {
+			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+			    String databaseUser = "GradeMaster";
+			    String databasePassword = "Justice_League";
+
+			    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+			        String sql = "DELETE FROM grades WHERE points_recieved = ?";
+			        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			            statement.setInt(1, pointsReceived);
+
+			            int rowsDeleted = statement.executeUpdate();
+			            if (rowsDeleted > 0) {
+			                System.out.println("Grade deleted successfully!");
+			            } else {
+			                System.out.println("Failed to delete grade");
+			            }
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			        showAlert("Error", "Database Error", "An error occurred while deleting the grade from the database.");
+			    }
 			}
 
 			

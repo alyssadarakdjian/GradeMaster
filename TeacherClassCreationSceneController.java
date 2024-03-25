@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.text.Style;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +30,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -82,6 +84,12 @@ public class TeacherClassCreationSceneController implements Initializable{
 		public void initialize(URL arg0, ResourceBundle arg1) {
 			CourseName.setCellValueFactory(new PropertyValueFactory<ClassData,String>("CourseName"));
 			CourseNum.setCellValueFactory(new PropertyValueFactory<ClassData,Integer>("CourseNum"));
+			try {
+				loadDataFromDatabase();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		@FXML
@@ -115,7 +123,7 @@ public class TeacherClassCreationSceneController implements Initializable{
 				// Add the class data to the table view
 				ObservableList<ClassData> classDatas = TableView.getItems();
 				classDatas.add(classData);
-				TableView.setItems(classDatas);
+				
 
 				// Call method to save the class to the database
 				saveClassToDatabase(courseName, courseNum);
@@ -125,19 +133,28 @@ public class TeacherClassCreationSceneController implements Initializable{
 		}
 
 		@FXML
-		void Remove(ActionEvent event){
-			if (TableView.getItems().isEmpty()) {
-				showAlert("Error", "TableView1 is empty", "Please add a Course to Table before removing.");
-				return;
-			}
-			int selectedID = TableView.getSelectionModel().getSelectedIndex();
-			if (selectedID == -1) {
-				showAlert("Error", "No item selected", "Please select a Course from the Table before removing.");
-				return;
-			}
+		void Remove(ActionEvent event) {
+		    if (TableView.getItems().isEmpty()) {
+		        showAlert("Error", "TableView is empty", "Please add a Course to Table before removing.");
+		        return;
+		    }
+		    int selectedIndex = TableView.getSelectionModel().getSelectedIndex();
+		    if (selectedIndex == -1) {
+		        showAlert("Error", "No item selected", "Please select a Course from the Table before removing.");
+		        return;
+		    }
 
-			TableView.getItems().remove(selectedID);
+		    // Get the selected class data
+		    ClassData selectedClass = TableView.getItems().get(selectedIndex);
+
+		    // Remove from TableView
+		    TableView.getItems().remove(selectedIndex);
+
+		    // Delete from the database
+		    deleteClassFromDatabase(selectedClass.getCourseNum());
 		}
+
+		
 
 		private void showAlert(String title, String header, String content) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -173,6 +190,54 @@ public class TeacherClassCreationSceneController implements Initializable{
 				e.printStackTrace();
 				showAlert("Error", "Database Error", "An error occurred while saving the course to the database.");
 			}
+		}
+		
+		//method for loading Data From Database
+		private void loadDataFromDatabase() throws SQLException {
+	        String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+	        String databaseUser = "GradeMaster";
+	        String databasePassword = "Justice_League";
+
+	        try (Connection connection1 = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+	            String sql = "SELECT course_id, course_name FROM courses";
+	            try (PreparedStatement statement = connection1.prepareStatement(sql)) {
+	                ResultSet resultSet = statement.executeQuery();
+	                ObservableList<ClassData> classDataList = FXCollections.observableArrayList();
+	                while (resultSet.next()) {
+	                    int courseId = resultSet.getInt("course_id");
+	                    String courseName = resultSet.getString("course_name");
+	                    classDataList.add(new ClassData(courseName, courseId));
+	                TableView.setItems(classDataList);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
+	        }
+	    }
+		}
+		
+		//method for deleting from database
+		private void deleteClassFromDatabase(int courseNum) {
+		    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+		    String databaseUser = "GradeMaster";
+		    String databasePassword = "Justice_League";
+
+		    String sql = "DELETE FROM courses WHERE course_id = ?";
+
+		    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword);
+		         PreparedStatement statement = connection.prepareStatement(sql)) {
+		        statement.setInt(1, courseNum);
+
+		        int rowsDeleted = statement.executeUpdate();
+		        if (rowsDeleted > 0) {
+		            System.out.println("Course deleted successfully!");
+		        } else {
+		            System.out.println("Failed to delete course");
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        showAlert("Error", "Database Error", "An error occurred while deleting the course from the database.");
+		    }
 		}
 
 		// adding getter methods so that DBClassCreationFallBack2 can access this class
