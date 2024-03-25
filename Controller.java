@@ -1,6 +1,8 @@
 package application;
 
 import java.io.IOException;
+
+
 //import java.awt.Button;
 //import java.awt.Label;
 //import java.awt.TextField;
@@ -24,6 +26,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import application.SwitchSceneController;
+import application.DatabaseConnection;
 
 
 public class Controller implements Initializable {
@@ -65,11 +69,13 @@ public class Controller implements Initializable {
 	    
 	    @FXML
 	    private ImageView imgUni;
+	    
+	    
 
 	
 	    public void loginButtonOnAction(ActionEvent e) throws IOException {
 			
-			SwitchSceneController switchSceneController = new SwitchSceneController();
+	    	SwitchSceneController switchSceneController = new SwitchSceneController();
 			switchSceneController.switchToTempScene(e);
 			
 			/* THIS CODE IS COMMENTED OUT TEMPORARILY
@@ -89,8 +95,8 @@ public class Controller implements Initializable {
 			stage.close();
 		}
 		
-		public void validateLogin()
-		{
+		public void validateLogin(){
+			
 			DatabaseConnection connectNow = new DatabaseConnection();
 			Connection connectDB = connectNow.getConnection();
 			
@@ -117,7 +123,7 @@ public class Controller implements Initializable {
 		}
 	    
 	    
-	    private boolean isLightMode = true;
+		static boolean isLightMode  = true;
 
 	    public void changeMode(ActionEvent event) {
 	    	isLightMode = !isLightMode;
@@ -141,8 +147,7 @@ public class Controller implements Initializable {
 	    	labelPassword.setTextFill(paint2);
 	    	loginButton.setTextFill(paint1);
 	    	loginCancel.setTextFill(paint1);
-	    	
-	    	
+	    	isLightMode = true;
 	    
 	    	
 	    }
@@ -160,6 +165,7 @@ public class Controller implements Initializable {
 	    	labelPassword.setTextFill(paint2);
 	    	loginButton.setTextFill(paint1);
 	    	loginCancel.setTextFill(paint1);
+	    	isLightMode = false;
 	    	
 	    }
 
