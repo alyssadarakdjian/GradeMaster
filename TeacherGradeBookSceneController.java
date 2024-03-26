@@ -48,6 +48,24 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 	    @FXML
 	    private Label AssWeightLabel;
+	    
+	    @FXML
+	    private Label AssLabel;
+	    
+	    @FXML
+	    private Label studentLabel;
+	    
+	    @FXML
+	    private Label gradeLabel;
+	    
+	    @FXML
+	    private Label graphLabel1;
+	    
+	    @FXML
+	    private Label graphLabel2;
+	    
+	    @FXML
+	    private Label inputGradeLabel;
 
 	    @FXML
 	    private Button BackButton;
@@ -102,6 +120,8 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 	    @FXML
 	    private TabPane parent;
+	    
+	    
 
 
 	@Override
@@ -240,6 +260,12 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    	AssNameLabel.setTextFill(paint2);
 	    	AssTypeLabel.setTextFill(paint2);
 	    	AssWeightLabel.setTextFill(paint2);
+	    	graphLabel1.setTextFill(paint2);
+	    	graphLabel2.setTextFill(paint2);
+	    	AssLabel.setTextFill(paint2);
+	    	studentLabel.setTextFill(paint2);
+	    	gradeLabel.setTextFill(paint2);
+	    	inputGradeLabel.setTextFill(paint2);
 	    	Controller.isLightMode = true;
 
 	    }
@@ -262,6 +288,12 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    	AssNameLabel.setTextFill(paint2);
 	    	AssTypeLabel.setTextFill(paint2);
 	    	AssWeightLabel.setTextFill(paint2);
+	    	graphLabel1.setTextFill(paint2);
+	    	graphLabel2.setTextFill(paint2);
+	    	AssLabel.setTextFill(paint2);
+	    	studentLabel.setTextFill(paint2);
+	    	gradeLabel.setTextFill(paint2);
+	    	inputGradeLabel.setTextFill(paint2);
 	    	Controller.isLightMode = false;
 	    	
 	    	
