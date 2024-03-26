@@ -1,27 +1,41 @@
 package application;
 
 import application.SwitchSceneController;
+
+
+
+
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.text.Style;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class TeacherGradeBookSceneController implements Initializable{
 	//test
@@ -36,36 +50,18 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 	    @FXML
 	    private TextField AssTextField;
-
-	    @FXML
-	    private TextField AssTextField2;
 	    
 	    @FXML
 	    private Label CreateAssLabel;
 
 	    @FXML
-	    private Label AssTypeLabel;
+	    private Label PointsPossLabel;
+	    
+	    @FXML
+	    private Label PointsRecievedLabel;
 
 	    @FXML
-	    private Label AssWeightLabel;
-	    
-	    @FXML
-	    private Label AssLabel;
-	    
-	    @FXML
-	    private Label studentLabel;
-	    
-	    @FXML
-	    private Label gradeLabel;
-	    
-	    @FXML
-	    private Label graphLabel1;
-	    
-	    @FXML
-	    private Label graphLabel2;
-	    
-	    @FXML
-	    private Label inputGradeLabel;
+	    private Label FeedBackLabel;
 
 	    @FXML
 	    private Button BackButton;
@@ -74,10 +70,10 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    private Button CreateAssButton;
 
 	    @FXML
-	    private TableColumn<GradeData,Integer> Grade;
+	    private TableColumn<GradeData,Integer> PointsRecieved;
 
 	    @FXML
-	    private TextField GradeTextField;
+	    private TextField PointsRecievedTextField;
 
 	    @FXML
 	    private Button InputGradeButton;
@@ -89,10 +85,10 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    private Button RemoveGradeButton;
 
 	    @FXML
-	    private TableColumn<GradeData,String> Student;
+	    private TableColumn<GradeData,String> FeedBack;
 
 	    @FXML
-	    private TextField StudentTextField;
+	    private TextField FeedBackTextField;
 
 	    @FXML
 	    private TableView<AssData> TableView1;
@@ -101,16 +97,10 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    private TableView<GradeData> TableView2;
 
 	    @FXML
-	    private TableColumn<AssData, String> Type;
+	    private TableColumn<AssData,Integer> PointsPoss;
 
 	    @FXML
-	    private TextField TypeTextField;
-
-	    @FXML
-	    private TableColumn<AssData,Integer> Weight;
-
-	    @FXML
-	    private TextField WeightTextField;
+	    private TextField PointsPossTextField;
 
 	    @FXML
 	    private Button btnMode;
@@ -120,78 +110,112 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 	    @FXML
 	    private TabPane parent;
-	    
-	    
 
 
 	@Override
 	public void initialize(URL url, ResourceBundle ResourceBundel) {
 		Ass.setCellValueFactory(new PropertyValueFactory<AssData,String>("Ass"));
-		Type.setCellValueFactory(new PropertyValueFactory<AssData,String>("Type"));
-		Weight.setCellValueFactory(new PropertyValueFactory<AssData,Integer>("Weight"));
+		PointsPoss.setCellValueFactory(new PropertyValueFactory<AssData,Integer>("PointsPoss"));
 		
-		Ass2.setCellValueFactory(new PropertyValueFactory<GradeData,String>("Student"));
-		Student.setCellValueFactory(new PropertyValueFactory<GradeData,String>("Student"));
-		Grade.setCellValueFactory(new PropertyValueFactory<GradeData,Integer>("Grade"));  
+		PointsRecieved.setCellValueFactory(new PropertyValueFactory<GradeData,Integer>("PointsRecieved"));  
+		FeedBack.setCellValueFactory(new PropertyValueFactory<GradeData,String>("FeedBack"));
+		
+		try {
+            loadDataFromDatabase();
+        } catch (SQLException e) {
+            showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
+        }
+		
 	}
 	
 	@FXML
 	void CreateAss(ActionEvent event) {
 		String AssText = AssTextField.getText().trim();
-	    String TypeText = TypeTextField.getText().trim();
-	    String WeightText= WeightTextField.getText().trim();
+	    String PointsPossText= PointsPossTextField.getText().trim();
 	    
-	    if (AssText.isEmpty() || TypeText.isEmpty()||WeightText.isEmpty()) {
-	        showAlert("Error", "Empty Fields", "Please enter Assignment Name, Student Name, and Grade.");
+	    if (AssText.isEmpty()&& PointsPossText.isEmpty()) {
+	        showAlert("Error", "Empty Fields", "Please enter Assignment Name and Points Possible");
 	        return;
+	    }    
+	    
+	    if (AssText.isEmpty()) {
+	        showAlert("Error", "Empty Fields", "Please enter Assignment Name");
+	        return;
+	    
+	    }    
+	    if (PointsPossText.isEmpty()) {
+		        showAlert("Error", "Empty Fields", "Please enter Points Possible");
+		        return;
 	    }
 	    try {
-	    AssData assdata = new AssData(AssTextField.getText(),
-	            TypeTextField.getText(),
-	            Integer.parseInt(WeightTextField.getText()));
+	    	// parse the course num
+			int PointsPoss = Integer.parseInt(PointsPossText);
+			// create ClassData obj with user input
+			AssData assData = new AssData(AssText, PointsPoss);
 
-	    ObservableList<AssData> assdatas1 = TableView1.getItems();
-	    assdatas1.add(assdata);
-	    TableView1.setItems(assdatas1);
+			// Add the class data to the table view
+			ObservableList<AssData> assDatas = TableView1.getItems();
+			assDatas.add(assData);
+			TableView1.setItems(assDatas);
+			saveAssToDatabase(AssText, PointsPoss);
 	    } catch (NumberFormatException e) {
-	        showAlert("Error", "Invalid Number", "Please enter a valid Weight Number."); 
+	        showAlert("Error", "Invalid Number", "Please enter a valid Points Possible Number."); 
 	    }
 	    
 	    
 	}
 
 	
-	@FXML 
-	void RemoveAss(ActionEvent event){
+	@FXML
+	void RemoveAss(ActionEvent event) {
 	    if (TableView1.getItems().isEmpty()) {
 	        showAlert("Error", "TableView1 is empty", "Please add items to Table before removing.");
 	        return;
 	    }
+
 	    int selectedID = TableView1.getSelectionModel().getSelectedIndex();
 	    if (selectedID == -1) {
 	        showAlert("Error", "No item selected", "Please select an Assignment from the Table before removing.");
 	        return;
 	    }
 
+	    AssData selectedAss = TableView1.getItems().get(selectedID);
+	    String assName = selectedAss.getAss();
+
+	    deleteAssFromDatabase(assName);
+
 	    TableView1.getItems().remove(selectedID);
 	}
-	
 	@FXML
 	void InputGrade(ActionEvent event) {
-		 	String AssText = AssTextField2.getText().trim();
-		    String StudentText = StudentTextField.getText().trim();
-		    String GradeText= GradeTextField.getText().trim();
-		    if (AssText.isEmpty() || StudentText.isEmpty()||GradeText.isEmpty()) {
-		        showAlert("Error", "Empty Fields", "Please enter Assignment Name, Student Name, and Grade.");
+			String PointsRecievedText= PointsRecievedTextField.getText().trim();
+		    String FeedBackText = FeedBackTextField.getText().trim();
+		    if (PointsRecievedText.isEmpty()&& FeedBackText.isEmpty()) {
+		        showAlert("Error", "Empty Fields", "Please enter Assignment Name and Points Possible");
 		        return;
+		    }    
+		    
+		    if (PointsRecievedText.isEmpty()) {
+		        showAlert("Error", "Empty Fields", "Please enter Assignment Name");
+		        return;
+		    
+		    }    
+		    if (FeedBackText.isEmpty()) {
+			        showAlert("Error", "Empty Fields", "Please enter Points Possible");
+			        return;
 		    }
 		    try {
-	    	GradeData gradedata = new GradeData(AssTextField2.getText(),
-		            StudentTextField.getText(),
-		            Integer.parseInt(GradeTextField.getText()));
-	    	ObservableList<GradeData> gradedatas1 = TableView2.getItems();
-		    gradedatas1.add(gradedata);
-		    TableView2.setItems(gradedatas1);
+		    	// parse the course num
+				int PointsRecieved = Integer.parseInt(PointsRecievedText);
+				// create ClassData obj with user input
+				GradeData gradeData = new GradeData(PointsRecieved, FeedBackText);
+
+				// Add the class data to the table view
+				ObservableList<GradeData> gradeDatas = TableView2.getItems();
+				gradeDatas.add(gradeData);
+				TableView2.setItems(gradeDatas);
+				saveGradeToDatabase(PointsRecieved, FeedBackText);
+
 		    } catch (NumberFormatException e) {
 		        showAlert("Error", "Invalid Number", "Please enter a valid Grade Number.");
 		    }
@@ -214,9 +238,13 @@ public class TeacherGradeBookSceneController implements Initializable{
 	        return;
 	    }
 
+	    GradeData selectedGrade = TableView2.getItems().get(selectedID);
+	    int pointsReceived = selectedGrade.getPointsRecieved();
+
+	    deleteGradeFromDatabase(pointsReceived);
+
 	    TableView2.getItems().remove(selectedID);
 	}
-
 
 
 	private void showAlert(String title, String header, String content) {
@@ -227,23 +255,182 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    alert.showAndWait();
 	}
 	
+	// method for saving the class to the database
+			private void saveAssToDatabase(String Ass, int PointsPoss) {
+				// database connection creds
+				String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+				String databaseUser = "GradeMaster";
+				String databasePassword = "Justice_League";
+
+				//try connection
+				try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+					//proper values within the database
+					String sql = "INSERT INTO assignments (`assignment_name`, `grade_range`) VALUES (?, ?)";
+					try (PreparedStatement statement = connection.prepareStatement(sql)) {
+						statement.setString(1, Ass);
+						statement.setInt(2, PointsPoss);
+
+						int rowsInserted = statement.executeUpdate();
+						if (rowsInserted > 0) {
+							System.out.println("Ass inserted successfully!");
+						} else {
+							System.out.println("Failed to insert Ass");
+						}
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					showAlert("Error", "Database Error", "An error occurred while saving the course to the database.");
+				}
+			}
+
+			// adding getter methods so that DBClassCreationFallBack2 can access this class
+			public TextField getAssTextField() {
+				return AssTextField;
+			}
+
+			public TextField getPointsPossTextField() {
+				return PointsPossTextField;
+			}
+			
+			// method for saving the class to the database
+			private void saveGradeToDatabase(int PointsRecieved, String FeedBack) {
+				// database connection creds
+				String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+				String databaseUser = "GradeMaster";
+				String databasePassword = "Justice_League";
+
+				//try connection
+				try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+					//proper values within the database
+					String sql = "INSERT INTO grades (`points_recieved`, `feedback`) VALUES (?, ?)";
+					try (PreparedStatement statement = connection.prepareStatement(sql)) {
+						statement.setInt(1, PointsRecieved);
+						statement.setString(2, FeedBack);
+						
+
+						int rowsInserted = statement.executeUpdate();
+						if (rowsInserted > 0) {
+							System.out.println("Grade inserted successfully!");
+						} else {
+							System.out.println("Failed to insert Grade");
+						}
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					showAlert("Error", "Database Error", "An error occurred while saving the course to the database.");
+				}
+			}
+			
+			
+			private void loadDataFromDatabase() throws SQLException {
+			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+			    String databaseUser = "GradeMaster";
+			    String databasePassword = "Justice_League";
+
+			    try (Connection connection1 = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+			        // Load assignments
+			        String sqlAssignments = "SELECT assignment_name, grade_range FROM assignments";
+			        try (PreparedStatement statementAssignments = connection1.prepareStatement(sqlAssignments)) {
+			            ResultSet resultSetAssignments = statementAssignments.executeQuery();
+			            ObservableList<AssData> assDataList = TableView1.getItems();
+			            while (resultSetAssignments.next()) {
+			                String assignmentName = resultSetAssignments.getString("assignment_name");
+			                int gradeRange = resultSetAssignments.getInt("grade_range");
+			                assDataList.add(new AssData(assignmentName, gradeRange));
+			            }
+			            TableView1.setItems(assDataList);
+			        }
+
+			        // Load grades
+			        String sqlGrades = "SELECT points_recieved, feedback FROM grades";
+			        try (PreparedStatement statementGrades = connection1.prepareStatement(sqlGrades)) {
+			            ResultSet resultSetGrades = statementGrades.executeQuery();
+			            ObservableList<GradeData> gradeDataList = TableView2.getItems();
+			            while (resultSetGrades.next()) {
+			                int pointsReceived = resultSetGrades.getInt("points_recieved");
+			                String feedback = resultSetGrades.getString("feedback");
+			                gradeDataList.add(new GradeData(pointsReceived, feedback));
+			            }
+			            TableView2.setItems(gradeDataList);
+			        }
+			    }
+			}
+			
+			
+			private void deleteAssFromDatabase(String assName) {
+			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+			    String databaseUser = "GradeMaster";
+			    String databasePassword = "Justice_League";
+
+			    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+			        String sql = "DELETE FROM assignments WHERE assignment_name = ?";
+			        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			            statement.setString(1, assName);
+
+			            int rowsDeleted = statement.executeUpdate();
+			            if (rowsDeleted > 0) {
+			                System.out.println("Assignment deleted successfully!");
+			            } else {
+			                System.out.println("Failed to delete assignment");
+			            }
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			        showAlert("Error", "Database Error", "An error occurred while deleting the assignment from the database.");
+			    }
+			}
+
+			// adding getter methods so that DBClassCreationFallBack2 can access this class
+			public TextField getPointsRecieveTextField() {
+				return PointsRecievedTextField;
+			}
+
+			public TextField getFeedBackextField() {
+				return FeedBackTextField;
+			}
+			
+			private void deleteGradeFromDatabase(int pointsReceived) {
+			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+			    String databaseUser = "GradeMaster";
+			    String databasePassword = "Justice_League";
+
+			    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+			        String sql = "DELETE FROM grades WHERE points_recieved = ?";
+			        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			            statement.setInt(1, pointsReceived);
+
+			            int rowsDeleted = statement.executeUpdate();
+			            if (rowsDeleted > 0) {
+			                System.out.println("Grade deleted successfully!");
+			            } else {
+			                System.out.println("Failed to delete grade");
+			            }
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			        showAlert("Error", "Database Error", "An error occurred while deleting the grade from the database.");
+			    }
+			}
+
+			
+	
 	public void backButton(ActionEvent e) throws IOException {
 		SwitchSceneController switchSceneController = new SwitchSceneController();
 		switchSceneController.switchToTempScene(e);
 	}
 	
-	// private boolean isLightMode = true;
+	 private boolean isLightMode = true;
 
 	    public void changeMode(ActionEvent event) {
-	    	Controller.isLightMode = !Controller.isLightMode;
-	    	if(Controller.isLightMode) {
+	    	isLightMode = !isLightMode;
+	    	if(isLightMode) {
 	    		setLightMode();
 	    	}else {
 	    		setDarkMode();
 	    	}
 	    }
 	    
-	    public void setLightMode() {
+	    private void setLightMode() {
 	    	parent.getStylesheets().remove("styles/darkMode.css");
 	    	parent.getStylesheets().add("styles/lightMode.css");
 	    	Image image = new Image("img/dark.png");
@@ -258,19 +445,12 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    	RemoveGradeButton.setTextFill(paint);
 	    	CreateAssLabel.setTextFill(paint2);
 	    	AssNameLabel.setTextFill(paint2);
-	    	AssTypeLabel.setTextFill(paint2);
-	    	AssWeightLabel.setTextFill(paint2);
-	    	graphLabel1.setTextFill(paint2);
-	    	graphLabel2.setTextFill(paint2);
-	    	AssLabel.setTextFill(paint2);
-	    	studentLabel.setTextFill(paint2);
-	    	gradeLabel.setTextFill(paint2);
-	    	inputGradeLabel.setTextFill(paint2);
-	    	Controller.isLightMode = true;
-
+	    	PointsPossLabel.setTextFill(paint2);
+	    	PointsRecievedLabel.setTextFill(paint2);
+	    	FeedBackLabel.setTextFill(paint2);
 	    }
 	    
-	 public void setDarkMode() {
+	 private void setDarkMode() {
 	 	parent.getStylesheets().remove("styles/lightMode.css");
 	    	parent.getStylesheets().add("styles/darkMode.css");
 	    	Image image = new Image("img/light.png");
@@ -286,16 +466,9 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    	RemoveGradeButton.setTextFill(paint);
 	    	CreateAssLabel.setTextFill(paint2);
 	    	AssNameLabel.setTextFill(paint2);
-	    	AssTypeLabel.setTextFill(paint2);
-	    	AssWeightLabel.setTextFill(paint2);
-	    	graphLabel1.setTextFill(paint2);
-	    	graphLabel2.setTextFill(paint2);
-	    	AssLabel.setTextFill(paint2);
-	    	studentLabel.setTextFill(paint2);
-	    	gradeLabel.setTextFill(paint2);
-	    	inputGradeLabel.setTextFill(paint2);
-	    	Controller.isLightMode = false;
-	    	
+	    	PointsPossLabel.setTextFill(paint2);
+	    	PointsRecievedLabel.setTextFill(paint2);
+	    	FeedBackLabel.setTextFill(paint2);
 	    	
 	    }
 

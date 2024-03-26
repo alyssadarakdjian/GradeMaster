@@ -66,35 +66,35 @@ public class StudentGradeBookSceneController implements Initializable{
 
   
 
-   // private boolean isLightMode = true;
+    private boolean isLightMode = true;
 
     public void changeMode(ActionEvent event) {
-    	Controller.isLightMode = !Controller.isLightMode;
-    	if(Controller.isLightMode) {
+    	isLightMode = !isLightMode;
+    	if(isLightMode) {
     		setLightMode();
     	}else {
     		setDarkMode();
     	}
     }
     
-    public void setLightMode() {
+    private void setLightMode() {
     	parent.getStylesheets().remove("styles/darkMode.css");
     	parent.getStylesheets().add("styles/lightMode.css");
     	Image image = new Image("img/dark.png");
     	imgMode.setImage(image);
     	Paint paint = Paint.valueOf("white");
     	btnBack.setTextFill(paint);
-    	Paint paint2 = Paint.valueOf("#282828");
+    	Paint paint2 = Paint.valueOf("black");
     	TotalGradeLable.setTextFill(paint2);
     	PercentageLabel.setTextFill(paint2);
     	LetterLabel.setTextFill(paint2);
-    	Ass.setStyle("#282828");
-    	Controller.isLightMode= true ;
+    	Ass.setStyle("black");
+    	
     	
   
     }
     
-    public void setDarkMode() {
+ private void setDarkMode() {
  	parent.getStylesheets().remove("styles/lightMode.css");
     	parent.getStylesheets().add("styles/darkMode.css");
     	Image image = new Image("img/light.png");
@@ -106,7 +106,6 @@ public class StudentGradeBookSceneController implements Initializable{
     	TotalGradeLable.setTextFill(paint2);
     	PercentageLabel.setTextFill(paint2);
     	LetterLabel.setTextFill(paint2);
-    	Controller.isLightMode= false ;
     	
     }
 
