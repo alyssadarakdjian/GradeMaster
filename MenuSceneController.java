@@ -46,24 +46,19 @@ public class MenuSceneController {
 		SwitchSceneController switchSceneController = new SwitchSceneController();
 		switchSceneController.switchToTeacherClassCreate(e);
 	}
-
-	public void GraphPage(ActionEvent e) throws IOException {
-		SwitchSceneController switchSceneController = new SwitchSceneController();
-		switchSceneController.switchToGraphScene(e);
-	}
 	
-	 private boolean isLightMode = true;
+	// public boolean isLightMode = true;
 
 	    public void changeMode(ActionEvent event) {
-	    	isLightMode = !isLightMode;
-	    	if(isLightMode) {
+	    	Controller.isLightMode = !Controller.isLightMode;
+	    	if(Controller.isLightMode) {
 	    		setLightMode();
 	    	}else {
 	    		setDarkMode();
 	    	}
 	    }
 	    
-	    private void setLightMode() {
+	    public void setLightMode() {
 	    	parent.getStylesheets().remove("styles/darkMode.css");
 	    	parent.getStylesheets().add("styles/lightMode.css");
 	    	Image image = new Image("img/dark.png");
@@ -72,13 +67,14 @@ public class MenuSceneController {
 	    	btnGBteacher.setTextFill(paint);
 	    	btnGBstudent.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
+	    	Controller.isLightMode = true;
 
 	    	
 	    	
 	 
 	    }
 	    
-     private void setDarkMode() {
+     public void setDarkMode() {
      	parent.getStylesheets().remove("styles/lightMode.css");
 	    	parent.getStylesheets().add("styles/darkMode.css");
 	    	Image image = new Image("img/light.png");
@@ -88,6 +84,7 @@ public class MenuSceneController {
 	    	btnGBteacher.setTextFill(paint);
 	    	btnGBstudent.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
+	    	Controller.isLightMode = false;
 	    	
 	    }
 	
