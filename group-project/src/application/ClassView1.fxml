@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TitledPane fx:id="parent" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="CSI-2999-W24" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ClassView1Controller">
+  <content>
+    <AnchorPane fx:id="syllabusLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="primary-color" stylesheets="@../styles/lightMode.css">
+         <children>
+            <ScrollBar layoutX="576.0" layoutY="4.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="648.0" />
+            <TextArea editable="false" layoutX="199.0" layoutY="14.0" pickOnBounds="false" prefHeight="79.0" prefWidth="233.0" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Professor Angel Bravo&#10;Email: abcde@oakland.edu&#10;CSI-2999-Sophomore Project- Winter 24&#10;Meeting Time: Monday 6:00pm-7:47pm" wrapText="true">
+               <effect>
+                  <Blend />
+               </effect>
+            </TextArea>
+            <Label fx:id="GeneralLabel" layoutX="25.0" layoutY="118.0" prefHeight="28.0" prefWidth="59.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="General">
+               <font>
+                  <Font name="Dubai Bold" size="14.0" />
+               </font>
+            </Label>
+            <Hyperlink layoutX="25.0" layoutY="146.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="resources" />
+            <Label fx:id="Top1Label" layoutX="26.0" layoutY="210.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Topic 1">
+               <font>
+                  <Font name="Dubai Bold" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutY="200.0" prefWidth="200.0" />
+            <MenuBar layoutX="2.0" layoutY="4.0">
+              <menus>
+                  <Menu mnemonicParsing="false" text="Dashboard" />
+                <Menu mnemonicParsing="false" text="Grades" />
+              </menus>
+            </MenuBar>
+            <Hyperlink layoutX="25.0" layoutY="170.0" text="syllabus" />
+            <Accordion layoutX="14.0" layoutY="240.0" prefHeight="168.0" prefWidth="202.0">
+              <panes>
+                <TitledPane animated="false" text="Lecture 1">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Hyperlink layoutX="14.0" layoutY="21.0" text="lecture video" textFill="#4cb2ff" />
+                              <Hyperlink layoutX="14.0" layoutY="53.0" text="Homework" textFill="#4cb2ff" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" prefHeight="65.0" prefWidth="202.0" text="Lecture 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="37.0" prefWidth="200.0">
+                           <children>
+                              <Hyperlink layoutX="14.0" layoutY="14.0" text="lecture" textFill="#4cb2ff" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" prefHeight="55.0" prefWidth="202.0" text="Lecture 3">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="189.0" />
+                  </content>
+                </TitledPane>
+              </panes>
+            </Accordion>
+            <Label fx:id="Top2Label" layoutX="26.0" layoutY="392.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Topic 2">
+               <font>
+                  <Font name="Dubai Bold" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="3.0" layoutY="382.0" prefWidth="200.0" />
+            <Accordion layoutX="14.0" layoutY="427.0" prefHeight="51.0" prefWidth="200.0">
+              <panes>
+                <TitledPane animated="false" text="Lecture 1">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </TitledPane>
+                <TitledPane animated="false" text="Lecture 2">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </TitledPane>
+              </panes>
+            </Accordion>
+            <Label fx:id="Top3Label" layoutX="25.0" layoutY="537.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Topic 3">
+               <font>
+                  <Font name="Dubai Bold" size="14.0" />
+               </font>
+            </Label>
+            <Accordion layoutX="14.0" layoutY="571.0">
+              <panes>
+                <TitledPane animated="false" text="Lecture 1">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Lecture 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Lecture 3">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+              </panes>
+            </Accordion>
+            <Separator layoutX="3.0" layoutY="519.0" prefWidth="200.0" />
+            <Button fx:id="btnMode" layoutX="514.0" layoutY="17.0" mnemonicParsing="false" onAction="#changeMode" stylesheets="@../styles/lightMode.css">
+               <graphic>
+                  <ImageView fx:id="imgMode" fitHeight="30.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/dark.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="primary-color" />
+                  <String fx:value="round-border" />
+               </styleClass>
+            </Button>
+         </children></AnchorPane>
+  </content>
+</TitledPane>

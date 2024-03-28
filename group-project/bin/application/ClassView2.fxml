@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="600.0" style="-fx-background-color: pink;" text="CSI-1200-W24" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+  <content>
+    <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="598.0" style="-fx-background-color: pink;">
+         <children>
+            <ScrollBar layoutX="576.0" layoutY="4.0" orientation="VERTICAL" prefHeight="545.0" prefWidth="15.0" />
+            <TextArea editable="false" layoutX="199.0" layoutY="14.0" pickOnBounds="false" prefHeight="110.0" prefWidth="233.0" text="CSI-1200-Intro to Computer Science- Winter 24&#10;Professor Abc Defg&#10;Email: abcde@oakalnd.edu&#10;Location: MSC 111&#10;Meeting Time: M/W/F- 9:20-10:27am" wrapText="true">
+               <effect>
+                  <Blend />
+               </effect>
+            </TextArea>
+            <Label layoutX="25.0" layoutY="118.0" prefHeight="28.0" prefWidth="59.0" text="General" textFill="#320be0">
+               <font>
+                  <Font name="Dubai Bold" size="14.0" />
+               </font>
+            </Label>
+            <Hyperlink layoutX="25.0" layoutY="146.0" text="resources" textFill="#4cb2ff" />
+            <Label layoutX="26.0" layoutY="210.0" text="Topic 1" textFill="#320be0">
+               <font>
+                  <Font name="Dubai Bold" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutY="200.0" prefWidth="200.0" />
+            <MenuBar layoutX="3.0" layoutY="4.0">
+              <menus>
+                  <Menu mnemonicParsing="false" text="Dashboard" />
+                <Menu mnemonicParsing="false" text="Grades" />
+              </menus>
+            </MenuBar>
+            <Hyperlink layoutX="25.0" layoutY="170.0" text="syllabus" textFill="#4cb2ff" />
+            <Accordion layoutX="14.0" layoutY="240.0" prefHeight="168.0" prefWidth="202.0">
+              <panes>
+                <TitledPane animated="false" text="Lecture 1">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Hyperlink layoutX="14.0" layoutY="21.0" text="lecture video" textFill="#4cb2ff" />
+                              <Hyperlink layoutX="14.0" layoutY="53.0" text="Homework" textFill="#4cb2ff" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" prefHeight="65.0" prefWidth="202.0" text="Lecture 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="37.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" prefHeight="55.0" prefWidth="202.0" text="Lecture 3">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="189.0" />
+                  </content>
+                </TitledPane>
+              </panes>
+            </Accordion>
+            <Label layoutX="26.0" layoutY="392.0" text="Topic 2" textFill="#320be0">
+               <font>
+                  <Font name="Dubai Bold" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="3.0" layoutY="382.0" prefWidth="200.0" />
+            <Accordion layoutX="14.0" layoutY="427.0" prefHeight="51.0" prefWidth="200.0">
+              <panes>
+                <TitledPane animated="false" text="Lecture 1">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </TitledPane>
+                <TitledPane animated="false" text="Lecture 2">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </TitledPane>
+              </panes>
+            </Accordion>
+         </children></AnchorPane>
+  </content>
+</TitledPane>
+
