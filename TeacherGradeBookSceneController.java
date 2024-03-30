@@ -21,12 +21,14 @@ import java.util.ResourceBundle;
 
 import javax.swing.text.Style;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -41,9 +43,6 @@ public class TeacherGradeBookSceneController implements Initializable{
 	//test
 	  @FXML
 	    private TableColumn<AssData,String> Ass;
-
-	    @FXML
-	    private TableColumn<GradeData,String> Ass2;
 
 	    @FXML
 	    private Label AssNameLabel;
@@ -110,6 +109,16 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 	    @FXML
 	    private TabPane parent;
+	    
+	    @FXML 
+	    private ChoiceBox<String> CourseChoiceBox;
+	    
+	    @FXML 
+	    private ChoiceBox<String> AssChoiceBox;
+	    
+	    @FXML 
+	    private Label ChooseAssLabel;
+	    
 
 
 	@Override
@@ -120,12 +129,68 @@ public class TeacherGradeBookSceneController implements Initializable{
 		PointsRecieved.setCellValueFactory(new PropertyValueFactory<GradeData,Integer>("PointsRecieved"));  
 		FeedBack.setCellValueFactory(new PropertyValueFactory<GradeData,String>("FeedBack"));
 		
+		AssChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+	        if(newValue != null) {
+	            ChooseAssLabel.setText(newValue); // Update label text with selected assignment name
+	        }
+	    });
+		
 		try {
             loadDataFromDatabase();
         } catch (SQLException e) {
             showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
         }
+		try {
+			loadCoursesIntoChoiceBox();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			loadAssignmentsIntoChoiceBox();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+	}
+	
+	private void loadCoursesIntoChoiceBox() throws SQLException {
+	    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+	    String databaseUser = "GradeMaster";
+	    String databasePassword = "Justice_League";
+
+	    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+	        String sqlCourses = "SELECT course_name FROM courses";
+	        try (PreparedStatement statementCourses = connection.prepareStatement(sqlCourses)) {
+	            ResultSet resultSetCourses = statementCourses.executeQuery();
+	            ObservableList<String> coursesList = FXCollections.observableArrayList();
+	            while (resultSetCourses.next()) {
+	                String courseName = resultSetCourses.getString("course_name");
+	                coursesList.add(courseName);
+	            }
+	            CourseChoiceBox.setItems(coursesList);
+	        }
+	    }
+	}
+
+	private void loadAssignmentsIntoChoiceBox() throws SQLException {
+	    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+	    String databaseUser = "GradeMaster";
+	    String databasePassword = "Justice_League";
+
+	    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+	        String sqlAssignments = "SELECT assignment_name FROM assignments";
+	        try (PreparedStatement statementAssignments = connection.prepareStatement(sqlAssignments)) {
+	            ResultSet resultSetAssignments = statementAssignments.executeQuery();
+	            ObservableList<String> assignmentsList = FXCollections.observableArrayList();
+	            while (resultSetAssignments.next()) {
+	                String assignmentName = resultSetAssignments.getString("assignment_name");
+	                assignmentsList.add(assignmentName);
+	            }
+	            AssChoiceBox.setItems(assignmentsList);
+	        }
+	    }
 	}
 	
 	@FXML
@@ -161,7 +226,12 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    } catch (NumberFormatException e) {
 	        showAlert("Error", "Invalid Number", "Please enter a valid Points Possible Number."); 
 	    }
-	    
+	    try {
+			loadAssignmentsIntoChoiceBox();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    
 	}
 
@@ -188,41 +258,66 @@ public class TeacherGradeBookSceneController implements Initializable{
 	}
 	@FXML
 	void InputGrade(ActionEvent event) {
-			String PointsRecievedText= PointsRecievedTextField.getText().trim();
-		    String FeedBackText = FeedBackTextField.getText().trim();
-		    if (PointsRecievedText.isEmpty()&& FeedBackText.isEmpty()) {
-		        showAlert("Error", "Empty Fields", "Please enter Assignment Name and Points Possible");
-		        return;
-		    }    
-		    
-		    if (PointsRecievedText.isEmpty()) {
-		        showAlert("Error", "Empty Fields", "Please enter Assignment Name");
-		        return;
-		    
-		    }    
-		    if (FeedBackText.isEmpty()) {
-			        showAlert("Error", "Empty Fields", "Please enter Points Possible");
-			        return;
-		    }
-		    try {
-		    	// parse the course num
-				int PointsRecieved = Integer.parseInt(PointsRecievedText);
-				// create ClassData obj with user input
-				GradeData gradeData = new GradeData(PointsRecieved, FeedBackText);
+	    String selectedAssignment = AssChoiceBox.getValue();
+	    if (selectedAssignment == null) {
+	        showAlert("Error", "No Assignment Selected", "Please select an assignment.");
+	        return;
+	    }
 
-				// Add the class data to the table view
-				ObservableList<GradeData> gradeDatas = TableView2.getItems();
-				gradeDatas.add(gradeData);
-				TableView2.setItems(gradeDatas);
-				saveGradeToDatabase(PointsRecieved, FeedBackText);
+	    String pointsReceivedText = PointsRecievedTextField.getText().trim();
+	    String feedbackText = FeedBackTextField.getText().trim();
 
-		    } catch (NumberFormatException e) {
-		        showAlert("Error", "Invalid Number", "Please enter a valid Grade Number.");
-		    }
-		   
+	    if (pointsReceivedText.isEmpty() || feedbackText.isEmpty()) {
+	        showAlert("Error", "Empty Fields", "Please enter points received and feedback.");
+	        return;
+	    }
 
-		   
+	    int pointsReceived;
+	    try {
+	        pointsReceived = Integer.parseInt(pointsReceivedText);
+	    } catch (NumberFormatException e) {
+	        showAlert("Error", "Invalid Number", "Please enter a valid points received number.");
+	        return;
+	    }
+
+	    try {
+	        // Get the assignment ID from the database based on the selected assignment name
+	        int assignmentId = getAssignmentId(selectedAssignment);
+	        if (assignmentId == -1) {
+	            showAlert("Error", "Assignment Not Found", "Selected assignment not found in the database.");
+	            return;
+	        }
+
+	        // Insert the grade into the database
+	        saveGradeToDatabase(pointsReceived, feedbackText, assignmentId);
+
+	        // Refresh TableView or do any other necessary UI updates
+	        loadDataFromDatabase(); // Assuming this method refreshes the TableView
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        showAlert("Error", "Database Error", "An error occurred while saving the grade to the database.");
+	    }
 	}
+	
+	private int getAssignmentId(String assignmentName) throws SQLException {
+	    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+	    String databaseUser = "GradeMaster";
+	    String databasePassword = "Justice_League";
+
+	    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+	        String sql = "SELECT assignment_id FROM assignments WHERE assignment_name = ?";
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setString(1, assignmentName);
+	            ResultSet resultSet = statement.executeQuery();
+	            if (resultSet.next()) {
+	                return resultSet.getInt("assignment_id");
+	            }
+	        }
+	    }
+	    return -1; // Return -1 if assignment is not found
+	}
+
 
 
 	@FXML
@@ -293,34 +388,27 @@ public class TeacherGradeBookSceneController implements Initializable{
 			}
 			
 			// method for saving the class to the database
-			private void saveGradeToDatabase(int PointsRecieved, String FeedBack) {
-				// database connection creds
-				String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
-				String databaseUser = "GradeMaster";
-				String databasePassword = "Justice_League";
+			private void saveGradeToDatabase(int pointsReceived, String feedback, int assignmentId) throws SQLException {
+			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+			    String databaseUser = "GradeMaster";
+			    String databasePassword = "Justice_League";
 
-				//try connection
-				try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
-					//proper values within the database
-					String sql = "INSERT INTO grades (`points_recieved`, `feedback`) VALUES (?, ?)";
-					try (PreparedStatement statement = connection.prepareStatement(sql)) {
-						statement.setInt(1, PointsRecieved);
-						statement.setString(2, FeedBack);
-						
+			    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+			        String sql = "INSERT INTO grades (points_recieved, feedback, assignment_id) VALUES (?, ?, ?)";
+			        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+			            statement.setInt(1, pointsReceived);
+			            statement.setString(2, feedback);
+			            statement.setInt(3, assignmentId);
 
-						int rowsInserted = statement.executeUpdate();
-						if (rowsInserted > 0) {
-							System.out.println("Grade inserted successfully!");
-						} else {
-							System.out.println("Failed to insert Grade");
-						}
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-					showAlert("Error", "Database Error", "An error occurred while saving the course to the database.");
-				}
-			}
-			
+			            int rowsInserted = statement.executeUpdate();
+			            if (rowsInserted > 0) {
+			                System.out.println("Grade inserted successfully!");
+			            } else {
+			                System.out.println("Failed to insert grade");
+			            }
+			        }
+			    }
+			}			
 			
 			private void loadDataFromDatabase() throws SQLException {
 			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";

@@ -25,6 +25,9 @@ public class MenuSceneController {
 	    
 	    @FXML
 	    private Button btnMode;
+	    
+	    @FXML
+	    private Button btnGraphPage;
 
 	    @FXML
 	    private ImageView imgMode;
@@ -72,6 +75,7 @@ public class MenuSceneController {
 	    	btnGBteacher.setTextFill(paint);
 	    	btnGBstudent.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
+	    	btnGraphPage.setTextFill(paint);
 
 	    	
 	    	
@@ -88,6 +92,7 @@ public class MenuSceneController {
 	    	btnGBteacher.setTextFill(paint);
 	    	btnGBstudent.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
+	    	btnGraphPage.setTextFill(paint);
 	    	
 	    }
 	
