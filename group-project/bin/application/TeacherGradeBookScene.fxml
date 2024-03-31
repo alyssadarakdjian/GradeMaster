@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -146,4 +147,7 @@
          </content>
       </Tab>
   </tabs>
+   <effect>
+      <InnerShadow blurType="GAUSSIAN" />
+   </effect>
 </TabPane>
