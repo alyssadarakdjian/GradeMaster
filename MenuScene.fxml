@@ -24,11 +24,6 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnGraphPage" layoutX="403.0" layoutY="200.0" mnemonicParsing="false" onAction="#GraphPage" text="Graphs">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
       <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="521.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="43.0" prefWidth="42.0" stylesheets="@../styles/lightMode.css">
          <graphic>
             <ImageView fx:id="imgMode" fitHeight="42.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" styleClass="round-border">
@@ -41,6 +36,11 @@
             <String fx:value="primary-color" />
             <String fx:value="round-border" />
          </styleClass>
+      </Button>
+      <Button fx:id="btnGraphPage" layoutX="369.0" layoutY="200.0" mnemonicParsing="false" onAction="#GraphPage" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Graphs" textFill="#fffdfd">
+         <font>
+            <Font size="20.0" />
+         </font>
       </Button>
    </children>
 </AnchorPane>

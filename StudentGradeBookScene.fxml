@@ -33,14 +33,13 @@
                         </Button>
                      </graphic>
                   </TableColumn>
-                <TableColumn fx:id="Ass" prefWidth="188.6666259765625" text="Assignment" />
-                <TableColumn fx:id="Weight" prefWidth="115.3333740234375" text="Weight" />
-                  <TableColumn fx:id="Grade" prefWidth="90.0" text="Grade" />
-                  <TableColumn fx:id="Percent" minWidth="0.0" prefWidth="82.0" text="Percentage" />
-                  <TableColumn fx:id="Feedback" minWidth="4.66668701171875" prefWidth="173.99997965494788" text="Feedback" />
+                <TableColumn fx:id="Ass" prefWidth="188.6666259765625" text="Assignments" />
+                <TableColumn fx:id="PointsPoss" prefWidth="115.3333740234375" text="Points Possible" />
+                  <TableColumn fx:id="PointsRec" prefWidth="116.0" text="Points Recieved" />
+                  <TableColumn fx:id="FeedBack" minWidth="4.66668701171875" prefWidth="229.99997965494788" text="FeedBack" />
               </columns>
             </TableView>
-            <Label fx:id="TotalGradeLable" layoutX="133.0" layoutY="490.0" text="Total Grade:" />
+            <Label fx:id="TotalGradeLable" layoutX="133.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Total Grade:" />
             <Label fx:id="PercentageLabel" layoutX="231.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
             <Label fx:id="LetterLabel" layoutX="281.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
             <Button fx:id="btnBack" layoutX="42.0" layoutY="486.0" mnemonicParsing="false" onAction="#backButton" prefHeight="26.0" prefWidth="53.0" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="#f4f1f1" />
