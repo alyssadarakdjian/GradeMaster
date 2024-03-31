@@ -6,9 +6,11 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <ScrollPane fx:id="parent" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StudentGradeBookSceneController">
    <content>
@@ -18,9 +20,9 @@
               <columns>
                   <TableColumn fx:id="ButtonColumn" prefWidth="74.66662609577179">
                      <graphic>
-                        <Button fx:id="btnMode" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#changeMode" prefHeight="42.0" prefWidth="33.0" stylesheets="@../styles/lightMode.css">
+                        <Button fx:id="btnMode" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#changeMode" prefHeight="34.0" prefWidth="37.0" stylesheets="@../styles/lightMode.css">
                            <graphic>
-                              <ImageView fx:id="imgMode" fitHeight="42.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" styleClass="round-border">
+                              <ImageView fx:id="imgMode" fitHeight="36.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" styleClass="round-border">
                                  <image>
                                     <Image url="@../img/dark.png" />
                                  </image>
@@ -37,14 +39,32 @@
                 <TableColumn fx:id="Weight" prefWidth="115.3333740234375" text="Weight" />
                   <TableColumn fx:id="Grade" prefWidth="90.0" text="Grade" />
                   <TableColumn fx:id="Percent" minWidth="0.0" prefWidth="82.0" text="Percentage" />
-                  <TableColumn fx:id="Feedback" minWidth="4.66668701171875" prefWidth="173.99997965494788" text="Feedback" />
+                  <TableColumn fx:id="Feedback" minWidth="4.66668701171875" prefWidth="174.0" text="Feedback" />
               </columns>
             </TableView>
-            <Label fx:id="TotalGradeLable" layoutX="133.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Total Grade:" />
-            <Label fx:id="PercentageLabel" layoutX="231.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
-            <Label fx:id="LetterLabel" layoutX="281.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
-            <Button fx:id="btnBack" layoutX="42.0" layoutY="486.0" mnemonicParsing="false" onAction="#backButton" prefHeight="26.0" prefWidth="53.0" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="#f4f1f1" />
+            <Label fx:id="TotalGradeLable" layoutX="133.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Total Grade:">
+               <font>
+                  <Font name="Montserrat Medium" size="12.0" />
+               </font></Label>
+            <Label fx:id="PercentageLabel" layoutX="231.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label">
+               <font>
+                  <Font name="Montserrat Medium" size="12.0" />
+               </font></Label>
+            <Label fx:id="LetterLabel" layoutX="281.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label">
+               <font>
+                  <Font name="Montserrat Medium" size="12.0" />
+               </font></Label>
+            <Button fx:id="btnBack" layoutX="42.0" layoutY="486.0" mnemonicParsing="false" onAction="#backButton" prefHeight="26.0" prefWidth="53.0" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="#f4f1f1">
+               <effect>
+                  <InnerShadow blurType="GAUSSIAN" />
+               </effect>
+               <font>
+                  <Font name="Montserrat Medium" size="12.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </content>
+   <effect>
+      <InnerShadow blurType="GAUSSIAN" />
+   </effect>
 </ScrollPane>
