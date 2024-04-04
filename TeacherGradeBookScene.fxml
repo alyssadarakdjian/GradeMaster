@@ -60,14 +60,14 @@
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <Label layoutX="195.0" layoutY="37.0" text="Input Grades">
+                  <Label fx:id="inputGradeLabel" layoutX="195.0" layoutY="37.0" text="Input Grades">
                      <font>
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <Button fx:id="InputGradeButton" layoutX="144.0" layoutY="303.0" mnemonicParsing="false" onAction="#InputGrade" text="Input Grade" />
-                  <Label layoutX="28.0" layoutY="181.0" text="Assignment" />
-                  <Label layoutX="41.0" layoutY="254.0" prefHeight="17.0" prefWidth="37.0" text="Grade" />
+                  <Button fx:id="InputGradeButton" layoutX="144.0" layoutY="303.0" mnemonicParsing="false" onAction="#InputGrade" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Input Grade" textFill="WHITE" />
+                  <Label fx:id="AssLabel" layoutX="28.0" layoutY="181.0" stylesheets="@../styles/lightMode.css" text="Assignment" />
+                  <Label fx:id="gradeLabel" layoutX="41.0" layoutY="254.0" prefHeight="17.0" prefWidth="37.0" stylesheets="@../styles/lightMode.css" text="Grade" />
                   <TextField fx:id="GradeTextField" layoutX="109.0" layoutY="250.0" />
                   <TableView fx:id="TableView2" layoutX="269.0" layoutY="91.0" prefHeight="197.0" prefWidth="330.0">
                      <columns>
@@ -76,10 +76,10 @@
                         <TableColumn fx:id="Grade" minWidth="0.0" prefWidth="68.66668701171875" text="Grade" />
                      </columns>
                   </TableView>
-                  <Button fx:id="RemoveGradeButton" layoutX="387.0" layoutY="303.0" mnemonicParsing="false" onAction="#RemoveGrade" text="Remove Grade" />
+                  <Button fx:id="RemoveGradeButton" layoutX="387.0" layoutY="303.0" mnemonicParsing="false" onAction="#RemoveGrade" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Remove Grade" textFill="WHITE" />
                   <TextField fx:id="AssTextField2" layoutX="109.0" layoutY="177.0" />
                   <TextField fx:id="StudentTextField" layoutX="109.0" layoutY="215.0" />
-                  <Label layoutX="39.0" layoutY="219.0" text="Student" />
+                  <Label fx:id="studentLabel" layoutX="39.0" layoutY="219.0" stylesheets="@../styles/lightMode.css" text="Student" />
                </children>
             </AnchorPane>
          </content>
@@ -88,7 +88,7 @@
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <Label layoutX="242.0" layoutY="36.0" text="Graphs">
+                  <Label fx:id="graphLabel1" layoutX="242.0" layoutY="36.0" stylesheets="@../styles/lightMode.css" text="Graphs">
                      <font>
                         <Font size="37.0" />
                      </font>
@@ -106,7 +106,7 @@
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <Label layoutX="242.0" layoutY="36.0" text="Graphs">
+                  <Label fx:id="graphLabel2" layoutX="242.0" layoutY="36.0" stylesheets="@../styles/lightMode.css" text="Graphs">
                      <font>
                         <Font size="37.0" />
                      </font>

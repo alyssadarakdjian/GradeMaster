@@ -24,7 +24,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="521.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="43.0" prefWidth="42.0" stylesheets="@../styles/lightMode.css">
+      <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="521.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="43.0" prefWidth="42.0" style="-fx-background-radius: 80;" stylesheets="@../styles/lightMode.css">
          <graphic>
             <ImageView fx:id="imgMode" fitHeight="42.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" styleClass="round-border">
                <image>

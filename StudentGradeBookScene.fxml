@@ -18,7 +18,7 @@
               <columns>
                   <TableColumn fx:id="ButtonColumn" prefWidth="74.66662609577179">
                      <graphic>
-                        <Button fx:id="btnMode" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#changeMode" prefHeight="42.0" prefWidth="33.0" stylesheets="@../styles/lightMode.css">
+                        <Button fx:id="btnMode" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#changeMode" prefHeight="42.0" prefWidth="33.0" style="-fx-background-radius: 80;" stylesheets="@../styles/lightMode.css">
                            <graphic>
                               <ImageView fx:id="imgMode" fitHeight="42.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" styleClass="round-border">
                                  <image>
@@ -41,8 +41,8 @@
               </columns>
             </TableView>
             <Label fx:id="TotalGradeLable" layoutX="133.0" layoutY="490.0" text="Total Grade:" />
-            <Label fx:id="PercentageLabel" layoutX="231.0" layoutY="490.0" text="Label" />
-            <Label fx:id="LetterLabel" layoutX="281.0" layoutY="490.0" text="Label" />
+            <Label fx:id="PercentageLabel" layoutX="231.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
+            <Label fx:id="LetterLabel" layoutX="281.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
             <Button fx:id="btnBack" layoutX="42.0" layoutY="486.0" mnemonicParsing="false" onAction="#backButton" prefHeight="26.0" prefWidth="53.0" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="#f4f1f1" />
          </children>
       </AnchorPane>

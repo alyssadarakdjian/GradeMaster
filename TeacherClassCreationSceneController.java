@@ -148,7 +148,6 @@ public class TeacherClassCreationSceneController implements Initializable{
     	CreateButton.setTextFill(paint);
     	RemoveButton.setTextFill(paint);
     	BackButton.setTextFill(paint);
-    	//CourseNameTextField.setStyle("-fx-text-fill: black;");
     	CourseCreationLabel.setTextFill(paint2);
     	CourseNameLabel.setTextFill(paint2);
     	CourseNumberLabel.setTextFill(paint2);
@@ -164,7 +163,6 @@ public class TeacherClassCreationSceneController implements Initializable{
     	parent.getStylesheets().add("styles/darkMode.css");
     	Image image = new Image("img/light.png");
     	imgMode.setImage(image);
-    //	imgMode.setStyle("-fx-shape:round");
     	Paint paint = Paint.valueOf("black");
     	Paint paint2 = Paint.valueOf("white");
     	CreateButton.setTextFill(paint);

@@ -28,7 +28,7 @@
                </font>
             </Button>
             <PasswordField fx:id="loginPass" layoutX="14.0" layoutY="277.0" promptText="Password" />
-            <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="113.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 80; -fx-background-color: white;" stylesheets="@../styles/lightMode.css">
+            <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="113.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 80;" stylesheets="@../styles/lightMode.css">
                <graphic>
                   <ImageView fx:id="imgMode" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 
 
 public class MenuSceneController {
@@ -79,7 +80,7 @@ public class MenuSceneController {
 	    	parent.getStylesheets().add("styles/darkMode.css");
 	    	Image image = new Image("img/light.png");
 	    	imgMode.setImage(image);
-	    //	imgMode.setStyle("-fx-shape:round");
+	    	
 	    	Paint paint = Paint.valueOf("black");
 	    	btnGBteacher.setTextFill(paint);
 	    	btnGBstudent.setTextFill(paint);
