@@ -24,6 +24,6 @@ public class GraphController {
 	
 	public void backButton(ActionEvent e) throws IOException {
 		SwitchSceneController switchSceneController = new SwitchSceneController();
-		switchSceneController.switchToTempScene(e);
+		switchSceneController.switchToStudentMenuScene(e);
 	}
 }

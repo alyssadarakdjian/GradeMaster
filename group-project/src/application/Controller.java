@@ -27,50 +27,85 @@ import javafx.scene.control.Label;
 
 
 public class Controller implements Initializable {
-	  @FXML
-	    private Button btnMode;
-
+	
+    	private boolean isLightMode = true;
+    	@FXML
+	    private Button swapPage;
+	  	@FXML
+	  	private Button btnMode;
 	    @FXML
 	    private Label errorLabel;
-
+	    @FXML
+	    private Label loginType;
 	    @FXML
 	    private Label errorNoPass;
-
 	    @FXML
 	    private ImageView imgMode;
-
 	    @FXML
 	    private Button loginButton;
-
 	    @FXML
 	    private Button loginCancel;
-
 	    @FXML
 	    private PasswordField loginPass;
-
 	    @FXML
 	    private TextField loginUser;
-
 	    @FXML
 	    private BorderPane parent;
-
 	    @FXML
 	    private AnchorPane password;
-	    
 	    @FXML
 	    private Label labelUserName;
-	    
 	    @FXML
 	    private Label labelPassword;
-	    
 	    @FXML
 	    private ImageView imgUni;
+	    @FXML
+	    private Button createLogin;
+	    //private HyperLink createLoginPage;     trying to make a link to create login page
+	    private boolean studentPage = true;
+	    
+	    
+	    
+	   
+	    
+	    
+	    
+	    public void studentPageSwap(ActionEvent e) {
+			if(studentPage) {
+				loginType.setText("Teacher Login Page");
+				swapPage.setText("Go to Student Page");
+				
+				
+				studentPage = false;
+			} else {
+				loginType.setText("Student Login Page");
+				swapPage.setText("Go to Teacher Page");
+				
+				studentPage = true;
+			}
+		}
+		
+		
+
 
 	
 	    public void loginButtonOnAction(ActionEvent e) throws IOException {
+	    	
+	    	if (checkUserPass()) {
+	    		if (studentPage) {
+	    			SwitchSceneController switchSceneController = new SwitchSceneController();  //to specify if it goes through the teacher or student end
+	    			switchSceneController.switchToStudentMenuScene(e);
+	    		} else {
+	    			SwitchSceneController switchSceneController = new SwitchSceneController();  
+	    			switchSceneController.switchToTeacherMenuScene(e);
+	    		}
+	    		
+	    	}
+	    	
+	    
+	    	
 			
-			SwitchSceneController switchSceneController = new SwitchSceneController();
-			switchSceneController.switchToTempScene(e);
+			
 			
 			/* THIS CODE IS COMMENTED OUT TEMPORARILY
 			
@@ -82,7 +117,107 @@ public class Controller implements Initializable {
 					errorLabel.setText("Please enter username and password");
 				} */
 	}
+	    
+	    public void createLoginOnAction(ActionEvent e) throws IOException{
+	    	SwitchSceneController switchSceneController = new SwitchSceneController();
+			switchSceneController.switchToCreateLoginScene(e);
+	    }
+	    
+	    public boolean checkUserPass() {
+	    	
+	    	if(userCheck() && passCheck()) {
+	    		return true;
+	    	}
+	    	
+	    	
+	    	
+	    	return false;
+	    }
+	    
+	    public boolean userCheck() {
+	    	if(loginUser.getCharacters().length() < 9) {
+	    		userErrorMessage();
+	    		return false;
+	    	}
+	    	
+	    	return true;
+	    }
+	    
+	    public boolean passCheck() {
+	    	
+	    	boolean lower = false;
+	    	boolean upper = false;
+	    	boolean number = false;
+	    	
+	    	String temp = loginPass.getCharacters().toString();
+	    	char check;
+	    	if (temp.length() < 9) {
+	    		
+	    		shortPass();
+	    		return false;
+	    	}
+	    	
+	    	for(int i = 0; i < temp.length(); i++) {
+	    		check = temp.charAt(i);
+	    		if (Character.isUpperCase(check)) {
+	    			upper = true;
+	    		}
+	    		
+	    		if (Character.isLowerCase(check)) {
+	    			lower = true;
+	    		}
+	    		
+	    		if (Character.isDigit(check)) {
+	    			number = true;
+	    		}
+	    	}
+	    	
+	    	if (lower && upper && number) {
+	    		return true;
+	    	}
+	    	
+	    	if (!lower) {
+	    		noLower();
+	    	}
+	    	
+	    	if (!upper) {
+	    		noUpper();
+	    	}
+	    	
+	    	if (!number) {
+	    		noNumber();
+	    	}
+	    	
+	    	return false;
+	    }
 		
+		public void userErrorMessage() {
+			if (loginUser.getCharacters() == null) {
+				errorLabel.setText("No Username Was Entered");
+			} else if (loginUser.getCharacters().length() < 9) {
+				errorLabel.setText("Username must be at least 9 characters");
+			}
+		}
+
+		public void noLower() {
+			errorLabel.setText("Password must contain at least 1 lowercase letter");
+			
+		}
+		
+		public void noUpper() {
+			errorLabel.setText("Password must contain at least 1 uppercase letter");
+			
+		}
+		
+		public void noNumber() {
+			errorLabel.setText("Password must contain at least 1 number");
+			
+		}
+		
+		public void shortPass() {
+			errorLabel.setText("Password must be at least 9 characters");
+			
+		}
 		
 		public void loginCancelOnAction(ActionEvent e) {
 			Stage stage = (Stage) loginCancel.getScene().getWindow();
@@ -115,9 +250,7 @@ public class Controller implements Initializable {
 				e.printStackTrace();
 			}
 		}
-	    
-	    
-	    private boolean isLightMode = true;
+
 
 	    public void changeMode(ActionEvent event) {
 	    	isLightMode = !isLightMode;

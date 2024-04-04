@@ -6,60 +6,43 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="625.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherClassCreationSceneController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherClassCreationSceneController">
    <children>
-      <Button fx:id="CreateButton" layoutX="137.0" layoutY="352.0" mnemonicParsing="false" onAction="#Create" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Create New Course" textFill="WHITE">
+      <Button fx:id="CreateButton" layoutX="137.0" layoutY="352.0" mnemonicParsing="false" onAction="#Create" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Create New Course" textFill="WHITE" />
+      <Label fx:id="CourseCreationLabel" layoutX="138.0" layoutY="45.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Course Creation Page">
          <font>
-            <Font name="Montserrat Medium" size="12.0" />
-         </font></Button>
-      <Label fx:id="CourseCreationLabel" layoutX="109.0" layoutY="40.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Course Creation Page">
-         <font>
-            <Font name="Montserrat SemiBold" size="34.0" />
+            <Font size="34.0" />
          </font>
       </Label>
       <TextField fx:id="CourseNameTextField" layoutX="121.0" layoutY="239.0" />
       <TextField fx:id="CourseNumTextField" layoutX="121.0" layoutY="278.0" />
-      <Label fx:id="CourseNameLabel" layoutX="22.0" layoutY="244.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Course Name">
-         <font>
-            <Font name="Montserrat Medium" size="12.0" />
-         </font></Label>
-      <Label fx:id="CourseNumberLabel" layoutX="50.0" layoutY="282.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Course #">
-         <font>
-            <Font name="Montserrat Medium" size="12.0" />
-         </font></Label>
+      <Label fx:id="CourseNameLabel" layoutX="38.0" layoutY="243.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Course Name" />
+      <Label fx:id="CourseNumberLabel" layoutX="50.0" layoutY="282.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Course #" />
       <TableView fx:id="TableView" layoutX="347.0" layoutY="109.0" prefHeight="231.0" prefWidth="249.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css">
         <columns>
           <TableColumn fx:id="CourseName" prefWidth="133.33331298828125" text="Course Name" />
             <TableColumn fx:id="CourseNum" prefWidth="133.33331298828125" text="Course #" />
         </columns>
       </TableView>
-      <Button fx:id="RemoveButton" layoutX="422.0" layoutY="352.0" mnemonicParsing="false" onAction="#Remove" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Remove Course" textFill="WHITE">
-         <font>
-            <Font name="Montserrat Medium" size="12.0" />
-         </font></Button>
-      <Button fx:id="BackButton" layoutX="38.0" layoutY="352.0" mnemonicParsing="false" onAction="#backButton" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="WHITE">
-         <font>
-            <Font name="Montserrat Medium" size="12.0" />
-         </font></Button>
-      <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="559.0" layoutY="27.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="25.0" prefWidth="41.0" stylesheets="@../styles/lightMode.css">
+      <Button fx:id="RemoveButton" layoutX="422.0" layoutY="352.0" mnemonicParsing="false" onAction="#Remove" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Remove Course" textFill="WHITE" />
+      <Button fx:id="BackButton" layoutX="38.0" layoutY="352.0" mnemonicParsing="false" onAction="#backButton" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="WHITE" />
+      <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="521.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="25.0" prefWidth="41.0" stylesheets="@../styles/lightMode.css">
          <styleClass>
             <String fx:value="primary-color" />
             <String fx:value="round-border" />
          </styleClass>
+         <graphic>
+            <ImageView fx:id="imgMode" fitHeight="39.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/dark.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <ImageView fx:id="imgMode" fitHeight="37.0" fitWidth="35.0" layoutX="562.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/dark.png" />
-         </image>
-      </ImageView>
    </children>
-   <effect>
-      <InnerShadow blurType="GAUSSIAN" />
-   </effect>
 </AnchorPane>

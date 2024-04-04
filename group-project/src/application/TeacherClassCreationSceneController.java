@@ -251,7 +251,7 @@ public class TeacherClassCreationSceneController implements Initializable{
 
 		public void backButton(ActionEvent e) throws IOException {
 			SwitchSceneController switchSceneController = new SwitchSceneController();
-			switchSceneController.switchToTempScene(e);
+			switchSceneController.switchToTeacherMenuScene(e);
 		}
 	
 

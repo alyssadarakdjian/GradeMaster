@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,21 +16,26 @@
    <right>
       <AnchorPane prefHeight="457.0" prefWidth="188.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="loginButton" layoutX="19.0" layoutY="338.0" mnemonicParsing="false" onAction="#loginButtonOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Log In" textFill="#f5f4f4">
+         	<Label fx:id="loginType" text="Student Login Page" alignment="CENTER" layoutX="-80.0" layoutY="125.0">
+         		<font>
+         			<Font name="Calisto MT Bold" size="24.0"/>
+         		</font>
+         	</Label>
+            <Button fx:id="loginButton" layoutX="14.0" layoutY="385.0" mnemonicParsing="false" onAction="#loginButtonOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Log In" textFill="#f5f4f4">
                <font>
-                  <Font name="Montserrat Medium" size="12.0" />
+                  <Font name="Calisto MT Bold" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="loginUser" layoutX="12.0" layoutY="216.0" prefHeight="25.0" prefWidth="153.0" promptText="Username" />
-            <Button fx:id="loginCancel" layoutX="17.0" layoutY="385.0" mnemonicParsing="false" onAction="#loginCancelOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Cancel" textFill="#f5f4f4">
+            <TextField fx:id="loginUser" layoutX="0.0" layoutY="216.0" prefHeight="25.0" prefWidth="153.0" promptText="Username" />
+            <Button fx:id="loginCancel" layoutX="84.0" layoutY="385.0" mnemonicParsing="false" onAction="#loginCancelOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Cancel" textFill="#f5f4f4">
                <font>
-                  <Font name="Montserrat Medium" size="12.0" />
+                  <Font name="Calisto MT Bold" size="12.0" />
                </font>
             </Button>
-            <PasswordField fx:id="loginPass" layoutX="14.0" layoutY="277.0" promptText="Password" />
+            <PasswordField fx:id="loginPass" layoutX="0.0" layoutY="277.0" promptText="Password" />
             <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="113.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 80; -fx-background-color: white;" stylesheets="@../styles/lightMode.css">
                <graphic>
-                  <ImageView fx:id="imgMode" fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgMode" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/dark.png" />
                      </image>
@@ -49,6 +53,16 @@
                   <String fx:value="round-border" />
                </styleClass>
             </Button>
+            <Button fx:id="createLogin" layoutX="14.0" layoutY="80.0" mnemonicParsing="false" onAction="#createLoginOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Not a Member?" textFill="#f5f4f4">
+            	<font>
+                  <Font name="Calisto MT Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="swapPage" layoutX="14.0" layoutY="339.0" mnemonicParsing="false" onAction="#studentPageSwap" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Go to Teacher Page" textFill="#f5f4f4">
+            	<font>
+            		<Font name="Calisto MT Bold" size="12.0" />
+            	</font>
+            </Button>
          </children>
       </AnchorPane>
    </right>
@@ -62,12 +76,12 @@
             </ImageView>
             <Label fx:id="labelUserName" layoutX="618.0" layoutY="220.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Username">
                <font>
-                  <Font name="Montserrat Medium Italic" size="15.0" />
+                  <Font name="Calisto MT Italic" size="15.0" />
                </font>
             </Label>
             <Label fx:id="labelPassword" layoutX="620.0" layoutY="282.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Password">
                <font>
-                  <Font name="Montserrat Medium Italic" size="15.0" />
+                  <Font name="Calisto MT Italic" size="15.0" />
                </font>
             </Label>
             <Label fx:id="errorNoPass" layoutX="661.0" layoutY="170.0" textFill="#a42424">
@@ -79,7 +93,4 @@
          </children>
       </AnchorPane>
    </center>
-   <effect>
-      <InnerShadow blurType="GAUSSIAN" />
-   </effect>
 </BorderPane>

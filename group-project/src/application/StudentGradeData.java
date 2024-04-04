@@ -2,33 +2,30 @@ package application;
 
 public class StudentGradeData {
 	private String Ass;
-	private String Weight;
-	private char Grade;
-	private int Percent;
-	private String Feedback;
+	private int PointsPoss;
+	private int PointsRec;
+	private String FeedBack;
 	
-	public StudentGradeData(String Ass, String Weight, char Grade, int Percent, String Feedback) {
+	public StudentGradeData(String Ass, int PointsPoss, int PointsRec, String FeedBack) {
 		this.Ass = Ass;
-		this.Weight = Weight;
-		this.Grade = Grade;
-		this.Percent = Percent;
-		this.Feedback = Feedback;
+		this.PointsPoss = PointsPoss;
+		this.PointsRec = PointsRec;
+		this.FeedBack = FeedBack;
 		
 	}
 	public String getAss() {
 		return Ass;
 	}
-	public String getWeight() {
-		return Weight;
+		public int getPointsPoss() {
+		return PointsPoss;
 	}
-	public char getGrade() {
-		return Grade;
+		
+		public int getPointsRec() {
+			return PointsRec;
 	}
-	public int getPercent() {
-		return Percent;
-	}
+
 	public String getFeedback() {
-		return Feedback;
+		return FeedBack;
 	}
 	
 }

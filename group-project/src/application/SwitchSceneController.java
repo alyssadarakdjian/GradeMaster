@@ -63,5 +63,37 @@ public class SwitchSceneController {
 		stage.setScene(scene);
 		stage.show();
 	}
+	
+	public void switchToCreateLoginScene(ActionEvent event) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("LoginCreateMain.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void switchToStudentMenuScene(ActionEvent event) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("StudentMenuScene.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void switchToTeacherMenuScene(ActionEvent event) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("TeacherMenuScene.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void switchToTeacherGraphScene(ActionEvent event) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("TeacherGraphs.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 }
 
