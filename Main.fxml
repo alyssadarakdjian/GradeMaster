@@ -14,32 +14,21 @@
 
 <BorderPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="889.0" style="-fx-background-color: #FEF9F3;" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <right>
-      <AnchorPane prefHeight="457.0" prefWidth="188.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="457.0" prefWidth="325.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="loginButton" layoutX="15.0" layoutY="338.0" mnemonicParsing="false" onAction="#loginButtonOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Log In" textFill="#f5f4f4">
+            <Button fx:id="loginButton" layoutX="99.0" layoutY="397.0" mnemonicParsing="false" onAction="#loginButtonOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Log In" textFill="#f5f4f4">
                <font>
                   <Font name="Calisto MT Bold" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="loginUser" layoutX="17.0" layoutY="216.0" prefHeight="25.0" prefWidth="153.0" promptText="Username" />
-            <Button fx:id="loginCancel" layoutX="14.0" layoutY="385.0" mnemonicParsing="false" onAction="#loginCancelOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Cancel" textFill="#f5f4f4">
+            <TextField fx:id="loginUser" layoutX="137.0" layoutY="216.0" prefHeight="25.0" prefWidth="153.0" promptText="Username" />
+            <Button fx:id="loginCancel" layoutX="237.0" layoutY="397.0" mnemonicParsing="false" onAction="#loginCancelOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Cancel" textFill="#f5f4f4">
                <font>
                   <Font name="Calisto MT Bold" size="12.0" />
                </font>
             </Button>
-            <PasswordField fx:id="loginPass" layoutX="14.0" layoutY="277.0" promptText="Password" />
-            <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="113.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 80;" stylesheets="@../styles/lightMode.css">
-               <graphic>
-                  <ImageView fx:id="imgMode" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../Downloads/dark%20mode.png" />
-                     </image>
-                     <styleClass>
-                        <String fx:value="primary-color" />
-                        <String fx:value="round-border" />
-                     </styleClass>
-                  </ImageView>
-               </graphic>
+            <PasswordField fx:id="loginPass" layoutX="139.0" layoutY="275.0" promptText="Password" />
+            <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="249.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 80;" stylesheets="@../styles/lightMode.css">
                <opaqueInsets>
                   <Insets left="20.0" right="20.0" />
                </opaqueInsets>
@@ -47,28 +36,54 @@
                   <String fx:value="primary-color" />
                   <String fx:value="round-border" />
                </styleClass>
+               <graphic>
+                  <ImageView fx:id="imgMode" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/dark.png" />
+                     </image>
+                     <styleClass>
+                        <String fx:value="primary-color" />
+                        <String fx:value="round-border" />
+                     </styleClass>
+                  </ImageView>
+               </graphic>
             </Button>
+            <Button fx:id="createLogin" layoutX="64.0" layoutY="66.0" mnemonicParsing="false" onAction="#createLoginOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Not a Member?" textFill="#f5f4f4">
+            	<font>
+                  <Font name="Calisto MT Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="swapPage" layoutX="133.0" layoutY="338.0" mnemonicParsing="false" onAction="#studentPageSwap" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Go to Teacher Page" textFill="#f5f4f4">
+            	<font>
+            		<Font name="Calisto MT Bold" size="12.0" />
+            	</font>
+            </Button>
+            <Label fx:id="labelUserName" layoutX="56.0" layoutY="279.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Username">
+               <font>
+                  <Font name="Calisto MT Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelPassword" layoutX="58.0" layoutY="220.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Password">
+               <font>
+                  <Font name="Calisto MT Italic" size="15.0" />
+               </font>
+            </Label>
+         	<Label fx:id="loginType" alignment="CENTER" layoutX="64.0" layoutY="109.0" prefHeight="33.0" prefWidth="214.0" text="Student Login Page">
+         		<font>
+         			<Font name="Calisto MT Bold" size="24.0" />
+         		</font>
+         	</Label>
          </children>
       </AnchorPane>
    </right>
    <center>
-      <AnchorPane fx:id="password" prefHeight="450.0" prefWidth="569.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="password" prefHeight="457.0" prefWidth="501.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="imgUni" fitHeight="461.0" fitWidth="502.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true" styleClass="secondary-color">
                <image>
                   <Image url="@Login_Logo.jpg" />
                </image>
             </ImageView>
-            <Label fx:id="labelUserName" layoutX="618.0" layoutY="220.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Username">
-               <font>
-                  <Font name="Calisto MT Italic" size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelPassword" layoutX="620.0" layoutY="282.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Password">
-               <font>
-                  <Font name="Calisto MT Italic" size="15.0" />
-               </font>
-            </Label>
             <Label fx:id="errorNoPass" layoutX="661.0" layoutY="170.0" textFill="#a42424">
                <font>
                   <Font name="Calisto MT Bold Italic" size="13.0" />

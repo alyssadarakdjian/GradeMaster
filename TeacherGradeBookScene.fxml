@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -24,23 +25,24 @@
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <Label fx:id="AssNameLabel" layoutX="10.0" layoutY="169.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Assignment Name:" />
+                  <Label fx:id="AssNameLabel" layoutX="8.0" layoutY="169.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Assignment Name:" />
                   <TextField fx:id="AssTextField" layoutX="109.0" layoutY="165.0" />
                   <Button fx:id="CreateAssButton" layoutX="126.0" layoutY="303.0" mnemonicParsing="false" onAction="#CreateAss" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Create Assignment" textFill="WHITE" />
-                  <TextField fx:id="TypeTextField" layoutX="109.0" layoutY="208.0" />
-                  <Label fx:id="AssTypeLabel" layoutX="13.0" layoutY="212.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Assignment Type:" />
-                  <Label fx:id="AssWeightLabel" layoutX="1.0" layoutY="254.0" prefWidth="118.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Assignment Weight:" />
-                  <TextField fx:id="WeightTextField" layoutX="109.0" layoutY="250.0" />
+                  <Label fx:id="PointsPossLabel" layoutX="10.0" layoutY="210.0" prefWidth="118.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Points Possible:" />
+                  <TextField fx:id="PointsPossTextField" layoutX="109.0" layoutY="206.0" />
                   <TableView fx:id="TableView1" layoutX="269.0" layoutY="91.0" prefHeight="197.0" prefWidth="330.0">
                     <columns>
-                      <TableColumn fx:id="Ass" prefWidth="133.3333740234375" text="Assignments" />
-                      <TableColumn fx:id="Type" minWidth="7.33331298828125" prefWidth="122.666748046875" text="Type" />
-                        <TableColumn fx:id="Weight" minWidth="0.0" prefWidth="73.99993896484375" text="Weight" />
+                      <TableColumn fx:id="Ass" prefWidth="234.0" text="Assignments" />
+                        <TableColumn fx:id="PointsPoss" minWidth="0.0" prefWidth="94.0" text="Points Possible" />
                     </columns>
                   </TableView>
                   <Button fx:id="RemoveAssButton" layoutX="372.0" layoutY="303.0" mnemonicParsing="false" onAction="#RemoveAss" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Remove Assignment" textFill="WHITE" />
                   <Button fx:id="BackButton" layoutX="38.0" layoutY="303.0" mnemonicParsing="false" onAction="#backButton" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="WHITE" />
-                  <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="546.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="31.0" prefWidth="27.0" stylesheets="@../styles/lightMode.css">
+                  <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="556.0" layoutY="8.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="43.0" prefWidth="35.0" stylesheets="@../styles/lightMode.css">
+                     <styleClass>
+                        <String fx:value="primary-color" />
+                        <String fx:value="round-border" />
+                     </styleClass>
                      <graphic>
                         <ImageView fx:id="imgMode" fitHeight="23.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -48,11 +50,9 @@
                            </image>
                         </ImageView>
                      </graphic>
-                     <styleClass>
-                        <String fx:value="primary-color" />
-                        <String fx:value="round-border" />
-                     </styleClass>
                   </Button>
+                  <ChoiceBox fx:id="CourseChoiceBox" layoutX="109.0" layoutY="123.0" prefWidth="150.0" />
+                  <Label layoutX="36.0" layoutY="127.0" text="Courses:" />
                </children>
             </AnchorPane>
          </content></Tab>
@@ -60,26 +60,37 @@
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="inputGradeLabel" layoutX="195.0" layoutY="37.0" text="Input Grades">
+                  <Label fx:id="inputLabel" layoutX="24.0" layoutY="14.0" text="Input Grades">
                      <font>
                         <Font size="37.0" />
                      </font>
                   </Label>
-                  <Button fx:id="InputGradeButton" layoutX="144.0" layoutY="303.0" mnemonicParsing="false" onAction="#InputGrade" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Input Grade" textFill="WHITE" />
-                  <Label fx:id="AssLabel" layoutX="28.0" layoutY="181.0" stylesheets="@../styles/lightMode.css" text="Assignment" />
-                  <Label fx:id="gradeLabel" layoutX="41.0" layoutY="254.0" prefHeight="17.0" prefWidth="37.0" stylesheets="@../styles/lightMode.css" text="Grade" />
-                  <TextField fx:id="GradeTextField" layoutX="109.0" layoutY="250.0" />
-                  <TableView fx:id="TableView2" layoutX="269.0" layoutY="91.0" prefHeight="197.0" prefWidth="330.0">
+                  <Label fx:id="PointsRecievedLabel" layoutX="5.0" layoutY="174.0" prefHeight="31.0" prefWidth="100.0" text="Points Recieved:" />
+                  <TextField fx:id="PointsRecievedTextField" layoutX="94.0" layoutY="177.0" />
+                  <TableView fx:id="TableView2" layoutX="244.0" layoutY="61.0" prefHeight="227.0" prefWidth="355.0">
                      <columns>
-                        <TableColumn fx:id="Ass2" prefWidth="135.33331298828125" text="Assignments" />
-                        <TableColumn fx:id="Student" minWidth="7.33331298828125" prefWidth="127.99993896484375" text="Student" />
-                        <TableColumn fx:id="Grade" minWidth="0.0" prefWidth="68.66668701171875" text="Grade" />
+                        <TableColumn fx:id="PointsRecieved" minWidth="7.33331298828125" prefWidth="134.66668701171875" text="Students" />
+                        <TableColumn fx:id="PointsRecieved" minWidth="7.33331298828125" prefWidth="101.33331298828125" text="Points Recieved" />
+                        <TableColumn fx:id="FeedBack" minWidth="0.0" prefWidth="117.33331298828125" text="FeedBack" />
                      </columns>
                   </TableView>
+                  <TextField fx:id="FeedBackTextField" layoutX="94.0" layoutY="212.0" prefHeight="76.0" prefWidth="149.0" />
+                  <Label fx:id="FeedBackLabel" layoutX="3.0" layoutY="219.0" text="FeedBack:" />
+                  <Button fx:id="InputGradeButton" layoutX="129.0" layoutY="303.0" mnemonicParsing="false" onAction="#InputGrade" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Input Grade" textFill="WHITE" />
                   <Button fx:id="RemoveGradeButton" layoutX="387.0" layoutY="303.0" mnemonicParsing="false" onAction="#RemoveGrade" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Remove Grade" textFill="WHITE" />
-                  <TextField fx:id="AssTextField2" layoutX="109.0" layoutY="177.0" />
-                  <TextField fx:id="StudentTextField" layoutX="109.0" layoutY="215.0" />
-                  <Label fx:id="studentLabel" layoutX="39.0" layoutY="219.0" stylesheets="@../styles/lightMode.css" text="Student" />
+                  <Button fx:id="btnMode1" alignment="TOP_RIGHT" layoutX="546.0" layoutY="21.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="31.0" prefWidth="27.0" stylesheets="@../styles/lightMode.css">
+                     <styleClass>
+                        <String fx:value="primary-color" />
+                        <String fx:value="round-border" />
+                     </styleClass>
+                  </Button>
+                  <Label layoutX="8.0" layoutY="104.0" text="Assignment:" />
+                  <ChoiceBox fx:id="AssChoiceBox" layoutX="94.0" layoutY="100.0" prefWidth="150.0" />
+                  <Label fx:id="ChooseAssLabel" layoutX="315.0" layoutY="16.0" prefHeight="31.0" prefWidth="229.0" text="Choose an assingment">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </content>
@@ -88,7 +99,7 @@
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="graphLabel1" layoutX="242.0" layoutY="36.0" stylesheets="@../styles/lightMode.css" text="Graphs">
+                  <Label fx:id="graphLabel1" layoutX="242.0" layoutY="36.0" text="Graphs">
                      <font>
                         <Font size="37.0" />
                      </font>
@@ -106,7 +117,7 @@
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="graphLabel2" layoutX="242.0" layoutY="36.0" stylesheets="@../styles/lightMode.css" text="Graphs">
+                  <Label fx:id="graphLabel2" layoutX="242.0" layoutY="36.0" text="Graphs">
                      <font>
                         <Font size="37.0" />
                      </font>

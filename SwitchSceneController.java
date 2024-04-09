@@ -2,7 +2,6 @@ package application;
 
 import java.io.IOException;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,10 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class SwitchSceneController {
 
-	//private static final boolean isLightMode = true;
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
@@ -73,7 +70,23 @@ public class SwitchSceneController {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		
+	}
+
+	public void switchToGraphScene(ActionEvent event) throws IOException {
+		//root = FXMLLoader.load(getClass().getResource("Graphs.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Graphs.fxml"));
+		root = loader.load();
+		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
+		GraphController graphController = loader.getController();
+		if(Controller.isLightMode) {
+			graphController.setLightMode();
+			}else {
+				graphController.setDarkMode();
+			}
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	public void switchToTempScene(ActionEvent event) throws IOException {
@@ -91,5 +104,72 @@ public class SwitchSceneController {
 		stage.setScene(scene);
 		stage.show();
 	}
+	
+	public void switchToCreateLoginScene(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginCreateMain.fxml"));
+		root = loader.load();
+		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
+		LogController logController = loader.getController();
+		if(Controller.isLightMode) {
+			logController.setLightMode();
+			}else {
+				logController.setDarkMode();
+			}
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void switchToStudentMenuScene(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentMenuScene.fxml"));
+		root = loader.load();
+		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
+		StudentMenuSceneController studentMenuSceneController = loader.getController();
+		if(Controller.isLightMode) {
+			studentMenuSceneController.setLightMode();
+			}else {
+				studentMenuSceneController.setDarkMode();
+			}
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
+	
+	public void switchToTeacherMenuScene(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("TeacherMenuScene.fxml"));
+		root = loader.load();
+		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
+		TeacherMenuSceneController teacherMenuSceneController = loader.getController();
+		if(Controller.isLightMode) {
+			teacherMenuSceneController.setLightMode();
+			}else {
+				teacherMenuSceneController.setDarkMode();
+			}
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
+	
+	public void switchToTeacherGraphScene(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("TeacherGraphs.fxml"));
+		root = loader.load();
+		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
+		TeacherGraphController teacherGraphController = loader.getController();
+		if(Controller.isLightMode) {
+			teacherGraphController.setLightMode();
+			}else {
+				teacherGraphController.setDarkMode();
+			}
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+		
+	}
 }
-

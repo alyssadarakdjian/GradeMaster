@@ -13,7 +13,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GraphController">
+<TabPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherGraphController">
   <tabs>
     <Tab text="Bar Chart">
       <content>
@@ -28,13 +28,13 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </BarChart>
-                  <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="549.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="30.0" prefWidth="31.0" stylesheets="@../styles/lightMode.css">
+                  <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="554.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="27.0" prefWidth="41.0" stylesheets="@../styles/lightMode.css">
                      <styleClass>
                         <String fx:value="primary-color" />
                         <String fx:value="round-border" />
                      </styleClass>
                      <graphic>
-                        <ImageView fx:id="imgMode" fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgMode" fitHeight="33.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/dark.png" />
                            </image>

@@ -3,7 +3,6 @@ package application;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -11,14 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 
+public class TeacherMenuSceneController {
 
-public class MenuSceneController {
-	
-	 @FXML
+	 	@FXML
 	    private Button btnClassCreation;
-
-	    @FXML
-	    private Button btnGBstudent;
 
 	    @FXML
 	    private Button btnGBteacher;
@@ -40,10 +35,6 @@ public class MenuSceneController {
 		switchSceneController.switchToTeacherGradeBook(e);
 	}
 	
-	public void StudentGradeBook(ActionEvent e) throws IOException {
-		SwitchSceneController switchSceneController = new SwitchSceneController();
-		switchSceneController.switchToStudentGradeBook(e);
-	}
 	
 	public void TeacherClassCreate(ActionEvent e) throws IOException {
 		SwitchSceneController switchSceneController = new SwitchSceneController();
@@ -52,14 +43,14 @@ public class MenuSceneController {
 
 	public void GraphPage(ActionEvent e) throws IOException {
 		SwitchSceneController switchSceneController = new SwitchSceneController();
-		switchSceneController.switchToGraphScene(e);
+		switchSceneController.switchToTeacherGraphScene(e);
 	}
 	
-	 private boolean isLightMode = true;
+	// private boolean isLightMode = true;
 
 	    public void changeMode(ActionEvent event) {
-	    	isLightMode = !isLightMode;
-	    	if(isLightMode) {
+	    	Controller.isLightMode = !Controller.isLightMode;
+	    	if(Controller.isLightMode) {
 	    		setLightMode();
 	    	}else {
 	    		setDarkMode();
@@ -73,30 +64,27 @@ public class MenuSceneController {
 	    	imgMode.setImage(image);
 	    	Paint paint = Paint.valueOf("white");
 	    	btnGBteacher.setTextFill(paint);
-	    	btnGBstudent.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
 	    	btnGraphPage.setTextFill(paint);
 	    	Controller.isLightMode = true;
-	    	
-	    	
+
 	 
 	    }
 	    
 	    public void setDarkMode() {
-     	parent.getStylesheets().remove("styles/lightMode.css");
+	    	parent.getStylesheets().remove("styles/lightMode.css");
 	    	parent.getStylesheets().add("styles/darkMode.css");
 	    	Image image = new Image("img/light.png");
 	    	imgMode.setImage(image);
 	    //	imgMode.setStyle("-fx-shape:round");
 	    	Paint paint = Paint.valueOf("black");
 	    	btnGBteacher.setTextFill(paint);
-	    	btnGBstudent.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
 	    	btnGraphPage.setTextFill(paint);
-	    	Controller.isLightMode = true;
+	    	Controller.isLightMode = false;
+	    	
 	    }
 	
 
 	
-
 }

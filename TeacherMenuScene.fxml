@@ -7,13 +7,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuSceneController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherMenuSceneController">
    <children>
-      <Button fx:id="btnGBstudent" layoutX="343.0" layoutY="130.0" mnemonicParsing="false" onAction="#StudentGradeBook" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Grade Book (Student)" textFill="#fffdfd">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
       <Button fx:id="btnGBteacher" layoutX="50.0" layoutY="130.0" mnemonicParsing="false" onAction="#TeacherGradeBook" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Grade Book (Teacher)" textFill="#fffdfd">
          <font>
             <Font size="20.0" />
