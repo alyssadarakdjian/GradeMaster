@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -69,6 +71,12 @@ public class StudentMenuSceneController {
     	btnGBstudent.setTextFill(paint);
     	btnGraphPage.setTextFill(paint);
     	courseLabel.setTextFill(paint);
+    	courseChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+	        if(newValue != null) {
+	        	courseLabel.setText(newValue); // Update label text with selected assignment name
+	        	courseLabel.setTextFill(paint);
+	        }
+	    });
     	Controller.isLightMode= true ;
 
     }
@@ -83,6 +91,12 @@ public class StudentMenuSceneController {
     	btnGBstudent.setTextFill(paint);
     	btnGraphPage.setTextFill(paint);
     	courseLabel.setTextFill(paint);
+    	courseChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+	        if(newValue != null) {
+	        	courseLabel.setText(newValue); // Update label text with selected assignment name
+	        	courseLabel.setTextFill(paint);
+	        }
+	    });
     	Controller.isLightMode= false;
     	
     }
