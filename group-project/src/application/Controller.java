@@ -6,7 +6,10 @@ import java.io.IOException;
 //import java.awt.TextField;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -91,7 +94,7 @@ public class Controller implements Initializable {
 	
 	    public void loginButtonOnAction(ActionEvent e) throws IOException {
 	    	
-	    	if (checkUserPass()) {
+	    	if (validateLogin()) {
 	    		if (studentPage) {
 	    			SwitchSceneController switchSceneController = new SwitchSceneController();  //to specify if it goes through the teacher or student end
 	    			switchSceneController.switchToStudentMenuScene(e);
@@ -101,22 +104,8 @@ public class Controller implements Initializable {
 	    		}
 	    		
 	    	}
-	    	
 	    
-	    	
-			
-			
-			
-			/* THIS CODE IS COMMENTED OUT TEMPORARILY
-			
-			if (loginUser.getText().isBlank() == false && loginPass.getText().isBlank() == false) {
-				//errorLabel.setText("Error");
-				validateLogin();
-				
-			} else {
-					errorLabel.setText("Please enter username and password");
-				} */
-	}
+	    }
 	    
 	    public void createLoginOnAction(ActionEvent e) throws IOException{
 	    	SwitchSceneController switchSceneController = new SwitchSceneController();
@@ -125,131 +114,55 @@ public class Controller implements Initializable {
 	    
 	    public boolean checkUserPass() {
 	    	
-	    	if(userCheck() && passCheck()) {
-	    		return true;
-	    	}
-	    	
-	    	
-	    	
-	    	return false;
-	    }
-	    
-	    public boolean userCheck() {
-	    	if(loginUser.getCharacters().length() < 9) {
-	    		userErrorMessage();
-	    		return false;
-	    	}
 	    	
 	    	return true;
 	    }
 	    
-	    public boolean passCheck() {
-	    	
-	    	boolean lower = false;
-	    	boolean upper = false;
-	    	boolean number = false;
-	    	
-	    	String temp = loginPass.getCharacters().toString();
-	    	char check;
-	    	if (temp.length() < 9) {
-	    		
-	    		shortPass();
-	    		return false;
-	    	}
-	    	
-	    	for(int i = 0; i < temp.length(); i++) {
-	    		check = temp.charAt(i);
-	    		if (Character.isUpperCase(check)) {
-	    			upper = true;
-	    		}
-	    		
-	    		if (Character.isLowerCase(check)) {
-	    			lower = true;
-	    		}
-	    		
-	    		if (Character.isDigit(check)) {
-	    			number = true;
-	    		}
-	    	}
-	    	
-	    	if (lower && upper && number) {
-	    		return true;
-	    	}
-	    	
-	    	if (!lower) {
-	    		noLower();
-	    	}
-	    	
-	    	if (!upper) {
-	    		noUpper();
-	    	}
-	    	
-	    	if (!number) {
-	    		noNumber();
-	    	}
-	    	
-	    	return false;
-	    }
-		
-		public void userErrorMessage() {
-			if (loginUser.getCharacters() == null) {
-				errorLabel.setText("No Username Was Entered");
-			} else if (loginUser.getCharacters().length() < 9) {
-				errorLabel.setText("Username must be at least 9 characters");
-			}
-		}
+	
 
-		public void noLower() {
-			errorLabel.setText("Password must contain at least 1 lowercase letter");
-			
-		}
 		
-		public void noUpper() {
-			errorLabel.setText("Password must contain at least 1 uppercase letter");
-			
-		}
-		
-		public void noNumber() {
-			errorLabel.setText("Password must contain at least 1 number");
-			
-		}
-		
-		public void shortPass() {
-			errorLabel.setText("Password must be at least 9 characters");
-			
-		}
 		
 		public void loginCancelOnAction(ActionEvent e) {
 			Stage stage = (Stage) loginCancel.getScene().getWindow();
 			stage.close();
 		}
 		
-		public void validateLogin()
+		public boolean validateLogin()
 		{
-			DatabaseConnection connectNow = new DatabaseConnection();
-			Connection connectDB = connectNow.getConnection();
+			String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+			String databaseUser = "GradeMaster";
+			String databasePassword = "Justice_League";
+			String dataGroup = "students";
 			
-			String verifyLogin = "SELECT count(1) FROM useraccounts WHERE username = '" + loginUser.getText() + "' AND password = '"+ loginPass.getText() + "'";
+			if (!studentPage) {
+				dataGroup = "teachers";
+			}
 			
-			try {
+			try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
 				
-				Statement statement = connectDB.createStatement();
+				String verifyLogin = "SELECT count(1) FROM " + dataGroup + " WHERE username = '" + loginUser.getText() + "' AND password = '"+ loginPass.getText() + "'";
+				Statement statement = connection.createStatement();
 				ResultSet queryResult = statement.executeQuery(verifyLogin);
 				
 				while(queryResult.next()) {
 					if (queryResult.getInt(1) == 1) {
 						errorLabel.setText("Welcome!");
+						return true;
 					}
 					
 					else {
 						errorLabel.setText("Invalid Login. Please Try Again");
+						return false;
 					}
 				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			return false;
 		}
+
 
 
 	    public void changeMode(ActionEvent event) {

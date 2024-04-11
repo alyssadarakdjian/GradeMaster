@@ -1,6 +1,9 @@
 package application;
 
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,9 +34,7 @@ public class LogController {
 	@FXML
 	private Button changePage;
 	@FXML
-	private Label errorUser;
-	@FXML
-	private Label errorPass;
+	private Label errorLabel;
 	@FXML
 	private Label errorNoMatch;
 	@FXML
@@ -43,28 +44,130 @@ public class LogController {
 	
 	private boolean studentPage = true;
 	
-	public void enterOnAction(ActionEvent e) throws IOException {
-		if(infoCorrect()) {
+	public void enterOnAction(ActionEvent e) throws Exception {
+		if(/*infoCorrect()*/ true) {
 			//send info to the database
 			
+			if (sendLogToDatabase()) {
+				SwitchSceneController switchSceneController = new SwitchSceneController();  //to specify if it goes through the teacher or student end
+				switchSceneController.switchToLoginScene(e);
+			}
 			
-			SwitchSceneController switchSceneController = new SwitchSceneController();  //to specify if it goes through the teacher or student end
-			switchSceneController.switchToLoginScene(e);
+			errorLabel.setText("Info not sent to database");
+			
 			
 		}
 		
 	}
 	
+	public boolean sendLogToDatabase() throws Exception {
+		String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+		String databaseUser = "GradeMaster";
+		String databasePassword = "Justice_League";
+		String dataGroup = "students";
+		
+		if (!studentPage) {
+			dataGroup = "teachers";
+		}
+		
+		try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+	        String sql = "INSERT INTO " + dataGroup + " (first_name, last_name, username, password) VALUES (?, ?, ?, ?)";
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setString(1, firstName.getText());
+	            statement.setString(2, lastName.getText());
+	            statement.setString(3, userName.getText());
+	            statement.setString(4, pass.getText());
+
+	            int rowsInserted = statement.executeUpdate();
+	            if (rowsInserted > 0) {
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        }
+	    }
+	}
+	
 	public boolean infoCorrect() {
-//		if(firstName.getText().isEmpty()) {
-//			return false;
-//		}
-//		
-//		if(lastName.getText().isEmpty()) {
-//			
-//		}
+		
+		if (!fullName(firstName.getText())) {
+			errorLabel.setText("Invalid Name");
+			return false;
+		}
+		
+		if (!fullName(lastName.getText())) {
+			errorLabel.setText("Invalid Name");
+			return false;
+		}
+		
+		if (!userCheck()) {
+			errorLabel.setText("Invalid Username");
+			return false;
+		}
+		
+		if (!passCheck()) {
+			errorLabel.setText("Invalid Password");
+			return false;
+		}
+		
+		if (pass.getText() != repassword.getText()) {
+			errorLabel.setText("Passwords do not Match");
+			return false;
+		}
 		
 		
+		return true;
+	}
+	
+	public boolean passCheck() {
+    	
+    	boolean lower = false;
+    	boolean upper = false;
+    	boolean number = false;
+    	
+    	String temp = pass.getText();
+    	char check;
+    	if (temp.length() < 8) {
+    		
+
+    		return false;
+    	}
+    	
+    	for(int i = 0; i < temp.length(); i++) {
+    		check = temp.charAt(i);
+    		if (Character.isUpperCase(check)) {
+    			upper = true;
+    		}
+    		
+    		if (Character.isLowerCase(check)) {
+    			lower = true;
+    		}
+    		
+    		if (Character.isDigit(check)) {
+    			number = true;
+    		}
+    	}
+    	
+    	if (lower && upper && number) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
+	
+	
+	public boolean userCheck() {
+    	if(userName.getText().length() < 8) {
+    		return false;
+    	}
+    	
+    	return true;
+    }
+	
+	public boolean fullName(String name) {
+		if (name.isEmpty()) {
+			return false;
+		}
 		
 		return true;
 	}

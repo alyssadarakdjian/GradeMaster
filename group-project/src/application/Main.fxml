@@ -84,11 +84,6 @@
                   <Font name="Calisto MT Italic" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="errorNoPass" layoutX="661.0" layoutY="170.0" textFill="#a42424">
-               <font>
-                  <Font name="Calisto MT Bold Italic" size="13.0" />
-               </font>
-            </Label>
             <Label fx:id="errorLabel" alignment="CENTER" layoutX="647.0" layoutY="179.0" textFill="#d03131" />
          </children>
       </AnchorPane>
