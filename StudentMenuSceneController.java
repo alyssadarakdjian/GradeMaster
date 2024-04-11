@@ -5,6 +5,8 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +28,15 @@ public class StudentMenuSceneController {
 
     @FXML
     private AnchorPane parent;
+    
+    @FXML
+    private ChoiceBox<String> courseChoiceBox;
+    
+    @FXML
+    private Label courseLabel;
+
+    
+    
 
 
     public void StudentGradeBook(ActionEvent e) throws IOException {
@@ -57,11 +68,9 @@ public class StudentMenuSceneController {
     	Paint paint = Paint.valueOf("white");
     	btnGBstudent.setTextFill(paint);
     	btnGraphPage.setTextFill(paint);
+    	courseLabel.setTextFill(paint);
     	Controller.isLightMode= true ;
 
-    	
-    	
- 
     }
     
     public void setDarkMode() {
@@ -73,9 +82,18 @@ public class StudentMenuSceneController {
     	Paint paint = Paint.valueOf("black");
     	btnGBstudent.setTextFill(paint);
     	btnGraphPage.setTextFill(paint);
+    	courseLabel.setTextFill(paint);
     	Controller.isLightMode= false;
     	
     }
+
+	public ChoiceBox<String> getCourseChoiceBox() {
+		return courseChoiceBox;
+	}
+
+	public void setCourseChoiceBox(ChoiceBox<String> courseChoiceBox) {
+		this.courseChoiceBox = courseChoiceBox;
+	}
     	
     
 }

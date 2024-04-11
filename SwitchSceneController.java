@@ -89,7 +89,7 @@ public class SwitchSceneController {
 		stage.show();
 	}
 	
-	public void switchToTempScene(ActionEvent event) throws IOException {
+/*	public void switchToTempScene(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuScene.fxml"));
 		root = loader.load();
 		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
@@ -103,7 +103,7 @@ public class SwitchSceneController {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-	}
+	}*/
 	
 	public void switchToCreateLoginScene(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginCreateMain.fxml"));
@@ -131,6 +131,7 @@ public class SwitchSceneController {
 			}else {
 				studentMenuSceneController.setDarkMode();
 			}
+		studentMenuSceneController.getCourseChoiceBox().getItems().addAll("course 1", "course 2", "course 3", "course 4");
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
