@@ -45,7 +45,7 @@ public class LogController {
 	private boolean studentPage = true;
 	
 	public void enterOnAction(ActionEvent e) throws Exception {
-		if(/*infoCorrect()*/ true) {
+		if(infoCorrect()) {
 			//send info to the database
 			
 			if (sendLogToDatabase()) {
