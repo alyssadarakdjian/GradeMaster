@@ -18,13 +18,13 @@
          <children>
             <Button fx:id="loginButton" layoutX="99.0" layoutY="397.0" mnemonicParsing="false" onAction="#loginButtonOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Log In" textFill="#f5f4f4">
                <font>
-                  <Font name="Calisto MT Bold" size="12.0" />
+                  <Font name="Montserrat Bold" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="loginUser" layoutX="137.0" layoutY="216.0" prefHeight="25.0" prefWidth="153.0" promptText="Username" />
-            <Button fx:id="loginCancel" layoutX="237.0" layoutY="397.0" mnemonicParsing="false" onAction="#loginCancelOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Cancel" textFill="#f5f4f4">
+            <TextField fx:id="loginUser" layoutX="139.0" layoutY="216.0" prefHeight="25.0" prefWidth="153.0" promptText="Username" />
+            <Button fx:id="loginCancel" layoutX="208.0" layoutY="397.0" mnemonicParsing="false" onAction="#loginCancelOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Cancel" textFill="#f5f4f4">
                <font>
-                  <Font name="Calisto MT Bold" size="12.0" />
+                  <Font name="Montserrat Bold" size="12.0" />
                </font>
             </Button>
             <PasswordField fx:id="loginPass" layoutX="139.0" layoutY="275.0" promptText="Password" />
@@ -48,29 +48,29 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="createLogin" layoutX="64.0" layoutY="66.0" mnemonicParsing="false" onAction="#createLoginOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Not a Member?" textFill="#f5f4f4">
+            <Button fx:id="createLogin" layoutX="124.0" layoutY="90.0" mnemonicParsing="false" onAction="#createLoginOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Not a Member?" textFill="#f5f4f4">
             	<font>
-                  <Font name="Calisto MT Bold" size="12.0" />
+                  <Font name="Montserrat Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="swapPage" layoutX="133.0" layoutY="338.0" mnemonicParsing="false" onAction="#studentPageSwap" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Go to Teacher Page" textFill="#f5f4f4">
+            <Button fx:id="swapPage" layoutX="113.0" layoutY="338.0" mnemonicParsing="false" onAction="#studentPageSwap" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Go to Teacher Page" textFill="#f5f4f4">
             	<font>
-            		<Font name="Calisto MT Bold" size="12.0" />
+            		<Font name="Montserrat Bold" size="12.0" />
             	</font>
             </Button>
             <Label fx:id="labelUserName" layoutX="64.0" layoutY="220.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Username">
                <font>
-                  <Font name="Calisto MT Italic" size="15.0" />
+                  <Font name="Montserrat Italic" size="13.0" />
                </font>
             </Label>
             <Label fx:id="labelPassword" layoutX="66.0" layoutY="279.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Password">
                <font>
-                  <Font name="Calisto MT Italic" size="15.0" />
+                  <Font name="Montserrat Regular" size="13.0" />
                </font>
             </Label>
-         	<Label fx:id="loginType" alignment="CENTER" layoutX="64.0" layoutY="109.0" prefHeight="33.0" prefWidth="214.0" text="Student Login Page">
+         	<Label fx:id="loginType" alignment="CENTER" layoutX="66.0" layoutY="137.0" prefHeight="33.0" prefWidth="214.0" text="Student Login Page" textFill="#414b3b">
          		<font>
-         			<Font name="Calisto MT Bold" size="24.0" />
+         			<Font name="Montserrat Black" size="18.0" />
          		</font>
          	</Label>
          </children>
