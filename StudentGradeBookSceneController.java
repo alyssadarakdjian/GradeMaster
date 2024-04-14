@@ -73,7 +73,7 @@ public class StudentGradeBookSceneController implements Initializable{
     @FXML
     private ImageView imgMode;
 
-  
+  private int userId = Controller.userId;
 
     private boolean isLightMode = true;
 
@@ -120,29 +120,30 @@ public void setLightMode() {
     }
 			
 	@Override
-	public void initialize(URL url, ResourceBundle ResourceBundel) {
-		Ass.setCellValueFactory(new PropertyValueFactory<StudentGradeData,String>("Ass"));
-		PointsPoss.setCellValueFactory(new PropertyValueFactory<StudentGradeData,Integer>("PointsPoss"));
-		PointsRec.setCellValueFactory(new PropertyValueFactory<StudentGradeData,Integer>("PointsRec"));
-		FeedBack.setCellValueFactory(new PropertyValueFactory<StudentGradeData,String>("feedback"));
+    public void initialize(URL url, ResourceBundle ResourceBundel) {
+        Ass.setCellValueFactory(new PropertyValueFactory<StudentGradeData, String>("Ass"));
+        PointsPoss.setCellValueFactory(new PropertyValueFactory<StudentGradeData, Integer>("PointsPoss"));
+        PointsRec.setCellValueFactory(new PropertyValueFactory<StudentGradeData, Integer>("PointsRec"));
+        FeedBack.setCellValueFactory(new PropertyValueFactory<StudentGradeData, String>("feedback"));
 
-		try {
-			loadDataFromDatabase();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		calculateTotalGrade();
-	}
-	
-	private void loadDataFromDatabase() throws SQLException {
+        try {
+            loadDataFromDatabase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        calculateTotalGrade();
+    }
+
+    private void loadDataFromDatabase() throws SQLException {
+        System.out.println(userId);
         String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
         String databaseUser = "GradeMaster";
         String databasePassword = "Justice_League";
 
         try (Connection connection1 = DriverManager.getConnection(url, databaseUser, databasePassword)) {
-        	String sql = "select assignment_name, grade_range, points_recieved, feedback from assignments inner join grades on assignments.assignment_id = grades.assignment_id";
+            String sql = "SELECT assignment_name, grade_range, points_recieved, feedback FROM assignments INNER JOIN grades ON assignments.assignment_id = grades.assignment_id WHERE student_id = ?";
             try (PreparedStatement statement = connection1.prepareStatement(sql)) {
+                statement.setInt(1, userId);
                 ResultSet resultSet = statement.executeQuery();
                 ObservableList<StudentGradeData> StudentDataList = FXCollections.observableArrayList();
                 while (resultSet.next()) {
@@ -151,40 +152,39 @@ public void setLightMode() {
                     String ass = resultSet.getString("assignment_name");
                     String feedback = resultSet.getString("feedback");
                     StudentDataList.add(new StudentGradeData(ass, pointsPoss, pointsRec, feedback));
-                TableView.setItems(StudentDataList);
+                    TableView.setItems(StudentDataList);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
         }
     }
-	}
-	
-	private void calculateTotalGrade() {
-	    int totalPointsRec = 0;
-	    int totalPointsPoss = 0;
 
-	    ObservableList<StudentGradeData> list = TableView.getItems();
+    private void calculateTotalGrade() {
+        int totalPointsRec = 0;
+        int totalPointsPoss = 0;
 
-	    for (StudentGradeData data : list) {
-	        totalPointsRec += data.getPointsRec();
-	        totalPointsPoss += data.getPointsPoss();
-	    }
+        ObservableList<StudentGradeData> list = TableView.getItems();
 
-	    if (totalPointsPoss == 0) {
-	        showAlert("Error", "Invalid Data", "Total points possible cannot be zero.");
-	        return;
-	    }
+        for (StudentGradeData data : list) {
+            totalPointsRec += data.getPointsRec();
+            totalPointsPoss += data.getPointsPoss();
+        }
 
-	    double percentage = (double) totalPointsRec / totalPointsPoss * 100;
+        if (totalPointsPoss == 0) {
+            showAlert("Error", "Invalid Data", "Total points possible cannot be zero.");
+            return;
+        }
 
-	    String letterGrade = calculateLetterGrade(percentage);
+        double percentage = (double) totalPointsRec / totalPointsPoss * 100;
 
-	    PercentageLabel.setText(String.format("%.2f%%", percentage));
-	    LetterLabel.setText(letterGrade);
-	}
+        String letterGrade = calculateLetterGrade(percentage);
 
-	
+        PercentageLabel.setText(String.format("%.2f%%", percentage));
+        LetterLabel.setText(letterGrade);
+    }
+
     private String calculateLetterGrade(double percentage) {
         if (percentage >= 90) {
             return "A";
@@ -198,16 +198,18 @@ public void setLightMode() {
             return "F";
         }
     }
-	private void showAlert(String title, String header, String content) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(title);
-		alert.setHeaderText(header);
-		alert.setContentText(content);
-		alert.showAndWait();
-	}
-	public void backButton(ActionEvent e) throws IOException {
-		SwitchSceneController switchSceneController = new SwitchSceneController();
-		switchSceneController.switchToStudentMenuScene(e);
-	}
+
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public void backButton(ActionEvent e) throws IOException {
+        SwitchSceneController switchSceneController = new SwitchSceneController();
+        switchSceneController.switchToStudentMenuScene(e);
+    }
 	
 }
