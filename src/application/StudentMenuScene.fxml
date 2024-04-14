@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StudentMenuSceneController">
+   <children>
+      <Button fx:id="btnGBstudent" layoutX="343.0" layoutY="130.0" mnemonicParsing="false" onAction="#StudentGradeBook" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Grade Book (Student)" textFill="#fffdfd">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnGraphPage" layoutX="403.0" layoutY="200.0" mnemonicParsing="false" onAction="#GraphPage" text="Graphs">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="521.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="43.0" prefWidth="42.0" stylesheets="@../styles/lightMode.css">
+         <graphic>
+            <ImageView fx:id="imgMode" fitHeight="42.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" styleClass="round-border">
+               <image>
+                  <Image url="@../img/dark.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <styleClass>
+            <String fx:value="primary-color" />
+            <String fx:value="round-border" />
+         </styleClass>
+      </Button>
+   </children>
+</AnchorPane>
