@@ -90,9 +90,10 @@
                   <TextField fx:id="PointsRecievedTextField" layoutX="120.0" layoutY="177.0" />
                   <TableView fx:id="TableView2" layoutX="296.0" layoutY="61.0" prefHeight="227.0" prefWidth="355.0">
                      <columns>
-                        <TableColumn fx:id="PointsRecieved" minWidth="7.33331298828125" prefWidth="134.66668701171875" text="Students" />
-                        <TableColumn fx:id="PointsRecieved" minWidth="7.33331298828125" prefWidth="101.33331298828125" text="Points Recieved" />
-                        <TableColumn fx:id="FeedBack" minWidth="0.0" prefWidth="117.33331298828125" text="FeedBack" />
+                        <TableColumn fx:id="FirstName" minWidth="7.33331298828125" prefWidth="67.33331298828125" text="First Name" />
+                        <TableColumn fx:id="LastName" minWidth="7.33331298828125" prefWidth="63.33331298828125" text="Last Name" />
+                        <TableColumn fx:id="PointsRecieved" minWidth="7.33331298828125" prefWidth="52.0" text="Points" />
+                        <TableColumn fx:id="FeedBack" minWidth="0.0" prefWidth="307.9999084472656" text="FeedBack" />
                      </columns>
                   </TableView>
                   <TextField fx:id="FeedBackTextField" layoutX="120.0" layoutY="212.0" prefHeight="76.0" prefWidth="149.0" />
@@ -114,52 +115,28 @@
                         <String fx:value="round-border" />
                      </styleClass>
                   </Button>
-                  <Label layoutX="24.0" layoutY="104.0" text="Assignment:">
+                  <Label layoutX="31.0" layoutY="72.0" text="Assignment:">
                      <font>
                         <Font name="Montserrat Bold" size="12.0" />
                      </font></Label>
-                  <ChoiceBox fx:id="AssChoiceBox" layoutX="119.0" layoutY="99.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="AssChoiceBox" layoutX="120.0" layoutY="68.0" prefWidth="150.0" />
                   <Label fx:id="ChooseAssLabel" layoutX="367.0" layoutY="22.0" prefHeight="31.0" prefWidth="229.0" text="Choose an assignment">
                      <font>
                         <Font name="Montserrat Regular" size="17.0" />
                      </font>
                   </Label>
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
-      <Tab text="Graphs">
-         <content>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-               <children>
-                  <Label fx:id="graphLabel1" layoutX="242.0" layoutY="36.0" text="Graphs">
+                  <ChoiceBox fx:id="FirstNameChoiceBox" layoutX="120.0" layoutY="108.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="LastNameChoiceBox" layoutX="120.0" layoutY="141.0" prefWidth="150.0" />
+                  <Label layoutX="32.0" layoutY="112.0" text="First Name:">
                      <font>
-                        <Font size="37.0" />
+                        <Font name="Montserrat Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="278.0" fitWidth="409.0" layoutX="82.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../Pictures/Bell-Curve-Graph.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
-      <Tab text="Graphs">
-         <content>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-               <children>
-                  <Label fx:id="graphLabel2" layoutX="242.0" layoutY="36.0" text="Graphs">
+                  <Label layoutX="31.0" layoutY="145.0" text="Last Name:">
                      <font>
-                        <Font size="37.0" />
+                        <Font name="Montserrat Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="278.0" fitWidth="409.0" layoutX="142.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../Pictures/Graph1.png" />
-                     </image>
-                  </ImageView>
                </children>
             </AnchorPane>
          </content>
