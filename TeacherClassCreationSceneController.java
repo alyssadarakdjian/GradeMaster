@@ -1,24 +1,18 @@
 package application;
 
 import application.SwitchSceneController;
-
-
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javax.swing.text.Style;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +22,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
@@ -78,6 +71,8 @@ public class TeacherClassCreationSceneController implements Initializable{
 
 	    @FXML
 	    private AnchorPane parent;
+	    
+	    private int userId = Controller.userId;
 
 
 	    @Override
@@ -85,7 +80,7 @@ public class TeacherClassCreationSceneController implements Initializable{
 			CourseName.setCellValueFactory(new PropertyValueFactory<ClassData,String>("CourseName"));
 			CourseNum.setCellValueFactory(new PropertyValueFactory<ClassData,Integer>("CourseNum"));
 			try {
-				loadDataFromDatabase();
+				loadDataFromDatabase(userId);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -174,10 +169,12 @@ public class TeacherClassCreationSceneController implements Initializable{
 			//try connection
 			try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
 				//proper values within the database
-				String sql = "INSERT INTO courses (`course_name`, `course_id`) VALUES (?, ?)";
+				String sql = "INSERT INTO courses (`course_name`, `course_id`, teacher_id) VALUES (?, ?, ?)";
 				try (PreparedStatement statement = connection.prepareStatement(sql)) {
 					statement.setString(1, courseName);
 					statement.setInt(2, courseNum);
+					statement.setInt(3, userId);
+					
 
 					int rowsInserted = statement.executeUpdate();
 					if (rowsInserted > 0) {
@@ -193,28 +190,30 @@ public class TeacherClassCreationSceneController implements Initializable{
 		}
 		
 		//method for loading Data From Database
-		private void loadDataFromDatabase() throws SQLException {
-	        String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
-	        String databaseUser = "GradeMaster";
-	        String databasePassword = "Justice_League";
+		private void loadDataFromDatabase(int userId) throws SQLException {
+		    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+		    String databaseUser = "GradeMaster";
+		    String databasePassword = "Justice_League";
 
-	        try (Connection connection1 = DriverManager.getConnection(url, databaseUser, databasePassword)) {
-	            String sql = "SELECT course_id, course_name FROM courses";
-	            try (PreparedStatement statement = connection1.prepareStatement(sql)) {
-	                ResultSet resultSet = statement.executeQuery();
-	                ObservableList<ClassData> classDataList = FXCollections.observableArrayList();
-	                while (resultSet.next()) {
-	                    int courseId = resultSet.getInt("course_id");
-	                    String courseName = resultSet.getString("course_name");
-	                    classDataList.add(new ClassData(courseName, courseId));
-	                TableView.setItems(classDataList);
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
-	        }
-	    }
+		    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+		        String sql = "SELECT course_id, course_name FROM courses WHERE teacher_id = ?";
+		        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		            statement.setInt(1, userId); // Set the user_id as parameter
+		            ResultSet resultSet = statement.executeQuery();
+		            ObservableList<ClassData> classDataList = FXCollections.observableArrayList();
+		            while (resultSet.next()) {
+		                int courseId = resultSet.getInt("course_id");
+		                String courseName = resultSet.getString("course_name");
+		                classDataList.add(new ClassData(courseName, courseId));
+		            }
+		            TableView.setItems(classDataList);
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		            showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
+		        }
+		    }
 		}
+
 		
 		//method for deleting from database
 		private void deleteClassFromDatabase(int courseNum) {
