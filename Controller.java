@@ -1,12 +1,16 @@
 package application;
 
 import java.io.IOException;
+
 //import java.awt.Button;
 //import java.awt.Label;
 //import java.awt.TextField;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -28,7 +32,7 @@ import javafx.scene.control.Label;
 
 public class Controller implements Initializable {
 	
-    	static boolean isLightMode = true;
+    	private boolean isLightMode = true;
     	@FXML
 	    private Button swapPage;
 	  	@FXML
@@ -64,10 +68,7 @@ public class Controller implements Initializable {
 	    //private HyperLink createLoginPage;     trying to make a link to create login page
 	    private boolean studentPage = true;
 	    
-	    
-	    
-	   
-	    
+	    public static int userId;
 	    
 	    
 	    public void studentPageSwap(ActionEvent e) {
@@ -91,32 +92,20 @@ public class Controller implements Initializable {
 	
 	    public void loginButtonOnAction(ActionEvent e) throws IOException {
 	    	
-	    	if (checkUserPass()) {
+	    	if (validateLogin()) {
 	    		if (studentPage) {
+	    			System.out.println("Student_ID:"+userId);
 	    			SwitchSceneController switchSceneController = new SwitchSceneController();  //to specify if it goes through the teacher or student end
 	    			switchSceneController.switchToStudentMenuScene(e);
 	    		} else {
+	    			System.out.println("Teacher_ID:"+userId);
 	    			SwitchSceneController switchSceneController = new SwitchSceneController();  
 	    			switchSceneController.switchToTeacherMenuScene(e);
 	    		}
 	    		
 	    	}
-	    	
 	    
-	    	
-			
-			
-			
-			/* THIS CODE IS COMMENTED OUT TEMPORARILY
-			
-			if (loginUser.getText().isBlank() == false && loginPass.getText().isBlank() == false) {
-				//errorLabel.setText("Error");
-				validateLogin();
-				
-			} else {
-					errorLabel.setText("Please enter username and password");
-				} */
-	}
+	    }
 	    
 	    public void createLoginOnAction(ActionEvent e) throws IOException{
 	    	SwitchSceneController switchSceneController = new SwitchSceneController();
@@ -125,131 +114,55 @@ public class Controller implements Initializable {
 	    
 	    public boolean checkUserPass() {
 	    	
-	    	if(userCheck() && passCheck()) {
-	    		return true;
-	    	}
-	    	
-	    	
-	    	
-	    	return false;
-	    }
-	    
-	    public boolean userCheck() {
-	    	if(loginUser.getCharacters().length() < 9) {
-	    		userErrorMessage();
-	    		return false;
-	    	}
 	    	
 	    	return true;
 	    }
 	    
-	    public boolean passCheck() {
-	    	
-	    	boolean lower = false;
-	    	boolean upper = false;
-	    	boolean number = false;
-	    	
-	    	String temp = loginPass.getCharacters().toString();
-	    	char check;
-	    	if (temp.length() < 9) {
-	    		
-	    		shortPass();
-	    		return false;
-	    	}
-	    	
-	    	for(int i = 0; i < temp.length(); i++) {
-	    		check = temp.charAt(i);
-	    		if (Character.isUpperCase(check)) {
-	    			upper = true;
-	    		}
-	    		
-	    		if (Character.isLowerCase(check)) {
-	    			lower = true;
-	    		}
-	    		
-	    		if (Character.isDigit(check)) {
-	    			number = true;
-	    		}
-	    	}
-	    	
-	    	if (lower && upper && number) {
-	    		return true;
-	    	}
-	    	
-	    	if (!lower) {
-	    		noLower();
-	    	}
-	    	
-	    	if (!upper) {
-	    		noUpper();
-	    	}
-	    	
-	    	if (!number) {
-	    		noNumber();
-	    	}
-	    	
-	    	return false;
-	    }
-		
-		public void userErrorMessage() {
-			if (loginUser.getCharacters() == null) {
-				errorLabel.setText("No Username Was Entered");
-			} else if (loginUser.getCharacters().length() < 9) {
-				errorLabel.setText("Username must be at least 9 characters");
-			}
-		}
+	
 
-		public void noLower() {
-			errorLabel.setText("Password must contain at least 1 lowercase letter");
-			
-		}
 		
-		public void noUpper() {
-			errorLabel.setText("Password must contain at least 1 uppercase letter");
-			
-		}
-		
-		public void noNumber() {
-			errorLabel.setText("Password must contain at least 1 number");
-			
-		}
-		
-		public void shortPass() {
-			errorLabel.setText("Password must be at least 9 characters");
-			
-		}
 		
 		public void loginCancelOnAction(ActionEvent e) {
 			Stage stage = (Stage) loginCancel.getScene().getWindow();
 			stage.close();
 		}
 		
-		public void validateLogin()
-		{
-			DatabaseConnection connectNow = new DatabaseConnection();
-			Connection connectDB = connectNow.getConnection();
-			
-			String verifyLogin = "SELECT count(1) FROM useraccounts WHERE username = '" + loginUser.getText() + "' AND password = '"+ loginPass.getText() + "'";
-			
-			try {
-				
-				Statement statement = connectDB.createStatement();
-				ResultSet queryResult = statement.executeQuery(verifyLogin);
-				
-				while(queryResult.next()) {
-					if (queryResult.getInt(1) == 1) {
-						errorLabel.setText("Welcome!");
-					}
-					
-					else {
-						errorLabel.setText("Invalid Login. Please Try Again");
-					}
-				}
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		public boolean validateLogin() {
+	        String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+	        String databaseUser = "GradeMaster";
+	        String databasePassword = "Justice_League";
+	        String dataGroup = studentPage ? "students" : "teachers"; // Determines the data group based on studentPage flag
+
+	        try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+
+	            String verifyLogin = "SELECT " + (studentPage ? "student_id" : "teacher_id") + " FROM " + dataGroup + " WHERE username = ? AND password = ?";
+	            PreparedStatement statement = connection.prepareStatement(verifyLogin);
+	            statement.setString(1, loginUser.getText());
+	            statement.setString(2, loginPass.getText());
+
+	            ResultSet queryResult = statement.executeQuery();
+
+	            if (queryResult.next()) {
+	                // If login is successful, retrieve the appropriate ID
+	                userId = queryResult.getInt(1); // Assuming the ID column is the first one in the result set
+	                errorLabel.setText("Welcome!");
+	                return true;
+	            } else {
+	                errorLabel.setText("Invalid Login. Please Try Again");
+	                return false;
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return false;
+	    }
+
+	    // Method to retrieve user_id (student_id or teacher_id)
+	    public int getUserId() {
+	        return userId;
+	    }
 		
 
 	    public void changeMode(ActionEvent event) {
