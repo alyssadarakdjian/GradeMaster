@@ -12,14 +12,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<TabPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherGraphController">
+<TabPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="625.0" style="-fx-background-color: fff9f3;" styleClass="primary-color" stylesheets="@../styles/lightMode.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TeacherGraphController">
   <tabs>
     <Tab text="Bar Chart">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: fff9f3;">
                <children>
-                  <Button fx:id="backButton" layoutX="23.0" layoutY="321.0" mnemonicParsing="false" onAction="#backButton" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="WHITE" />
+                  <Button fx:id="backButton" layoutX="23.0" layoutY="321.0" mnemonicParsing="false" onAction="#backButton" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Bold" size="12.0" />
+                     </font></Button>
                   <BarChart layoutX="23.0" layoutY="14.0" prefHeight="308.0" prefWidth="549.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
@@ -28,7 +32,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </BarChart>
-                  <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="554.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="27.0" prefWidth="41.0" stylesheets="@../styles/lightMode.css">
+                  <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="572.0" layoutY="8.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="28.0" prefWidth="42.0" stylesheets="@../styles/lightMode.css">
                      <styleClass>
                         <String fx:value="primary-color" />
                         <String fx:value="round-border" />
@@ -57,7 +61,10 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="backButton3" layoutX="23.0" layoutY="321.0" mnemonicParsing="false" onAction="#backButton" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="WHITE" />
+                  <Button fx:id="backButton3" layoutX="23.0" layoutY="321.0" mnemonicParsing="false" onAction="#backButton" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Bold" size="12.0" />
+                     </font></Button>
                   <LineChart layoutX="23.0" layoutY="14.0" prefHeight="309.0" prefWidth="538.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />

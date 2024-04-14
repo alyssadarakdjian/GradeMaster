@@ -7,26 +7,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuSceneController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="625.0" style="-fx-background-color: fff9f3;" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuSceneController">
    <children>
-      <Button fx:id="btnGBstudent" layoutX="343.0" layoutY="130.0" mnemonicParsing="false" onAction="#StudentGradeBook" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Grade Book (Student)" textFill="#fffdfd">
+      <Button fx:id="btnGBstudent" layoutX="344.0" layoutY="130.0" mnemonicParsing="false" onAction="#StudentGradeBook" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Grade Book (Student)" textFill="#fffdfd">
          <font>
-            <Font size="20.0" />
+            <Font name="Montserrat Bold" size="18.0" />
          </font>
       </Button>
       <Button fx:id="btnGBteacher" layoutX="50.0" layoutY="130.0" mnemonicParsing="false" onAction="#TeacherGradeBook" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Grade Book (Teacher)" textFill="#fffdfd">
          <font>
-            <Font size="20.0" />
+            <Font name="Montserrat Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnClassCreation" layoutX="81.0" layoutY="200.0" mnemonicParsing="false" onAction="#TeacherClassCreate" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Class Creation" textFill="#fffdfd">
+      <Button fx:id="btnClassCreation" layoutX="85.0" layoutY="222.0" mnemonicParsing="false" onAction="#TeacherClassCreate" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Class Creation" textFill="#fffdfd">
          <font>
-            <Font size="20.0" />
+            <Font name="Montserrat Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnGraphPage" layoutX="403.0" layoutY="200.0" mnemonicParsing="false" onAction="#GraphPage" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Graphs" textFill="WHITE">
+      <Button fx:id="btnGraphPage" layoutX="412.0" layoutY="222.0" mnemonicParsing="false" onAction="#GraphPage" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Graphs" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Montserrat Bold" size="18.0" />
          </font>
       </Button>
       <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="521.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="43.0" prefWidth="42.0" stylesheets="@../styles/lightMode.css">

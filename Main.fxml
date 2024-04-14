@@ -21,13 +21,13 @@
                   <Font name="Montserrat Bold" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="loginUser" layoutX="139.0" layoutY="216.0" prefHeight="25.0" prefWidth="153.0" promptText="Username" />
+            <TextField fx:id="loginUser" layoutX="113.0" layoutY="216.0" prefHeight="25.0" prefWidth="153.0" promptText="Username" />
             <Button fx:id="loginCancel" layoutX="208.0" layoutY="397.0" mnemonicParsing="false" onAction="#loginCancelOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Cancel" textFill="#f5f4f4">
                <font>
                   <Font name="Montserrat Bold" size="12.0" />
                </font>
             </Button>
-            <PasswordField fx:id="loginPass" layoutX="139.0" layoutY="275.0" promptText="Password" />
+            <PasswordField fx:id="loginPass" layoutX="115.0" layoutY="275.0" promptText="Password" />
             <Button fx:id="btnMode" alignment="TOP_RIGHT" layoutX="249.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 80;" stylesheets="@../styles/lightMode.css">
                <opaqueInsets>
                   <Insets left="20.0" right="20.0" />
@@ -58,12 +58,12 @@
             		<Font name="Montserrat Bold" size="12.0" />
             	</font>
             </Button>
-            <Label fx:id="labelUserName" layoutX="64.0" layoutY="220.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Username">
+            <Label fx:id="labelUserName" layoutX="32.0" layoutY="220.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Username">
                <font>
                   <Font name="Montserrat Italic" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="labelPassword" layoutX="66.0" layoutY="279.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Password">
+            <Label fx:id="labelPassword" layoutX="34.0" layoutY="279.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Password">
                <font>
                   <Font name="Montserrat Regular" size="13.0" />
                </font>
