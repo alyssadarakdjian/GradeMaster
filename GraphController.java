@@ -53,8 +53,8 @@ public class GraphController {
 	}
 	
 	 public void changeMode(ActionEvent event) {
-	    	Controller.isLightMode = !Controller.isLightMode;
-	    	if(Controller.isLightMode) {
+	    	Controller.setLightMode(!Controller.isLightMode());
+	    	if(Controller.isLightMode()) {
 	    		setLightMode();
 	    	}else {
 	    		setDarkMode();
@@ -70,7 +70,7 @@ public class GraphController {
 	    	backButton.setTextFill(paint);
 	    	backButton2.setTextFill(paint);
 	    	backButton3.setTextFill(paint);
-	    	Controller.isLightMode = true;
+	    	Controller.setLightMode(true);
 
 	    }
 	    
@@ -83,7 +83,7 @@ public class GraphController {
 	    	backButton.setTextFill(paint);
 	    	backButton2.setTextFill(paint);
 	    	backButton3.setTextFill(paint);
-	    	Controller.isLightMode = false;
+	    	Controller.setLightMode(false);
 	    	
 	    }
 }

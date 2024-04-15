@@ -32,7 +32,7 @@ import javafx.scene.control.Label;
 
 public class Controller implements Initializable {
 	
-    	private boolean isLightMode = true;
+    	private static boolean isLightMode = true;
     	@FXML
 	    private Button swapPage;
 	  	@FXML
@@ -163,18 +163,22 @@ public class Controller implements Initializable {
 	    public int getUserId() {
 	        return userId;
 	    }
+	    
+	    public boolean getLightMode() {
+	        return isLightMode();
+	    }
 		
 
 	    public void changeMode(ActionEvent event) {
-	    	isLightMode = !isLightMode;
-	    	if(isLightMode) {
+	    	setLightMode(!isLightMode());
+	    	if(isLightMode()) {
 	    		setLightMode();
 	    	}else {
 	    		setDarkMode();
 	    	}
 	    }
 	    
-	    private void setLightMode() {
+	    public void setLightMode() {
 	    	parent.getStylesheets().remove("styles/darkMode.css");
 	    	parent.getStylesheets().add("styles/lightMode.css");
 	    	Image image = new Image("img/dark.png");
@@ -193,7 +197,7 @@ public class Controller implements Initializable {
 	    	Controller.isLightMode = true;
 	    }
 	    
-        private void setDarkMode() {
+        public void setDarkMode() {
         	parent.getStylesheets().remove("styles/lightMode.css");
 	    	parent.getStylesheets().add("styles/darkMode.css");
 	    	Image image = new Image("img/light.png");
@@ -209,7 +213,7 @@ public class Controller implements Initializable {
 	    	swapPage.setTextFill(paint1);
 	    	loginType.setTextFill(paint2);
 	    	createLogin.setTextFill(paint1);
-	    	Controller.isLightMode = false;
+	    	Controller.setLightMode(false);
 	    }
 
 		@Override
@@ -221,6 +225,22 @@ public class Controller implements Initializable {
 		public void initialize1(URL arg0, ResourceBundle arg1) {
 			// TODO Auto-generated method stub
 			
+		}
+
+
+
+
+
+		public static boolean isLightMode() {
+			return isLightMode;
+		}
+
+
+
+
+
+		public static void setLightMode(boolean isLightMode) {
+			Controller.isLightMode = isLightMode;
 		}
 
 }

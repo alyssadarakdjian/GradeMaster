@@ -102,8 +102,8 @@ public class LogController {
 	}
 	
 	public void changeMode(ActionEvent event) {
-    	Controller.isLightMode = !Controller.isLightMode;
-    	if(Controller.isLightMode) {
+    	Controller.setLightMode(!Controller.isLightMode());
+    	if(Controller.isLightMode()) {
     		setLightMode();
     	}else {
     		setDarkMode();
@@ -123,7 +123,7 @@ public class LogController {
     	signUp.setTextFill(paint2);
     	close.setTextFill(paint2);
     	pageName.setTextFill(paint);
-    	Controller.isLightMode = true;
+    	Controller.setLightMode(true);
 
     }
     
@@ -140,7 +140,7 @@ public void setDarkMode() {
     	signUp.setTextFill(paint);
     	close.setTextFill(paint);
     	pageName.setTextFill(paint2);
-    	Controller.isLightMode = false;
+    	Controller.setLightMode(false);
     	
     }
 	

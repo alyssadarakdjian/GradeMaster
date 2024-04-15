@@ -763,8 +763,8 @@ public class TeacherGradeBookSceneController implements Initializable{
 	// private boolean isLightMode = true;
 
 	    public void changeMode(ActionEvent event) {
-	    	Controller.isLightMode = !Controller.isLightMode;
-	    	if(Controller.isLightMode) {
+	    	Controller.setLightMode(!Controller.isLightMode());
+	    	if(Controller.isLightMode()) {
 	    		setLightMode();
 	    	}else {
 	    		setDarkMode();
@@ -789,10 +789,7 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    	PointsPossLabel.setTextFill(paint2);
 	    	PointsRecievedLabel.setTextFill(paint2);
 	    	FeedBackLabel.setTextFill(paint2);
-	    	inputLabel.setTextFill(paint2);
-	    	graphLabel1.setTextFill(paint2);
-	    	graphLabel2.setTextFill(paint2);
-	    	Controller.isLightMode = true;
+	    	Controller.setLightMode(true);
 	    }
 	    
 	 public void setDarkMode() {
@@ -814,10 +811,7 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    	PointsPossLabel.setTextFill(paint2);
 	    	PointsRecievedLabel.setTextFill(paint2);
 	    	FeedBackLabel.setTextFill(paint2);
-	    	inputLabel.setTextFill(paint2);
-	    	graphLabel1.setTextFill(paint2);
-	    	graphLabel2.setTextFill(paint2);
-	    	Controller.isLightMode = false;
+	    	Controller.setLightMode(false);
 	    }
 
 }

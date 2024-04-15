@@ -29,7 +29,7 @@ public class SwitchSceneController {
 		root = loader.load();
 		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
 		StudentGradeBookSceneController studentGradeBookSceneController = loader.getController();
-		if(Controller.isLightMode) {
+		if(Controller.isLightMode()) {
 			studentGradeBookSceneController.setLightMode();
 			}else {
 				studentGradeBookSceneController.setDarkMode();
@@ -45,7 +45,7 @@ public class SwitchSceneController {
 		root = loader.load();
 		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
 		TeacherGradeBookSceneController teacherGradeBookSceneController = loader.getController();
-		if(Controller.isLightMode) {
+		if(Controller.isLightMode()) {
 			teacherGradeBookSceneController.setLightMode();
 			}else {
 				teacherGradeBookSceneController.setDarkMode();
@@ -61,7 +61,7 @@ public class SwitchSceneController {
 		root = loader.load();
 		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
 		TeacherClassCreationSceneController teacherClassCreationSceneController = loader.getController();
-		if(Controller.isLightMode) {
+		if(Controller.isLightMode()) {
 			teacherClassCreationSceneController.setLightMode();
 			}else {
 				teacherClassCreationSceneController.setDarkMode();
@@ -78,7 +78,7 @@ public class SwitchSceneController {
 		root = loader.load();
 		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
 		GraphController graphController = loader.getController();
-		if(Controller.isLightMode) {
+		if(Controller.isLightMode()) {
 			graphController.setLightMode();
 			}else {
 				graphController.setDarkMode();
@@ -110,7 +110,7 @@ public class SwitchSceneController {
 		root = loader.load();
 		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
 		LogController logController = loader.getController();
-		if(Controller.isLightMode) {
+		if(Controller.isLightMode()) {
 			logController.setLightMode();
 			}else {
 				logController.setDarkMode();
@@ -126,7 +126,7 @@ public class SwitchSceneController {
 		root = loader.load();
 		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
 		StudentMenuSceneController studentMenuSceneController = loader.getController();
-		if(Controller.isLightMode) {
+		if(Controller.isLightMode()) {
 			studentMenuSceneController.setLightMode();
 			}else {
 				studentMenuSceneController.setDarkMode();
@@ -144,7 +144,7 @@ public class SwitchSceneController {
 		root = loader.load();
 		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
 		TeacherMenuSceneController teacherMenuSceneController = loader.getController();
-		if(Controller.isLightMode) {
+		if(Controller.isLightMode()) {
 			teacherMenuSceneController.setLightMode();
 			}else {
 				teacherMenuSceneController.setDarkMode();
@@ -161,7 +161,7 @@ public class SwitchSceneController {
 		root = loader.load();
 		//root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
 		TeacherGraphController teacherGraphController = loader.getController();
-		if(Controller.isLightMode) {
+		if(Controller.isLightMode()) {
 			teacherGraphController.setLightMode();
 			}else {
 				teacherGraphController.setDarkMode();

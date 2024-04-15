@@ -76,7 +76,7 @@ public class MenuSceneController {
 	    	btnGBstudent.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
 	    	btnGraphPage.setTextFill(paint);
-	    	Controller.isLightMode = true;
+	    	Controller.setLightMode(true);
 	    	
 	    	
 	 
@@ -93,7 +93,7 @@ public class MenuSceneController {
 	    	btnGBstudent.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
 	    	btnGraphPage.setTextFill(paint);
-	    	Controller.isLightMode = true;
+	    	Controller.setLightMode(true);
 	    }
 	
 

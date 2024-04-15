@@ -73,6 +73,7 @@ public class TeacherClassCreationSceneController implements Initializable{
 	    private AnchorPane parent;
 	    
 	    private int userId = Controller.userId;
+	    private boolean isLightMode = Controller.isLightMode();
 
 
 	    @Override
@@ -257,8 +258,8 @@ public class TeacherClassCreationSceneController implements Initializable{
   //  private boolean isLightMode = true;
 
     public void changeMode(ActionEvent event) {
-    	Controller.isLightMode = !Controller.isLightMode;
-    	if(Controller.isLightMode) {
+    	Controller.setLightMode(!Controller.isLightMode());
+    	if(Controller.isLightMode()) {
     		setLightMode();
     	}else {
     		setDarkMode();
@@ -279,7 +280,7 @@ public class TeacherClassCreationSceneController implements Initializable{
     	CourseCreationLabel.setTextFill(paint2);
     	CourseNameLabel.setTextFill(paint2);
     	CourseNumberLabel.setTextFill(paint2);
-    	Controller.isLightMode = true;    	
+    	Controller.setLightMode(true);    	
     	
   
     }
@@ -298,7 +299,7 @@ public class TeacherClassCreationSceneController implements Initializable{
     	CourseCreationLabel.setTextFill(paint2);
     	CourseNameLabel.setTextFill(paint2);
     	CourseNumberLabel.setTextFill(paint2);
-    	Controller.isLightMode = false;
+    	Controller.setLightMode(false);
     	
     }
 

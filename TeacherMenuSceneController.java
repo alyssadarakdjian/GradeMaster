@@ -49,8 +49,8 @@ public class TeacherMenuSceneController {
 	// private boolean isLightMode = true;
 
 	    public void changeMode(ActionEvent event) {
-	    	Controller.isLightMode = !Controller.isLightMode;
-	    	if(Controller.isLightMode) {
+	    	Controller.setLightMode(!Controller.isLightMode());
+	    	if(Controller.isLightMode()) {
 	    		setLightMode();
 	    	}else {
 	    		setDarkMode();
@@ -66,7 +66,7 @@ public class TeacherMenuSceneController {
 	    	btnGBteacher.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
 	    	btnGraphPage.setTextFill(paint);
-	    	Controller.isLightMode = true;
+	    	Controller.setLightMode(true);
 
 	 
 	    }
@@ -81,7 +81,7 @@ public class TeacherMenuSceneController {
 	    	btnGBteacher.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
 	    	btnGraphPage.setTextFill(paint);
-	    	Controller.isLightMode = false;
+	    	Controller.setLightMode(false);
 	    	
 	    }
 	

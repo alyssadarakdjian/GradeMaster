@@ -54,8 +54,8 @@ public class StudentMenuSceneController {
    // private boolean isLightMode = true;
 
     public void changeMode(ActionEvent event) {
-    	Controller.isLightMode = !Controller.isLightMode;
-    	if(Controller.isLightMode) {
+    	Controller.setLightMode(!Controller.isLightMode());
+    	if(Controller.isLightMode()) {
     		setLightMode();
     	}else {
     		setDarkMode();
@@ -77,7 +77,7 @@ public class StudentMenuSceneController {
 	        	courseLabel.setTextFill(paint);
 	        }
 	    });
-    	Controller.isLightMode= true ;
+    	Controller.setLightMode(true) ;
 
     }
     
@@ -97,7 +97,7 @@ public class StudentMenuSceneController {
 	        	courseLabel.setTextFill(paint);
 	        }
 	    });
-    	Controller.isLightMode= false;
+    	Controller.setLightMode(false);
     	
     }
 
