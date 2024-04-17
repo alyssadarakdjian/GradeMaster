@@ -19,6 +19,9 @@ public class TeacherMenuSceneController {
 	    private Button btnGBteacher;
 	    
 	    @FXML
+	    private Button btnGraphPage;
+	    
+	    @FXML
 	    private Button btnMode;
 
 	    @FXML
@@ -62,6 +65,7 @@ public class TeacherMenuSceneController {
 	    	Paint paint = Paint.valueOf("white");
 	    	btnGBteacher.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
+	    	btnGraphPage.setTextFill(paint);
 
 	    	
 	    	
@@ -77,6 +81,7 @@ public class TeacherMenuSceneController {
 	    	Paint paint = Paint.valueOf("black");
 	    	btnGBteacher.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
+	    	btnGraphPage.setTextFill(paint);
 	    	
 	    }
 	

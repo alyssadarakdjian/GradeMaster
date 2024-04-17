@@ -56,6 +56,7 @@ public class SwitchSceneController {
 		stage.show();
 	}
 	
+	/*
 	public void switchToTempScene(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("MenuScene.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -63,6 +64,7 @@ public class SwitchSceneController {
 		stage.setScene(scene);
 		stage.show();
 	}
+	*/
 	
 	public void switchToCreateLoginScene(ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("LoginCreateMain.fxml"));

@@ -16,6 +16,9 @@ public class StudentMenuSceneController {
     private Button btnGBstudent;
     
     @FXML
+    private Button btnGraphPage;
+    
+    @FXML
     private Button btnMode;
 
     @FXML
@@ -53,6 +56,7 @@ public class StudentMenuSceneController {
     	imgMode.setImage(image);
     	Paint paint = Paint.valueOf("white");
     	btnGBstudent.setTextFill(paint);
+    	btnGraphPage.setTextFill(paint);
 
     	
     	
@@ -67,6 +71,7 @@ public class StudentMenuSceneController {
     //	imgMode.setStyle("-fx-shape:round");
     	Paint paint = Paint.valueOf("black");
     	btnGBstudent.setTextFill(paint);
+    	btnGraphPage.setTextFill(paint);
     	
     }
     	

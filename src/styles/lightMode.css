@@ -9,3 +9,27 @@
 .round-border{
 	-fx-background-radius: 100;
 }
+
+.chart-title {
+	-fx-text-fill: #000000;
+}
+
+.axis-label {
+	-fx-text-fill: #000000;
+}
+
+.default-color0.chart-bar {
+	-fx-bar-fill: #e86633;
+}
+
+.default-color1.chart-bar {
+	-fx-bar-fill: #e89d33;
+}
+
+.default-color2.chart-bar {
+	-fx-bar-fill: #e86633;
+}
+
+.default-color3.chart-bar {
+	-fx-bar-fill: #e89d33;
+}
