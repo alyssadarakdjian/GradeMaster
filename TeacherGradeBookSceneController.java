@@ -470,7 +470,44 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    return -1; // Return -1 if student is not found
 	}
 
+	private int getAssignmentId(int pointsReceived, String feedback, int studentId) throws SQLException {
+	    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+	    String databaseUser = "GradeMaster";
+	    String databasePassword = "Justice_League";
 
+	    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+	        String sql = "SELECT assignment_id FROM grades WHERE points_recieved = ? AND feedback = ? AND student_id = ?";
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setInt(1, pointsReceived);
+	            statement.setString(2, feedback);
+	            statement.setInt(3, studentId);
+	            ResultSet resultSet = statement.executeQuery();
+	            if (resultSet.next()) {
+	                return resultSet.getInt("assignment_id");
+	            }
+	        }
+	    }
+	    return -1; // Return -1 if assignment is not found
+	}
+
+	private int getGradeId(int assignmentId, int studentId) throws SQLException {
+	    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+	    String databaseUser = "GradeMaster";
+	    String databasePassword = "Justice_League";
+
+	    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+	        String sql = "SELECT grade_id FROM grades WHERE assignment_id = ? AND student_id = ?";
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setInt(1, assignmentId);
+	            statement.setInt(2, studentId);
+	            ResultSet resultSet = statement.executeQuery();
+	            if (resultSet.next()) {
+	                return resultSet.getInt("grade_id");
+	            }
+	        }
+	    }
+	    return -1; // Return -1 if grade is not found
+	}
 
 	@FXML
 	void RemoveGrade(ActionEvent event) {
@@ -487,10 +524,41 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 	    GradeData selectedGrade = TableView2.getItems().get(selectedID);
 	    int pointsReceived = selectedGrade.getPointsRecieved();
+	    String feedback = selectedGrade.getFeedBack();
+	    String firstName = selectedGrade.getFirstName();
+	    String lastName = selectedGrade.getLastName();
 
-	    deleteGradeFromDatabase(pointsReceived);
+	    try {
+	        // Find student_id based on firstName and lastName
+	        int studentId = getStudentId(firstName, lastName);
+	        if (studentId == -1) {
+	            showAlert("Error", "Student Not Found", "Selected student not found in the database.");
+	            return;
+	        }
 
-	    TableView2.getItems().remove(selectedID);
+	        // Find assignment_id based on pointsReceived, feedback, and student_id
+	        int assignmentId = getAssignmentId(pointsReceived, feedback, studentId);
+	        if (assignmentId == -1) {
+	            showAlert("Error", "Assignment Not Found", "Selected assignment not found in the database.");
+	            return;
+	        }
+
+	        // Find grade_id based on assignment_id and student_id
+	        int gradeId = getGradeId(assignmentId, studentId);
+	        if (gradeId == -1) {
+	            showAlert("Error", "Grade Not Found", "Grade not found in the database.");
+	            return;
+	        }
+
+	        // Delete the grade from the database
+	        deleteGradeFromDatabase(gradeId);
+
+	        // Remove the grade from TableView
+	        TableView2.getItems().remove(selectedID);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        showAlert("Error", "Database Error", "An error occurred while deleting the grade from the database.");
+	    }
 	}
 
 
@@ -730,15 +798,15 @@ public class TeacherGradeBookSceneController implements Initializable{
 				return FeedBackTextField;
 			}
 			
-			private void deleteGradeFromDatabase(int pointsReceived) {
+			private void deleteGradeFromDatabase(int grade_id) {
 			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
 			    String databaseUser = "GradeMaster";
 			    String databasePassword = "Justice_League";
 
 			    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
-			        String sql = "DELETE FROM grades WHERE points_recieved = ?";
+			        String sql = "DELETE FROM grades WHERE grade_id = ?";
 			        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-			            statement.setInt(1, pointsReceived);
+			            statement.setInt(1, grade_id);
 
 			            int rowsDeleted = statement.executeUpdate();
 			            if (rowsDeleted > 0) {
