@@ -63,6 +63,9 @@ public class StudentGradeBookSceneController implements Initializable{
 
     @FXML
     private Button btnBack;
+    
+    @FXML
+    private Button refreshButton;
 
     @FXML
     private Button btnMode;
@@ -125,7 +128,8 @@ public void setLightMode() {
         PointsPoss.setCellValueFactory(new PropertyValueFactory<StudentGradeData, Integer>("PointsPoss"));
         PointsRec.setCellValueFactory(new PropertyValueFactory<StudentGradeData, Integer>("PointsRec"));
         FeedBack.setCellValueFactory(new PropertyValueFactory<StudentGradeData, String>("feedback"));
-
+        
+        refreshButton.setOnAction(this::handleRefresh);
         try {
             loadDataFromDatabase();
         } catch (SQLException e) {
@@ -133,6 +137,16 @@ public void setLightMode() {
         }
         calculateTotalGrade();
     }
+	
+	private void handleRefresh(ActionEvent event) {
+	    try {
+	        loadDataFromDatabase(); // Reload data from the database
+	        calculateTotalGrade(); // Recalculate total grade
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
+	    }
+	}
 
     private void loadDataFromDatabase() throws SQLException {
         System.out.println(userId);
