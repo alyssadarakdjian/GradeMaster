@@ -14,7 +14,7 @@
 	<right>
 		<AnchorPane prefHeight="457.0" prefWidth="165.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" BorderPane.alignment="CENTER">
 			<children>
-               	<Button fx:id="close" layoutX="40.0" layoutY="372.0" mnemonicParsing="false" onAction="#closeOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Close" textFill="#f5f4f4">
+               	<Button fx:id="backButton" layoutX="40.0" layoutY="372.0" mnemonicParsing="false" onAction="#backButtonActionEvent" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="#f5f4f4">
                		<font>
                   		<Font name="Calisto MT Bold" size="12.0" />
                		</font>

@@ -33,7 +33,7 @@ public class LogController {
 	@FXML
 	private Label pageName;
 	@FXML
-	private Button close;
+	private Button backButton;
 	@FXML
 	private Button changePage;
 	@FXML
@@ -81,9 +81,9 @@ public class LogController {
 		return true;
 	}
 	
-	public void closeOnAction(ActionEvent e) {
-		Stage stage = (Stage) close.getScene().getWindow();
-		stage.close();
+	public void backButtonActionEvent(ActionEvent e) throws IOException {
+		SwitchSceneController switchSceneController = new SwitchSceneController();  //to specify if it goes through the teacher or student end
+		switchSceneController.switchToLoginScene(e);
 	}
 	
 	public void swapOnAction(ActionEvent e) {
@@ -121,7 +121,7 @@ public class LogController {
     	Paint paint2 = Paint.valueOf("white");
     	changePage.setTextFill(paint2);
     	signUp.setTextFill(paint2);
-    	close.setTextFill(paint2);
+    	backButton.setTextFill(paint2);
     	pageName.setTextFill(paint);
     	Controller.setLightMode(true);
 
@@ -138,7 +138,7 @@ public void setDarkMode() {
     	Paint paint2 = Paint.valueOf("white");
     	changePage.setTextFill(paint);
     	signUp.setTextFill(paint);
-    	close.setTextFill(paint);
+    	backButton.setTextFill(paint2);
     	pageName.setTextFill(paint2);
     	Controller.setLightMode(false);
     	
