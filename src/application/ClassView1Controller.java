@@ -44,19 +44,19 @@ public class ClassView1Controller {
     @FXML
     private AnchorPane syllabusLabel;
 
-    private boolean isLightMode = true;
+    //private boolean isLightMode = true;
 
     @FXML
     private void changeMode(ActionEvent event) {
-    	isLightMode = !isLightMode;
-    	if(isLightMode) {
+    	Controller.setLightMode(!Controller.isLightMode());
+    	if(Controller.isLightMode()) {
     		setLightMode();
     	}else {
     		setDarkMode();
     	}
     }
     
-    private void setLightMode() {
+    public void setLightMode() {
     	parent.getStylesheets().remove("styles/darkMode.css");
     	parent.getStylesheets().add("styles/lightMode.css");
     	Image image = new Image("img/dark.png");
@@ -67,10 +67,11 @@ public class ClassView1Controller {
     	Top1Label.setTextFill(paint);
     	Top2Label.setTextFill(paint);
     	Top3Label.setTextFill(paint);
+    	Controller.setLightMode(true);
 
     }
     
- private void setDarkMode() {
+    public void setDarkMode() {
  	parent.getStylesheets().remove("styles/lightMode.css");
     	parent.getStylesheets().add("styles/darkMode.css");
     	Image image = new Image("img/light.png");
@@ -82,6 +83,7 @@ public class ClassView1Controller {
     	Top2Label.setTextFill(paint);
     	Top3Label.setTextFill(paint);
     	btnMode.setStyle("round-border");
+    	Controller.setLightMode(false);
     	
     }
 }

@@ -1,28 +1,20 @@
 package application;
 
 import application.SwitchSceneController;
-
-
-
-
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.swing.text.Style;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,7 +26,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
@@ -63,9 +54,27 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 	    @FXML
 	    private Label FeedBackLabel;
+	    
+	    @FXML
+	    private Label CourseLabel;
+	    
+	    @FXML
+	    private Label InputGradeLabel;
+	    
+	    @FXML
+	    private Label InputAssLabel;
+	    
+	    @FXML
+	    private Label InputFirstNameLabel;
+	    
+	    @FXML
+	    private Label InputLastNameLabel;
 
 	    @FXML
 	    private Button BackButton;
+	    
+	    @FXML
+	    private Button BackButton1;
 
 	    @FXML
 	    private Button CreateAssButton;
@@ -111,9 +120,15 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 	    @FXML
 	    private Button btnMode;
+	    
+	    @FXML
+	    private Button btnMode1;
 
 	    @FXML
 	    private ImageView imgMode;
+	    
+	    @FXML
+	    private ImageView imgMode1;
 
 	    @FXML
 	    private TabPane parent;
@@ -479,7 +494,44 @@ public class TeacherGradeBookSceneController implements Initializable{
 	    return -1; // Return -1 if student is not found
 	}
 
+	private int getAssignmentId(int pointsReceived, String feedback, int studentId) throws SQLException {
+	    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+	    String databaseUser = "GradeMaster";
+	    String databasePassword = "Justice_League";
 
+	    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+	        String sql = "SELECT assignment_id FROM grades WHERE points_recieved = ? AND feedback = ? AND student_id = ?";
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setInt(1, pointsReceived);
+	            statement.setString(2, feedback);
+	            statement.setInt(3, studentId);
+	            ResultSet resultSet = statement.executeQuery();
+	            if (resultSet.next()) {
+	                return resultSet.getInt("assignment_id");
+	            }
+	        }
+	    }
+	    return -1; // Return -1 if assignment is not found
+	}
+
+	private int getGradeId(int assignmentId, int studentId) throws SQLException {
+	    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
+	    String databaseUser = "GradeMaster";
+	    String databasePassword = "Justice_League";
+
+	    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+	        String sql = "SELECT grade_id FROM grades WHERE assignment_id = ? AND student_id = ?";
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setInt(1, assignmentId);
+	            statement.setInt(2, studentId);
+	            ResultSet resultSet = statement.executeQuery();
+	            if (resultSet.next()) {
+	                return resultSet.getInt("grade_id");
+	            }
+	        }
+	    }
+	    return -1; // Return -1 if grade is not found
+	}
 
 	@FXML
 	void RemoveGrade(ActionEvent event) {
@@ -496,10 +548,41 @@ public class TeacherGradeBookSceneController implements Initializable{
 
 	    GradeData selectedGrade = TableView2.getItems().get(selectedID);
 	    int pointsReceived = selectedGrade.getPointsRecieved();
+	    String feedback = selectedGrade.getFeedBack();
+	    String firstName = selectedGrade.getFirstName();
+	    String lastName = selectedGrade.getLastName();
 
-	    deleteGradeFromDatabase(pointsReceived);
+	    try {
+	        // Find student_id based on firstName and lastName
+	        int studentId = getStudentId(firstName, lastName);
+	        if (studentId == -1) {
+	            showAlert("Error", "Student Not Found", "Selected student not found in the database.");
+	            return;
+	        }
 
-	    TableView2.getItems().remove(selectedID);
+	        // Find assignment_id based on pointsReceived, feedback, and student_id
+	        int assignmentId = getAssignmentId(pointsReceived, feedback, studentId);
+	        if (assignmentId == -1) {
+	            showAlert("Error", "Assignment Not Found", "Selected assignment not found in the database.");
+	            return;
+	        }
+
+	        // Find grade_id based on assignment_id and student_id
+	        int gradeId = getGradeId(assignmentId, studentId);
+	        if (gradeId == -1) {
+	            showAlert("Error", "Grade Not Found", "Grade not found in the database.");
+	            return;
+	        }
+
+	        // Delete the grade from the database
+	        deleteGradeFromDatabase(gradeId);
+
+	        // Remove the grade from TableView
+	        TableView2.getItems().remove(selectedID);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        showAlert("Error", "Database Error", "An error occurred while deleting the grade from the database.");
+	    }
 	}
 
 
@@ -739,15 +822,15 @@ public class TeacherGradeBookSceneController implements Initializable{
 				return FeedBackTextField;
 			}
 			
-			private void deleteGradeFromDatabase(int pointsReceived) {
+			private void deleteGradeFromDatabase(int grade_id) {
 			    String url = "jdbc:mysql://grademaster-mysql-server.mysql.database.azure.com:3306/GradeMaster";
 			    String databaseUser = "GradeMaster";
 			    String databasePassword = "Justice_League";
 
 			    try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
-			        String sql = "DELETE FROM grades WHERE points_recieved = ?";
+			        String sql = "DELETE FROM grades WHERE grade_id = ?";
 			        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-			            statement.setInt(1, pointsReceived);
+			            statement.setInt(1, grade_id);
 
 			            int rowsDeleted = statement.executeUpdate();
 			            if (rowsDeleted > 0) {
@@ -769,57 +852,74 @@ public class TeacherGradeBookSceneController implements Initializable{
 		switchSceneController.switchToTeacherMenuScene(e);
 	}
 	
-	 private boolean isLightMode = true;
+	// private boolean isLightMode = true;
 
 	    public void changeMode(ActionEvent event) {
-	    	isLightMode = !isLightMode;
-	    	if(isLightMode) {
+	    	Controller.setLightMode(!Controller.isLightMode());
+	    	if(Controller.isLightMode()) {
 	    		setLightMode();
 	    	}else {
 	    		setDarkMode();
 	    	}
 	    }
 	    
-	    private void setLightMode() {
+	    public void setLightMode() {
 	    	parent.getStylesheets().remove("styles/darkMode.css");
 	    	parent.getStylesheets().add("styles/lightMode.css");
 	    	Image image = new Image("img/dark.png");
 	    	imgMode.setImage(image);
+	    	imgMode1.setImage(image);
 	    	Paint paint = Paint.valueOf("white");
 	    	Paint paint2 = Paint.valueOf("black");
 	    	BackButton.setTextFill(paint);
+	    	BackButton1.setTextFill(paint);
 	    	CreateAssButton.setTextFill(paint);
 	    	BackButton.setTextFill(paint);
 	    	InputGradeButton.setTextFill(paint);
 	    	RemoveAssButton.setTextFill(paint);
 	    	RemoveGradeButton.setTextFill(paint);
+	    	CourseLabel.setTextFill(paint2);
 	    	CreateAssLabel.setTextFill(paint2);
 	    	AssNameLabel.setTextFill(paint2);
+	    	ChooseAssLabel.setTextFill(paint2);
+	    	InputGradeLabel.setTextFill(paint2);
+	    	InputAssLabel.setTextFill(paint2);
+	    	InputFirstNameLabel.setTextFill(paint2);
+	    	InputLastNameLabel.setTextFill(paint2);
 	    	PointsPossLabel.setTextFill(paint2);
 	    	PointsRecievedLabel.setTextFill(paint2);
 	    	FeedBackLabel.setTextFill(paint2);
+	    	Controller.setLightMode(true);
 	    }
 	    
-	 private void setDarkMode() {
+	 public void setDarkMode() {
 	 	parent.getStylesheets().remove("styles/lightMode.css");
 	    	parent.getStylesheets().add("styles/darkMode.css");
 	    	Image image = new Image("img/light.png");
 	    	imgMode.setImage(image);
+	    	imgMode1.setImage(image);
 	    //	imgMode.setStyle("-fx-shape:round");
 	    	Paint paint = Paint.valueOf("black");
 	    	Paint paint2 = Paint.valueOf("white");
 	    	BackButton.setTextFill(paint);
+	    	BackButton1.setTextFill(paint);
 	    	CreateAssButton.setTextFill(paint);
 	    	BackButton.setTextFill(paint);
 	    	InputGradeButton.setTextFill(paint);
 	    	RemoveAssButton.setTextFill(paint);
 	    	RemoveGradeButton.setTextFill(paint);
+	    	CourseLabel.setTextFill(paint2);
 	    	CreateAssLabel.setTextFill(paint2);
 	    	AssNameLabel.setTextFill(paint2);
+	    	ChooseAssLabel.setTextFill(paint2);
+	    	InputGradeLabel.setTextFill(paint2);
+	    	InputAssLabel.setTextFill(paint2);
+	    	InputFirstNameLabel.setTextFill(paint2);
+	    	InputLastNameLabel.setTextFill(paint2);
 	    	PointsPossLabel.setTextFill(paint2);
 	    	PointsRecievedLabel.setTextFill(paint2);
 	    	FeedBackLabel.setTextFill(paint2);
-	    	
+	    	Controller.setLightMode(false);
 	    }
 
 }

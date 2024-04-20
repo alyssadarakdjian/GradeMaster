@@ -63,6 +63,9 @@ public class StudentGradeBookSceneController implements Initializable {
 
     @FXML
     private Button btnBack;
+    
+    @FXML
+    private Button refreshButton;
 
     @FXML
     private Button btnMode;
@@ -76,7 +79,7 @@ public class StudentGradeBookSceneController implements Initializable {
     private int userId = Controller.userId;
 
 
-    private boolean isLightMode = true;
+    //private boolean isLightMode = true;
 
     @Override
     public void initialize(URL url, ResourceBundle ResourceBundel) {
@@ -165,6 +168,16 @@ public class StudentGradeBookSceneController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+	
+	public void handleRefresh(ActionEvent event) {
+	    try {
+	        loadDataFromDatabase(); // Reload data from the database
+	        calculateTotalGrade(); // Recalculate total grade
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        showAlert("Error", "Database Error", "An error occurred while loading data from the database.");
+	    }
+	}
 
     public void backButton(ActionEvent e) throws IOException {
         SwitchSceneController switchSceneController = new SwitchSceneController();
@@ -172,29 +185,31 @@ public class StudentGradeBookSceneController implements Initializable {
     }
 
     public void changeMode(ActionEvent event) {
-        isLightMode = !isLightMode;
-        if (isLightMode) {
+    	Controller.setLightMode(!Controller.isLightMode());
+    	if(Controller.isLightMode()) {
             setLightMode();
         } else {
             setDarkMode();
         }
     }
 
-    private void setLightMode() {
+    public void setLightMode() {
         parent.getStylesheets().remove("styles/darkMode.css");
         parent.getStylesheets().add("styles/lightMode.css");
         Image image = new Image("img/dark.png");
         imgMode.setImage(image);
         Paint paint = Paint.valueOf("white");
         btnBack.setTextFill(paint);
+        refreshButton.setTextFill(paint);
         Paint paint2 = Paint.valueOf("black");
         TotalGradeLable.setTextFill(paint2);
         PercentageLabel.setTextFill(paint2);
         LetterLabel.setTextFill(paint2);
-        Ass.setStyle("-fx-text-fill: black;"); // Change text color for TableColumn
+        Controller.setLightMode(true);
+        //Ass.setStyle("-fx-text-fill: black;"); // Change text color for TableColumn
     }
 
-    private void setDarkMode() {
+    public void setDarkMode() {
         parent.getStylesheets().remove("styles/lightMode.css");
         parent.getStylesheets().add("styles/darkMode.css");
         Image image = new Image("img/light.png");
@@ -202,10 +217,12 @@ public class StudentGradeBookSceneController implements Initializable {
         Paint paint = Paint.valueOf("black");
         Paint paint2 = Paint.valueOf("white");
         btnBack.setTextFill(paint);
+        refreshButton.setTextFill(paint);
         TotalGradeLable.setTextFill(paint2);
         PercentageLabel.setTextFill(paint2);
         LetterLabel.setTextFill(paint2);
-        Ass.setStyle("-fx-text-fill: white;"); // Change text color for TableColumn
+        Controller.setLightMode(false);
+        //Ass.setStyle("-fx-text-fill: white;"); // Change text color for TableColumn
     }
 
 	

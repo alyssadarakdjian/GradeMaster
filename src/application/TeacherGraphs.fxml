@@ -40,6 +40,6 @@
         </yAxis>
       </BarChart>
       <ChoiceBox fx:id="CourseChoiceBox" layoutX="435.0" layoutY="27.0" prefWidth="150.0" />
-      <Label layoutX="435.0" layoutY="10.0" text="Course:" />
+      <Label fx:id="courseSelect" layoutX="435.0" layoutY="10.0" text="Course:" />
    </children>
 </AnchorPane>

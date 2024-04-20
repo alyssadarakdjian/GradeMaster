@@ -21,6 +21,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -51,6 +52,9 @@ public class TeacherGraphController implements Initializable {
 
     @FXML
     private AnchorPane parent;
+    
+    @FXML
+    private Label courseSelect;
     
     @FXML 
     private ChoiceBox<String> CourseChoiceBox;
@@ -222,7 +226,7 @@ public class TeacherGraphController implements Initializable {
 	            	if (this.graphDataList[j] == null) {
 	    				break;
 	    			}
-	    			System.out.println(this.graphDataList[j].getAss());
+	    			//System.out.println(this.graphDataList[j].getAss());
 	    		}
 	        }
 	    }
@@ -261,18 +265,18 @@ public class TeacherGraphController implements Initializable {
 	
 	
 	
-	private boolean isLightMode = true;
+	//private boolean isLightMode = true;
 
     public void changeMode(ActionEvent event) {
-    	isLightMode = !isLightMode;
-    	if(isLightMode) {
+    	Controller.setLightMode(!Controller.isLightMode());
+    	if(Controller.isLightMode()) {
     		setLightMode();
     	}else {
     		setDarkMode();
     	}
     }
     
-    private void setLightMode() {
+    public void setLightMode() {
     	parent.getStylesheets().remove("styles/darkMode.css");
     	parent.getStylesheets().add("styles/lightMode.css");
     	Image image = new Image("img/dark.png");
@@ -283,9 +287,11 @@ public class TeacherGraphController implements Initializable {
     	paint = Paint.valueOf("black");
     	yAxis.setTickLabelFill(paint);
     	xAxis.setTickLabelFill(paint);
+    	courseSelect.setTextFill(paint);
+    	Controller.setLightMode(true);
     }
     
-    private void setDarkMode() {
+    public void setDarkMode() {
     	parent.getStylesheets().remove("styles/lightMode.css");
     	parent.getStylesheets().add("styles/darkMode.css");
     	Image image = new Image("img/light.png");
@@ -297,6 +303,8 @@ public class TeacherGraphController implements Initializable {
     	paint = Paint.valueOf("white");
     	yAxis.setTickLabelFill(paint);
     	xAxis.setTickLabelFill(paint);
+    	courseSelect.setTextFill(paint);
+    	Controller.setLightMode(false);
     	
     }
     

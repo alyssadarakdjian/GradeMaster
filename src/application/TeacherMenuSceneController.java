@@ -46,18 +46,18 @@ public class TeacherMenuSceneController {
 		switchSceneController.switchToTeacherGraphScene(e);
 	}
 	
-	 private boolean isLightMode = true;
+	 //private boolean isLightMode = true;
 
 	    public void changeMode(ActionEvent event) {
-	    	isLightMode = !isLightMode;
-	    	if(isLightMode) {
+	    	Controller.setLightMode(!Controller.isLightMode());
+	    	if(Controller.isLightMode()) {
 	    		setLightMode();
 	    	}else {
 	    		setDarkMode();
 	    	}
 	    }
 	    
-	    private void setLightMode() {
+	    public void setLightMode() {
 	    	parent.getStylesheets().remove("styles/darkMode.css");
 	    	parent.getStylesheets().add("styles/lightMode.css");
 	    	Image image = new Image("img/dark.png");
@@ -66,13 +66,13 @@ public class TeacherMenuSceneController {
 	    	btnGBteacher.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
 	    	btnGraphPage.setTextFill(paint);
-
+	    	Controller.setLightMode(true);
 	    	
 	    	
 	 
 	    }
 	    
-  private void setDarkMode() {
+	    public void setDarkMode() {
   	parent.getStylesheets().remove("styles/lightMode.css");
 	    	parent.getStylesheets().add("styles/darkMode.css");
 	    	Image image = new Image("img/light.png");
@@ -82,6 +82,7 @@ public class TeacherMenuSceneController {
 	    	btnGBteacher.setTextFill(paint);
 	    	btnClassCreation.setTextFill(paint);
 	    	btnGraphPage.setTextFill(paint);
+	    	Controller.setLightMode(false);
 	    	
 	    }
 	

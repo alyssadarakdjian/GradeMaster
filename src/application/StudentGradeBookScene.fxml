@@ -39,10 +39,11 @@
                   <TableColumn fx:id="FeedBack" minWidth="4.66668701171875" prefWidth="229.99997965494788" text="FeedBack" />
               </columns>
             </TableView>
-            <Label fx:id="TotalGradeLable" layoutX="133.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Total Grade:" />
-            <Label fx:id="PercentageLabel" layoutX="231.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
-            <Label fx:id="LetterLabel" layoutX="281.0" layoutY="490.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
+            <Label fx:id="TotalGradeLable" layoutX="241.0" layoutY="491.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Total Grade:" />
+            <Label fx:id="PercentageLabel" layoutX="339.0" layoutY="491.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
+            <Label fx:id="LetterLabel" layoutX="389.0" layoutY="491.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" text="Label" />
             <Button fx:id="btnBack" layoutX="42.0" layoutY="486.0" mnemonicParsing="false" onAction="#backButton" prefHeight="26.0" prefWidth="53.0" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Back" textFill="#f4f1f1" />
+            <Button fx:id="refreshButton" layoutX="115.0" layoutY="486.0" mnemonicParsing="false" onAction="#handleRefresh" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Refresh" textFill="#f4f1f1" />
          </children>
       </AnchorPane>
    </content>
