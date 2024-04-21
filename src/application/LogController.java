@@ -36,6 +36,8 @@ public class LogController {
 	@FXML
 	private TextField repassword;
 	@FXML
+	private TextField courseID;
+	@FXML
 	private Label pageName;
 	@FXML
 	private Button backButton;
@@ -84,22 +86,42 @@ public class LogController {
 			dataGroup = "teachers";
 		}
 		
-		try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
-	        String sql = "INSERT INTO " + dataGroup + " (first_name, last_name, username, password) VALUES (?, ?, ?, ?)";
-	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-	            statement.setString(1, firstName.getText());
-	            statement.setString(2, lastName.getText());
-	            statement.setString(3, userName.getText());
-	            statement.setString(4, pass.getText());
-
-	            int rowsInserted = statement.executeUpdate();
-	            if (rowsInserted > 0) {
-	                return true;
-	            } else {
-	                return false;
-	            }
-	        }
-	    }
+		if (dataGroup.equals("students")) {
+			try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+		        String sql = "INSERT INTO " + dataGroup + " (first_name, last_name, username, password, course_id) VALUES (?, ?, ?, ?, ?)";
+		        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		            statement.setString(1, firstName.getText());
+		            statement.setString(2, lastName.getText());
+		            statement.setString(3, userName.getText());
+		            statement.setString(4, pass.getText());
+		            statement.setString(5, courseID.getText());
+	
+		            int rowsInserted = statement.executeUpdate();
+		            if (rowsInserted > 0) {
+		                return true;
+		            } else {
+		                return false;
+		            }
+		        }
+		    }
+		} else {
+			try (Connection connection = DriverManager.getConnection(url, databaseUser, databasePassword)) {
+		        String sql = "INSERT INTO " + dataGroup + " (first_name, last_name, username, password) VALUES (?, ?, ?, ?)";
+		        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		            statement.setString(1, firstName.getText());
+		            statement.setString(2, lastName.getText());
+		            statement.setString(3, userName.getText());
+		            statement.setString(4, pass.getText());
+	
+		            int rowsInserted = statement.executeUpdate();
+		            if (rowsInserted > 0) {
+		                return true;
+		            } else {
+		                return false;
+		            }
+		        }
+		    }
+		}
 	}
 	
 	public boolean infoCorrect() {
@@ -124,7 +146,7 @@ public class LogController {
 			return false;
 		}
 		
-		if (pass.getText() != repassword.getText()) {
+		if (!pass.getText().equals(repassword.getText())) {
 			errorLabel.setText("Passwords do not Match");
 			return false;
 		}

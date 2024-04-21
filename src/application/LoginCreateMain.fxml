@@ -14,12 +14,13 @@
 	<right>
 		<AnchorPane fx:id="parent" prefHeight="457.0" prefWidth="188.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" BorderPane.alignment="CENTER">
 			<children>
+            <Label fx:id="errorLabel" layoutX="-69.0" layoutY="406.0" prefWidth="200.0" textAlignment="CENTER" textFill="#c32323" />
 				<Label fx:id="pageName" alignment="CENTER" layoutX="-64.0" layoutY="80.0" text="Create Student Login">
 					<font>
          				<Font size="20.0" />
          			</font>
 				</Label>
-				<Button fx:id="changePage" layoutX="-37.0" layoutY="326.0" mnemonicParsing="false" onAction="#swapOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Go to Teacher Signup" textFill="#f5f4f4">
+				<Button fx:id="changePage" layoutX="-37.0" layoutY="335.0" mnemonicParsing="false" onAction="#swapOnAction" styleClass="secondary-color" stylesheets="@../styles/lightMode.css" text="Go to Teacher Signup" textFill="#f5f4f4">
 					<font>
                   		<Font name="Calisto MT Bold" size="12.0" />
                		</font>
@@ -36,12 +37,12 @@
             	</Button>
             	
                		
-            <TextField fx:id="firstName" layoutX="-63.0" layoutY="128.0" prefHeight="25.0" prefWidth="77.0" promptText="First Name" />   	
-            <TextField fx:id="lastName" layoutX="36.0" layoutY="128.0" prefHeight="25.0" prefWidth="77.0" promptText="Last Name" /> 	
-            <TextField fx:id="userName" layoutX="-54.0" layoutY="179.0" promptText="Username" />
+            <TextField fx:id="firstName" layoutX="-63.0" layoutY="125.0" prefHeight="25.0" prefWidth="77.0" promptText="First Name" />   	
+            <TextField fx:id="lastName" layoutX="36.0" layoutY="125.0" prefHeight="25.0" prefWidth="77.0" promptText="Last Name" /> 	
+            <TextField fx:id="userName" layoutX="-54.0" layoutY="170.0" promptText="Username" />
             
-            <TextField fx:id="pass" layoutX="-54.0" layoutY="229.0" promptText="Password" />
-            <TextField fx:id="repassword" layoutX="-54.0" layoutY="274.0" promptText="Re-enter Password" />
+            <TextField fx:id="pass" layoutX="-54.0" layoutY="210.0" promptText="Password" />
+            <TextField fx:id="repassword" layoutX="-54.0" layoutY="250.0" promptText="Re-enter Password" />
             <Button fx:id="btnMode" layoutX="130.0" layoutY="10.0" mnemonicParsing="false" onAction="#changeMode" stylesheets="@../styles/lightMode.css">
                <graphic>
                   <ImageView fx:id="imgMode" fitHeight="37.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
@@ -55,6 +56,7 @@
                   <String fx:value="round-border" />
                </styleClass>
             </Button>
+            <TextField fx:id="courseID" layoutX="-54.0" layoutY="290.0" promptText="Course #" />
             
             	
 			</children>
