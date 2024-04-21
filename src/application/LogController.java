@@ -220,11 +220,13 @@ public class LogController {
 			
 			
 			studentPage = false;
+			courseID.setVisible(false);
 		} else {
 			pageName.setText("Student Signup Page");
 			changePage.setText("Go to Teacher Signup");
 			
 			studentPage = true;
+			courseID.setVisible(true);
 		}
 	}
 
