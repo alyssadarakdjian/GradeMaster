@@ -5,3 +5,4 @@ The first thing that a user needs to download is JavaFX, which is an open-source
 Now, the .sh file must be manipulated to function on your device. The .sh file contains an argument that will utilize the JavaFX library we downloaded earlier. Right-click on the .sh file and open it using Mac’s TextEdit application (or any document editing app of your choice).
 
 The .sh file gives Mac the instructions to run the application using the libraries necessary to function and execute correctly.
+https://docs.google.com/document/d/1xadck1YKI0A7T0Q3C31s8zGZNHb6zawde8qa4eljZkc/edit?usp=sharing
